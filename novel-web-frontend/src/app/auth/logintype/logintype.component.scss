@@ -1,0 +1,122 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.login-box {
+  background-color: #fff;
+  padding: 30px 40px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #888;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.maintenance-notice {
+  color: #333;
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+}
+
+.maintenance-notice .highlight {
+  color: #d9534f;
+  font-weight: bold;
+}
+
+.login-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eee;
+  color: #333;
+  padding: 10px 0;
+  margin: 20px 0;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  gap: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.gg-login-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eee;
+  color: #333;
+  padding: 10px 0;
+  margin: 20px 0;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  gap: 8px;
+  transition: background-color 0.3s ease;
+}
+.login-button:hover {
+  background-color: #7ba3de; /* Màu nền khi hover */
+}
+.gg-login-button:hover {
+  background-color: #7ba3de; /* Màu nền khi hover */
+}
+
+.login-button i {
+  margin-right: 8px;
+}
+
+.signup-prompt {
+  font-size: 0.8rem;
+  color: #aaa;
+  margin-bottom: 20px;
+}
+
+.footer-links {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.footer-links a {
+  color: #888;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}

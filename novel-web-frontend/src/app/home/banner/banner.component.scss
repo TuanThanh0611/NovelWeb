@@ -1,0 +1,23 @@
+.banner-container {
+  display: flex;
+  justify-content: center;
+  padding: 1px; /* Khoảng cách xung quanh banner */
+}
+
+.banner {
+  background-image: url('./maxresdefault.jpg'); /* Đặt đường dẫn ảnh nền */
+  background-size: cover;
+  background-position: center;
+  color: white;
+  width: 100%;
+  max-width: 1000px; /* Giới hạn chiều rộng tối đa */
+  height: 250px; /* Chiều cao banner */
+  padding: 4px;
+  border-radius: 8px; /* Bo góc */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Bóng đổ */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}

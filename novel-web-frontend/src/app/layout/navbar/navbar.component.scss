@@ -1,0 +1,92 @@
+
+/* Đặt navbar-container chiếm toàn bộ chiều rộng màn hình */
+.navbar-container {
+  width: 100%; /* Chiếm toàn bộ chiều rộng */
+  background-color: #ceb6b6; /* Màu nền đen */
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  padding: 1rem 0;
+  box-sizing: border-box;
+  top: 0;
+  z-index: 1000; /* Đặt lên trên các phần tử khác */
+  border-bottom: 1px solid #444; /* Đường kẻ ngăn cách mỏng */
+}
+
+/* Đặt nội dung navbar chiếm toàn bộ chiều rộng của container */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* Chiếm toàn bộ chiều rộng của navbar-container */
+  max-width: 1000px; /* Giới hạn chiều rộng tối đa */
+  box-sizing: border-box; /* Bao gồm padding trong chiều rộng */
+}
+
+.logo {
+  background-image: url('./large.ico');
+  width: 100px; /* Điều chỉnh kích thước logo phù hợp */
+  height: auto;
+  margin-right: 1rem;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.nav-buttons button {
+  background: #333;
+  color: #ccc;
+  border: none;
+  padding: 0.5rem 0.7rem;
+  border-radius: 4px;
+  box-sizing: border-box; /* Đảm bảo padding không mở rộng nút ra ngoài */
+}
+
+.sign-in {
+  background-color: #6a0dad;
+  color: white;
+}
+
+/* Nút hamburger chỉ hiển thị trên màn hình nhỏ */
+.hamburger {
+  display: none;
+  background: none;
+  color: white;
+  font-size: 1.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+/* Responsive cho màn hình nhỏ */
+@media (max-width: 768px) {
+  .navbar {
+    width: 100%; /* Chiếm toàn bộ độ rộng khi ở màn hình nhỏ */
+  }
+
+  .nav-buttons {
+    display: none; /* Ẩn menu khi ở màn hình nhỏ */
+    flex-direction: column;
+    gap: 1rem;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #1a1a1a;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  .sign-in{
+    display: none;
+  }
+
+  .nav-buttons.show-menu {
+    display: flex; /* Hiện menu khi nhấn vào nút hamburger */
+  }
+
+  .hamburger {
+    display: block; /* Hiện nút hamburger */
+    position: absolute;
+    right: 1rem;
+  }
+}

@@ -1,0 +1,123 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.login-box {
+  background-color: #fff;
+  padding: 30px 40px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+  width: 50px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+label {
+  display: block;
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+}
+
+.show-password {
+  position: absolute;
+  right: 10px;
+  top: 30px;
+  font-size: 0.8rem;
+  color: #888;
+  cursor: pointer;
+}
+
+.recaptcha {
+  margin: 20px 0;
+}
+
+.sign-in-button {
+  width: 100%;
+  padding: 10px 0;
+  border: none;
+  border-radius: 25px;
+  background-color: #4285f4;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.sign-in-button:hover {
+  background-color: #357ae8;
+}
+
+.forgot-password,
+.signup {
+  font-size: 0.8rem;
+  margin-top: 10px;
+}
+
+.forgot-password a,
+.signup a {
+  color: #5b2dd1;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer-links {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 20px;
+}
+
+.footer-links a {
+  color: #888;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}

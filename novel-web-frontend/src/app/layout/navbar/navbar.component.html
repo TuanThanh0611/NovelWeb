@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<div class="navbar-container">
+  <div class="navbar">
+    <div class="left-section">
+      <div class="nav-buttons">
+        <a routerLink="/">
+          <img src="/large.ico" alt="Logo" class="logo">
+        </a>
+
+        <button><i class="fas fa-search"></i> Search</button>
+        <button><i class="fas fa-th-large"></i> Browse</button>
+        <button><i class="fas fa-gem"></i> Ranking</button>
+        <button><i class="fas fa-book-open"></i> Updates</button>
+        <button><i class="fas fa-filter"></i> Filter</button>
+        <button (click)="onThemeToggle()" class="theme-toggle-btn"><i class="fas fa-adjust"></i> Toggle Theme</button>
+      </div>
+    </div>
+    <button class="sign-in" (click)="logintype()"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+
+  </div>
+</div>
