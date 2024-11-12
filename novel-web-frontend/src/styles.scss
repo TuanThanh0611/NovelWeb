@@ -2,3 +2,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+$background-light: #ffffff;
+$text-light: #000000;
+
+$background-dark: #121212;
+$text-dark: #ffffff;
+.toggle-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+}
+body {
+  background-color: $background-light;
+  color: $text-light;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Định nghĩa lớp cho chế độ nền tối */
+body.dark-mode {
+  background-color: $background-dark;
+  color: $text-dark;
+}

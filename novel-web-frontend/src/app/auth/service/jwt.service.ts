@@ -1,95 +1,50 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import {Observable, of,tap} from 'rxjs';
-import {ConnectedUser} from "../../shared/model/user.model";
-import {AuthService} from './auth.service';
-
-
-const BASE_URL = ["http://localhost:8080/"]
-
+import {Inject, inject, Injectable, OnInit, PLATFORM_ID} from '@angular/core';
+import {HttpClient, HttpClientModule, HttpHeaders, HttpParams} from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { firstValueFrom, Observable, of } from 'rxjs';
+import {ConnectedUser, ShowUser} from '../../shared/model/user.model';
+import {CreateQueryResult, injectQuery} from "@tanstack/angular-query-experimental";
+import {isPlatformBrowser} from "@angular/common";
+const BASE_URL = "http://localhost:8080";
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class JwtService {
-    private readonly accessTokenKey = 'access_token';
-    private readonly refreshTokenKey = 'refresh_token';
+  private readonly tokenKey = 'authToken';
+  introspectForm!: FormGroup;
+  notConnected = 'NOT_CONNECTED';
+  connectedUserQuery: CreateQueryResult<ConnectedUser> | undefined;
 
-    constructor(private http: HttpClient,private authService:AuthService) { }
 
+  constructor(private fb: FormBuilder, private router: Router,private http:HttpClient,
+ @Inject(PLATFORM_ID) private platformId: Object) {
+  }
 
-    getAccessToken(): string | null {
-        return localStorage.getItem(this.accessTokenKey);
+  saveToken(token: string): void {
+    if (isPlatformBrowser(this.platformId))
+      localStorage.setItem(this.tokenKey, token);
+  }
+
+  getToken(): string | null {
+    if (isPlatformBrowser(this.platformId))
+      return localStorage.getItem(this.tokenKey);
+    else
+      return null;
+  }
+
+  introspect(introspectRequest:any):Observable<any>{
+    return this.http.post(`${BASE_URL}/api/auth/token`, introspectRequest)
+  }
+
+  public isTokenValid(token: string): boolean {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const exp = payload.exp;
+      const currentTime = Math.floor(Date.now() / 1000);
+      return exp > currentTime;
+    } catch (error) {
+      return false;
     }
-
-    getRefreshToken(): string | null {
-        return localStorage.getItem(this.refreshTokenKey);
-    }
-
-    refreshAccessToken(): Observable<any> {
-        const refreshToken = this.getRefreshToken();
-        return this.http.post<any>('/api/auth/refresh-token', { refreshToken }).pipe(
-            tap(response => {
-                if (response.token) {
-                    localStorage.setItem(this.accessTokenKey, response.token);
-                }
-            })
-        );
-    }
-
-
-
-    register(signRequest: any): Observable<any> {
-        return this.http.post('http://localhost:8080/api/auth/regis', signRequest)
-    }
-
-    signin(signinRequest: any): Observable<any> {
-        return this.http.post('http://localhost:8080/api/auth/signin', signinRequest)
-    }
-    introspect(introspectRequest:any):Observable<any>{
-        return this.http.post('http://localhost:8080/api/auth/token', introspectRequest)
-    }
-    updateUser(userUpdateRequest: any): Observable<any> {
-        const headers=new HttpHeaders(
-            {
-                'Authorization': `Bearer ${this.authService.getToken()}`,
-                'Content-Type': 'application/json'
-            }
-        )
-        return this.http.put('http://localhost:8080/api/auth/update', userUpdateRequest,{headers});
-    }
-
-    updatePass(userUpdatePassRequest: any): Observable<any> {
-        const headers=new HttpHeaders(
-            {
-                'Authorization': `Bearer ${this.authService.getToken()}`,
-                'Content-Type': 'application/json'
-            }
-        )
-        return this.http.put('http://localhost:8080/api/auth/uppass', userUpdatePassRequest,{headers});
-    }
-
-    hello(): Observable<any> {
-        const headers = this.createAuhtorizationHeader();
-        // Kiểm tra xem headers có tồn tại không
-        if (headers) {
-            return this.http.get(BASE_URL + 'api/hello', { headers });
-        } else {
-            console.error("JWT token not found, unable to call /api/hello");
-            return of({ error: 'No JWT token found' }); // Trả về observable rỗng hoặc thông báo lỗi
-        }
-    }
-
-    private createAuhtorizationHeader() {
-        const jwtToken = localStorage.getItem('jwt');
-        if (jwtToken) {
-            console.log("JWT token found in local storage", jwtToken);
-            return new HttpHeaders().set(
-                "Authorization", "Bearer " + jwtToken
-            )
-        } else {
-            console.log("JWT token not found in local storage");
-        }
-        return undefined;
-    }
-
+  }
 }

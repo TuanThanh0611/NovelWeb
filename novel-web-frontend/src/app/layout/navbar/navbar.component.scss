@@ -1,8 +1,8 @@
 
-/* Đặt navbar-container chiếm toàn bộ chiều rộng màn hình */
+
 .navbar-container {
   width: 100%; /* Chiếm toàn bộ chiều rộng */
-  background-color: #ceb6b6; /* Màu nền đen */
+  background-color: #fafafa; /* Màu nền đen */
   display: flex;
   margin: 0 auto;
   justify-content: center;
@@ -12,7 +12,14 @@
   z-index: 1000; /* Đặt lên trên các phần tử khác */
   border-bottom: 1px solid #444; /* Đường kẻ ngăn cách mỏng */
 }
-
+.navbar-container.navbar-dark {
+  background-color: #231d1d; /* Màu nền tối */
+  border-bottom: 1px solid #555;
+}
+body.dark-mode .navbar-container {
+  background-color: #333; /* Màu nền tối */
+  border-bottom: 1px solid #555;
+}
 /* Đặt nội dung navbar chiếm toàn bộ chiều rộng của container */
 .navbar {
   display: flex;
@@ -36,17 +43,26 @@
 }
 
 .nav-buttons button {
-  background: #333;
+  background: #544646;
   color: #ccc;
   border: none;
   padding: 0.5rem 0.7rem;
   border-radius: 4px;
   box-sizing: border-box; /* Đảm bảo padding không mở rộng nút ra ngoài */
 }
+.nav-buttons button:hover{
+  cursor: pointer;
+}
 
 .sign-in {
-  background-color: #6a0dad;
+  background-color: #7d39e1;
+  width: 80px;
+  height: 35px;
   color: white;
+  border-radius: 10px;
+}
+.sign-in:hover{
+  cursor: pointer;
 }
 
 /* Nút hamburger chỉ hiển thị trên màn hình nhỏ */
@@ -58,11 +74,30 @@
   border: none;
   cursor: pointer;
 }
-
+details {
+  display: none;
+}
 /* Responsive cho màn hình nhỏ */
 @media (max-width: 768px) {
   .navbar {
     width: 100%; /* Chiếm toàn bộ độ rộng khi ở màn hình nhỏ */
+    height: 45px ;
+  }
+  details {
+    display: block;
+  }
+
+  /* Tùy chỉnh thêm cho menu */
+  details ul {
+    position: absolute;
+    right: 0;
+    top: 100%; /* Hiển thị menu ngay bên dưới nút Admin */
+    background-color: #1a1a1a;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    min-width: 150px;
+    z-index: 100;
   }
 
   .nav-buttons {
@@ -89,4 +124,62 @@
     position: absolute;
     right: 1rem;
   }
+}
+details {
+  position: relative;
+}
+
+details summary {
+  list-style: none;
+  cursor: pointer;
+}
+details summary i {
+  color: #333; /* Màu của biểu tượng */
+  font-size: 2rem; /* Kích thước biểu tượng lớn hơn */
+}
+
+details ul {
+  position: absolute;
+  top: 100%; /* Hiển thị menu ngay bên dưới nút Admin */
+  left: 0;
+  background-color: #1a1a1a;
+  padding: 0.5rem 1rem;
+  margin: 0;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  display: none;
+  z-index: 100;
+  min-width: 150px; /* Đặt độ rộng tối thiểu cho menu */
+}
+details[open] ul {
+  display: block; /* Hiển thị menu khi mở */
+}
+
+details ul li {
+  list-style: none;
+}
+
+details ul li a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  display: block;
+}
+.light-theme {
+  color: white !important;
+  background-color: transparent !important; /* Đảm bảo nền trong suốt */
+}
+details ul li a:hover {
+  color: #7d39e1; /* Màu khi hover */
+}
+@media (max-width: 768px) {
+  details ul {
+    right: 0; /* Căn phải menu khi không đủ không gian bên trái */
+    left: auto;
+  }
+}
+
+.details-summary .light-theme {
+  color: white !important;
+  background-color: transparent !important; /* Đảm bảo không bị nền tối */
 }

@@ -3,6 +3,8 @@
     "@angular/common": "^18.2.11",
     "@angular/platform-browser": "^18.2.11",
     "@fortawesome/angular-fontawesome": "^0.15.0",
-    "@fortawesome/fontawesome-free": "^6.6.0"
+    "@fortawesome/fontawesome-free": "^6.6.0",
+    "@use-gesture/vanilla": "^10.3.1",
+    "ng-click-outside": "^9.0.0"
   }
 }

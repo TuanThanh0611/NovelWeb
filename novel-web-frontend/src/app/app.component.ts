@@ -25,12 +25,11 @@ export class AppComponent implements OnInit {
   platformId = inject(PLATFORM_ID);
 
   constructor() {
-
   }
 
-  ngOnInit(): void {
-
+  ngOnInit() {
   }
+
 
 
 

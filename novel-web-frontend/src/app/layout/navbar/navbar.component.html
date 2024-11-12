@@ -12,11 +12,55 @@
         <button><i class="fas fa-gem"></i> Ranking</button>
         <button><i class="fas fa-book-open"></i> Updates</button>
         <button><i class="fas fa-filter"></i> Filter</button>
-        <button (click)="onThemeToggle()" class="theme-toggle-btn"><i class="fas fa-adjust"></i> Toggle Theme</button>
+        <button (click)="toggleMode()" class="theme-toggle-btn">
+          <ng-container *ngIf="isDarkMode; else lightModeIcon">
+            <!-- Icon mặt trăng cho chế độ tối -->
+            🌙 Dark Theme
+          </ng-container>
+          <ng-template #lightModeIcon>
+            <!-- Icon mặt trời cho chế độ sáng -->
+            ☀️Light Theme
+          </ng-template>
+        </button>
       </div>
     </div>
-    <button class="sign-in" (click)="logintype()"><i class="fas fa-sign-in-alt"></i> Sign In</button>
-    <button class="hamburger" onclick="toggleMenu()">☰</button>
+    <button class="sign-in" (click)="logintype()"> Sign In</button>
+    <details #adminMenu>
+      <summary><i class="fas fa-bars"></i></summary>
+      <ul class="z-30">
+        <li>
+          <a routerLink="admin/categories/list"
+             (click)="closeMenu(adminMenu)" (clickOutside)="closeMenu(adminMenu)"><i class="fas fa-search"></i> Search</a>
+        </li>
+        <li>
+          <a routerLink="admin/products/list"
+             (click)="closeMenu(adminMenu)" (clickOutside)="closeMenu(adminMenu)"><i class="fas fa-th-large"></i> Browse</a>
+        </li>
+        <li>
+          <a routerLink="admin/orders/list"
+             (click)="closeMenu(adminMenu)" (clickOutside)="closeMenu(adminMenu)"><i class="fas fa-gem"></i> Ranking</a>
+        </li>
+        <li>
+          <a routerLink="admin/orders/list"
+             (click)="closeMenu(adminMenu)" (clickOutside)="closeMenu(adminMenu)"><i class="fas fa-book-open"></i> Updates</a>
+        </li>
+        <li>
+          <a routerLink="admin/orders/list"
+             (click)="closeMenu(adminMenu)" (clickOutside)="closeMenu(adminMenu)"><i class="fas fa-filter"></i> Filter</a>
+        </li>
+        <li>
+          <a routerLink="admin/orders/list"
+             (click)="toggleMode()" class="theme-toggle-btn" (clickOutside)="closeMenu(adminMenu)"><ng-container *ngIf="isDarkMode; else lightModeIcon">
+            🌙 Dark Theme
+          </ng-container>
+            <ng-template #lightModeIcon>
+              <span style="color: white!important;">☀️ Light Theme</span>
+            </ng-template></a>
+        </li>
+
+      </ul>
+    </details>
+
 
   </div>
 </div>
