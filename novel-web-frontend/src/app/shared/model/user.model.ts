@@ -1,8 +1,7 @@
 export interface BaseUser {
   id: string;
   email: string;
-  firstname?: string;
-  lastname?: string;
+  username:string;
   dob?: Date;
   phoneNumber?: string;
   imageUrl?: string;

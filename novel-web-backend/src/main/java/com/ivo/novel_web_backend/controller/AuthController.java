@@ -53,7 +53,7 @@ public class AuthController {
         return ResponseEntity.ok(apiResponse);
     }
 
-    @PostMapping("/signin")
+    @PostMapping("/login")
     @CrossOrigin(origins = "http://localhost:4200")
     ResponseEntity<ApiResponse<AuthenticationResponse>> authenticate(@RequestBody LoginRequest request){
         var result =authService.authenticate(request);

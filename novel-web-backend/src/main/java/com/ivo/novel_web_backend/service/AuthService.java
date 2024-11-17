@@ -29,6 +29,7 @@ import java.text.ParseException;
 import java.time.Instant;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -59,6 +60,7 @@ public class AuthService {
         roles.add(Role.USER.name());
 
         user.setRoles(roles);
+        user.setUsername("user#"+ UUID.randomUUID().toString());
         user.setCreatedDate(Instant.now());
 
         return mapper.toUserResponse(userRepository.save(user));

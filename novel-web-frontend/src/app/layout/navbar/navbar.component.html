@@ -4,7 +4,7 @@
     <div class="left-section">
       <div class="nav-buttons">
         <a routerLink="/">
-          <img src="/large.ico" alt="Logo" class="logo">
+          <img src="/" alt="Logo" class="logo">
         </a>
 
         <button><i class="fas fa-search"></i> Search</button>
@@ -12,49 +12,75 @@
         <button><i class="fas fa-gem"></i> Ranking</button>
         <button><i class="fas fa-book-open"></i> Updates</button>
         <button><i class="fas fa-filter"></i> Filter</button>
+        <button (click)="test()">Info</button>
         <button (click)="toggleMode()" class="theme-toggle-btn">
+
           <ng-container *ngIf="isDarkMode; else lightModeIcon">
             <!-- Icon mặt trăng cho chế độ tối -->
-            🌙 Dark Theme
+            🌙 Dark
           </ng-container>
           <ng-template #lightModeIcon>
             <!-- Icon mặt trời cho chế độ sáng -->
-            ☀️Light Theme
+            ☀️Light
           </ng-template>
         </button>
       </div>
     </div>
-    <button class="sign-in" (click)="logintype()"> Sign In</button>
-    <details #adminMenu>
+    <div class="otp">
+      <ng-container *ngIf="isConnected(); else signInTemplate">
+        <!-- Biểu tượng người -->
+        <details [open]="isUserMenuOpen" class="user-menu">
+          <summary><i class="fas fa-user"></i></summary>
+          <ul class="z-30">
+            <li>{{ userInfo?.username }}</li>
+            <li><a routerLink="profile"><i class="fas fa-user-circle"></i>Profile</a></li>
+            <li><a routerLink="settings"><i class="fas fa-cogs"></i>Settings</a></li>
+            <li><a routerLink="logout" (click)="logout()"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+
+          </ul>
+        </details>
+      </ng-container>
+      <ng-template #signInTemplate>
+        <!-- Hiển thị nút Sign In khi chưa đăng nhập -->
+        <button class="sign-in" (click)="logintype()">Sign In</button>
+      </ng-template>
+    </div>
+
+
+
+
+
+
+    <details [open]="isOptionMenuOpen" class= "option-menu">
       <summary><i class="fas fa-bars"></i></summary>
       <ul class="z-30">
         <li>
           <a routerLink="admin/categories/list"
-             (click)="closeMenu(adminMenu)" (clickOutside)="closeMenu(adminMenu)"><i class="fas fa-search"></i> Search</a>
+             ><i class="fas fa-search"></i> Search</a>
         </li>
         <li>
           <a routerLink="admin/products/list"
-             (click)="closeMenu(adminMenu)" (clickOutside)="closeMenu(adminMenu)"><i class="fas fa-th-large"></i> Browse</a>
+             ><i class="fas fa-th-large"></i> Browse</a>
         </li>
         <li>
           <a routerLink="admin/orders/list"
-             (click)="closeMenu(adminMenu)" (clickOutside)="closeMenu(adminMenu)"><i class="fas fa-gem"></i> Ranking</a>
+             ><i class="fas fa-gem"></i> Ranking</a>
         </li>
         <li>
           <a routerLink="admin/orders/list"
-             (click)="closeMenu(adminMenu)" (clickOutside)="closeMenu(adminMenu)"><i class="fas fa-book-open"></i> Updates</a>
+             ><i class="fas fa-book-open"></i> Updates</a>
         </li>
         <li>
           <a routerLink="admin/orders/list"
-             (click)="closeMenu(adminMenu)" (clickOutside)="closeMenu(adminMenu)"><i class="fas fa-filter"></i> Filter</a>
+             ><i class="fas fa-filter"></i> Filter</a>
         </li>
         <li>
           <a routerLink="admin/orders/list"
-             (click)="toggleMode()" class="theme-toggle-btn" (clickOutside)="closeMenu(adminMenu)"><ng-container *ngIf="isDarkMode; else lightModeIcon">
-            🌙 Dark Theme
+             (click)="toggleMode()" class="theme-toggle-btn" ><ng-container *ngIf="isDarkMode; else lightModeIcon">
+            🌙 Dark
           </ng-container>
             <ng-template #lightModeIcon>
-              <span style="color: white!important;">☀️ Light Theme</span>
+              <span style="color: white!important;">☀️ Light</span>
             </ng-template></a>
         </li>
 

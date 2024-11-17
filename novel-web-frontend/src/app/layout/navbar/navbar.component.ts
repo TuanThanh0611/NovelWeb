@@ -2,12 +2,19 @@ import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
 import {NgClass, NgIf, NgOptimizedImage} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
 import { ClickOutside } from 'ngxtension/click-outside';
+import {FaIconComponent} from '@fortawesome/angular-fontawesome';
+import {AuthService} from '../../auth/service/auth.service';
+import {injectQueryParams} from 'ngxtension/inject-query-params';
+import {TestService} from '../../auth/service/test.service';
+import {JwtService} from '../../auth/service/jwt.service';
+import {ConnectedUser} from '../../shared/model/user.model';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
   imports: [
-    NgClass, RouterLink, NgOptimizedImage,ClickOutside,NgIf
+    NgClass, RouterLink, NgOptimizedImage, ClickOutside, NgIf, FaIconComponent
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
@@ -16,11 +23,35 @@ export class NavbarComponent implements OnInit {
   showMenu = false;
   isDarkMode = false;
   private router = inject(Router);
+  authService=inject(AuthService);
+  testService=inject(TestService);
+  jwtService=inject(JwtService);
   private navbarS: HTMLElement | null = null;
+  private menu:HTMLElement|null=null;
+  isUserMenuOpen: boolean = false;
+  isOptionMenuOpen:boolean=false;
+  userInfo: ConnectedUser | undefined;
+  connectedUser$: Observable<ConnectedUser> | undefined;
+
+
+
+  constructor() {
+
+  }
+  toggleUserMenu() {
+    this.isUserMenuOpen = !this.isUserMenuOpen;
+  }
+  toggleOptionMenu(){
+    this.isOptionMenuOpen=!this.isOptionMenuOpen;
+  }
+
+
+
 
   ngOnInit() {
     // Lấy phần tử .navbar-container trong ngOnInit
     this.navbarS = document.querySelector('.navbar-container');
+
 
     // Kiểm tra và áp dụng chế độ dark mode nếu cần
     if (localStorage.getItem('mode') === 'dark') {
@@ -28,15 +59,43 @@ export class NavbarComponent implements OnInit {
       this.navbarS?.classList.add('navbar-dark');
       this.isDarkMode = true;
     }
+    this.connectedUser$ = this.authService.getAuthenticatedUser();
+
+    // Subscribe để gán thông tin người dùng vào form
+    this.connectedUser$.subscribe(
+      (user: ConnectedUser) => {
+        this.userInfo = user;
+      },
+      (error) => {
+        console.error('Error fetching user information:', error);
+      }
+    );
+
+
+  }
+
+  isConnected(): boolean {
+    const token = this.jwtService.getToken();
+    return token !== null ;
   }
 
   toggleMenu() {
     this.showMenu = !this.showMenu;
   }
+  logout(){
+    this.jwtService.deleteToken();
+    alert("Logout success");
+  }
 
   logintype(): void {
     this.router.navigate(['/logintype']);
   }
+  test():void{
+    this.testService.okok();
+  }
+  notest():void{
+    this.testService.notgood();
+}
 
   toggleMode() {
     this.isDarkMode = !this.isDarkMode;

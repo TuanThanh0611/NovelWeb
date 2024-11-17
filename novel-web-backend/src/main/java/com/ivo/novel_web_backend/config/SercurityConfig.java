@@ -32,7 +32,7 @@ public class SercurityConfig {
             ,
             "/test/firstname",
             "/users",
-            "/api/auth/signin",
+            "/api/auth/login",
             "/auth/token",
             "/auth/introspect",
             "/api/auth/regis",

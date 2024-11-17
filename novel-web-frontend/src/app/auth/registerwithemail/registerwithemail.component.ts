@@ -17,12 +17,16 @@ const BASE_URL = "http://localhost:8080";
 })
  export class RegisterwithemailComponent implements OnInit{
  private http=inject(HttpClient);
+  isPasswordVisible = false;
   registerForm!:FormGroup;
   constructor(
       private fb:FormBuilder,
       private router:Router,
       ){
 
+  }
+  togglePasswordVisibility() {
+    this.isPasswordVisible = !this.isPasswordVisible;
   }
 
   ngOnInit(): void {

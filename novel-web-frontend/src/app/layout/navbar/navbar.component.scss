@@ -1,4 +1,16 @@
+:root {
+  --theme-color: #130e0e;
+  --button-color:white;
+  --button-hover-coler:#f1f1f1;
+  --border-colors: #319147;
+}
 
+body.dark-mode {
+  --theme-color: white; // Màu cho chế độ tối
+  --button-color: #000000;
+  --button-hover-coler: #3a3434;
+  --border-colors: #c53030;
+}
 
 .navbar-container {
   width: 100%; /* Chiếm toàn bộ chiều rộng */
@@ -10,16 +22,13 @@
   box-sizing: border-box;
   top: 0;
   z-index: 1000; /* Đặt lên trên các phần tử khác */
-  border-bottom: 1px solid #444; /* Đường kẻ ngăn cách mỏng */
+  border-bottom: 1px solid  var(--border-colors, #342d2d);; /* Đường kẻ ngăn cách mỏng */
 }
 .navbar-container.navbar-dark {
-  background-color: #231d1d; /* Màu nền tối */
-  border-bottom: 1px solid #555;
+  background-color: #231d1d;
+
 }
-body.dark-mode .navbar-container {
-  background-color: #333; /* Màu nền tối */
-  border-bottom: 1px solid #555;
-}
+
 /* Đặt nội dung navbar chiếm toàn bộ chiều rộng của container */
 .navbar {
   display: flex;
@@ -41,29 +50,60 @@ body.dark-mode .navbar-container {
   display: flex;
   gap: 0.5rem;
 }
+.user-menu{
+
+}
 
 .nav-buttons button {
-  background: #544646;
-  color: #ccc;
+  color: var(--theme-color);
+  background: var(--button-color);
+
+
   border: none;
-  padding: 0.5rem 0.7rem;
+  padding: 0.6rem 0.8rem;
   border-radius: 4px;
   box-sizing: border-box; /* Đảm bảo padding không mở rộng nút ra ngoài */
+  transition: background 0.3s ease, color 0.3s ease;
 }
-.nav-buttons button:hover{
+.nav-buttons button:hover {
   cursor: pointer;
+  background: var(--button-hover-coler);
+  background: #5b2dd1;
+}
+
+body.dark-mode .nav-buttons button:hover {
+  background: #c41212; /* Màu nền khi hover trong chế độ tối */
+}
+
+.otp {
+  /* Thêm các kiểu tùy chỉnh cho lớp otp nếu cần */
+}
+
+
+
+.user-menu:hover {
+  cursor: pointer;
+}
+
+.login-success {
+  background-color: #263826; /* Màu nền xanh khi đăng nhập thành công */
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
 }
 
 .sign-in {
-  background-color: #7d39e1;
-  width: 80px;
-  height: 35px;
+  background-color: #7d39e1; /* Màu nền cho nút Sign In */
   color: white;
-  border-radius: 10px;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
 }
-.sign-in:hover{
+.sign-in:hover, .login-success:hover {
   cursor: pointer;
 }
+
+
 
 /* Nút hamburger chỉ hiển thị trên màn hình nhỏ */
 .hamburger {
@@ -74,8 +114,8 @@ body.dark-mode .navbar-container {
   border: none;
   cursor: pointer;
 }
-details {
-  display: none;
+details.option-menu{
+  display: none  ;
 }
 /* Responsive cho màn hình nhỏ */
 @media (max-width: 768px) {
@@ -83,8 +123,11 @@ details {
     width: 100%; /* Chiếm toàn bộ độ rộng khi ở màn hình nhỏ */
     height: 45px ;
   }
-  details {
+  details.option-menu {
     display: block;
+  }
+  details.user-menu{
+    display: none;
   }
 
   /* Tùy chỉnh thêm cho menu */
@@ -129,13 +172,30 @@ details {
   position: relative;
 }
 
+details ul {
+  right: 0; /* Căn phải menu khi không đủ không gian bên trái */
+  left: auto;
+}
 details summary {
   list-style: none;
+  color: var(--theme-color);
+
   cursor: pointer;
+  transition: color 0.3s ease;
 }
 details summary i {
-  color: #333; /* Màu của biểu tượng */
+  color: var(--theme-color);
   font-size: 2rem; /* Kích thước biểu tượng lớn hơn */
+}
+
+
+.details summary i.navbar-dark {
+  background-color: #231d1d;
+
+}
+
+body.dark-mode details summary i{
+  color: white;
 }
 
 details ul {
@@ -182,4 +242,32 @@ details ul li a:hover {
 .details-summary .light-theme {
   color: white !important;
   background-color: transparent !important; /* Đảm bảo không bị nền tối */
+}
+.user-section.common-style {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .sign-in {
+    background-color: #7d39e1;
+    width: 80px;
+    height: 35px;
+    color: white;
+    border-radius: 10px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .avatar-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .avatar-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+  }
 }

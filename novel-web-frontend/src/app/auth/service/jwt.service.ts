@@ -24,6 +24,10 @@ export class JwtService {
   saveToken(token: string): void {
     if (isPlatformBrowser(this.platformId))
       localStorage.setItem(this.tokenKey, token);
+    alert(token);
+  }
+  deleteToken():void{
+    localStorage.removeItem(this.tokenKey);
   }
 
   getToken(): string | null {

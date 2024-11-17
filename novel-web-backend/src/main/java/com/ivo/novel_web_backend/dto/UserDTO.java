@@ -20,9 +20,7 @@ public class UserDTO {
     String id;
 
 
-    String lastname;
-
-    String firstname;
+    String username;
 
     String email;
 
