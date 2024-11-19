@@ -9,6 +9,7 @@ import {TestService} from '../../auth/service/test.service';
 import {JwtService} from '../../auth/service/jwt.service';
 import {ConnectedUser} from '../../shared/model/user.model';
 import {Observable} from 'rxjs';
+import {ModeService} from '../../shared/mode.service';
 
 @Component({
   selector: 'app-navbar',
@@ -32,6 +33,7 @@ export class NavbarComponent implements OnInit {
   isOptionMenuOpen:boolean=false;
   userInfo: ConnectedUser | undefined;
   connectedUser$: Observable<ConnectedUser> | undefined;
+  private modeService = inject(ModeService);
 
 
 
@@ -43,6 +45,10 @@ export class NavbarComponent implements OnInit {
   }
   toggleOptionMenu(){
     this.isOptionMenuOpen=!this.isOptionMenuOpen;
+  }
+  isAdmin(): boolean {
+    // return this.userInfo.role === 'admin';
+    return true;
   }
 
 
@@ -60,6 +66,7 @@ export class NavbarComponent implements OnInit {
       this.isDarkMode = true;
     }
     this.connectedUser$ = this.authService.getAuthenticatedUser();
+    this.isDarkMode = this.modeService.getDarkMode();
 
     // Subscribe để gán thông tin người dùng vào form
     this.connectedUser$.subscribe(
@@ -101,6 +108,7 @@ export class NavbarComponent implements OnInit {
     this.isDarkMode = !this.isDarkMode;
     document.body.classList.toggle('dark-mode');
     this.navbarS?.classList.toggle('navbar-dark'); // Thay đổi lớp dark mode cho navbar
+    this.modeService.setDarkMode(this.isDarkMode);
 
     // Lưu chế độ vào localStorage
     if (document.body.classList.contains('dark-mode')) {
@@ -119,5 +127,14 @@ export class NavbarComponent implements OnInit {
 
   closeMenu(menu: HTMLDetailsElement) {
     menu.removeAttribute('open');
+  }
+  navigateToAuthorPage(): void {
+    if (this.userInfo?.roles.includes('author')) {
+      // Nếu có vai trò 'author', điều hướng đến /author-page
+      this.router.navigate(['/author-page']);
+    } else {
+      // Nếu không, điều hướng đến /apply-author
+      this.router.navigate(['/apply-author']);
+    }
   }
 }

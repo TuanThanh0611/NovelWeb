@@ -39,19 +39,11 @@ body.dark-mode {
   box-sizing: border-box; /* Bao gồm padding trong chiều rộng */
 }
 
-.logo {
-  background-image: url('./large.ico');
-  width: 100px; /* Điều chỉnh kích thước logo phù hợp */
-  height: auto;
-  margin-right: 1rem;
-}
+
 
 .nav-buttons {
   display: flex;
   gap: 0.5rem;
-}
-.user-menu{
-
 }
 
 .nav-buttons button {
@@ -79,6 +71,33 @@ body.dark-mode .nav-buttons button:hover {
   /* Thêm các kiểu tùy chỉnh cho lớp otp nếu cần */
 }
 
+.logo {
+  flex-shrink: 0; /* Đảm bảo logo không bị co lại */
+  display: flex;
+  align-items: center;
+  border-radius: 15px; /* Làm mềm các góc */
+  transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo img {
+  height: 50px; /* Chiều cao của logo */
+  width: auto; /* Giữ tỷ lệ hình ảnh */
+  cursor: pointer; /* Thay đổi con trỏ khi hover */
+  transition: transform 0.2s ease-in-out; /* Thêm hiệu ứng khi hover */
+  border-radius: 15px; /* Làm mềm các góc */
+  transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out;
+}
+
+.logo img:hover {
+  transform: scale(1.1); /* Phóng to nhẹ khi hover */
+  border-radius: 20px;
+}
 
 
 .user-menu:hover {
@@ -271,3 +290,30 @@ details ul li a:hover {
     border-radius: 50%;
   }
 }
+
+.admin-button {
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  background-color: #7023da; /* Màu nền xanh */
+  border: none;
+  border-radius: 8px; /* Bo tròn góc */
+  text-align: center;
+  text-decoration: none; /* Xóa gạch chân */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.admin-button:hover {
+  background-color: #6f09dc; /* Màu nền khi hover */
+  transform: scale(1.05); /* Tăng nhẹ kích thước khi hover */
+}
+
+.admin-button:active {
+  background-color: rgba(87, 44, 204, 0.68); /* Màu nền khi click */
+}
+
+
+

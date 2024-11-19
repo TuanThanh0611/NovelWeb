@@ -2,7 +2,7 @@ import {
   __async,
   __spreadProps,
   __spreadValues
-} from "./chunk-BJWEDLTQ.js";
+} from "./chunk-4KQ2WF6L.js";
 
 // ../node_modules/@angular/core/fesm2022/primitives/signals.mjs
 function defaultEquals(a2, b) {

@@ -1,10 +1,18 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <div class="navbar-container">
+  <div class="logo">
+    <a href="/" class="logo-link">
+      <img src="/logo.jpg" alt="Logo" />
+    </a>
+  </div>
   <div class="navbar">
+
+
+
+
     <div class="left-section">
       <div class="nav-buttons">
         <a routerLink="/">
-          <img src="/" alt="Logo" class="logo">
         </a>
 
         <button><i class="fas fa-search"></i> Search</button>
@@ -33,9 +41,12 @@
           <summary><i class="fas fa-user"></i></summary>
           <ul class="z-30">
             <li>{{ userInfo?.username }}</li>
-            <li><a routerLink="profile"><i class="fas fa-user-circle"></i>Profile</a></li>
-            <li><a routerLink="settings"><i class="fas fa-cogs"></i>Settings</a></li>
-            <li><a routerLink="logout" (click)="logout()"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+            <li><a routerLink="profile"><i class="fas fa-user-circle"></i> Profile</a></li>
+            <li><a routerLink="settings"><i class="fas fa-cogs"></i> Settings</a></li>
+            <li> <a (click)="navigateToAuthorPage()">
+              <i class="fas fa-book-open"></i> Author
+            </a></li>
+            <li><a routerLink="logout" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
 
           </ul>
         </details>
@@ -44,6 +55,11 @@
         <!-- Hiển thị nút Sign In khi chưa đăng nhập -->
         <button class="sign-in" (click)="logintype()">Sign In</button>
       </ng-template>
+    </div>
+    <div *ngIf="isAdmin()">
+      <a routerLink="admin-dashboard" class="admin-button">
+        Admin
+      </a>
     </div>
 
 
@@ -74,6 +90,7 @@
           <a routerLink="admin/orders/list"
              ><i class="fas fa-filter"></i> Filter</a>
         </li>
+        <li><a routerLink="settings"><i class="fas fa-book-open"></i> Author</a></li>
         <li>
           <a routerLink="admin/orders/list"
              (click)="toggleMode()" class="theme-toggle-btn" ><ng-container *ngIf="isDarkMode; else lightModeIcon">
@@ -83,6 +100,13 @@
               <span style="color: white!important;">☀️ Light</span>
             </ng-template></a>
         </li>
+        <li>
+          <ng-container *ngIf="isConnected(); else signInTemplate">
+
+                <a routerLink="logout" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+          </ng-container>
+        </li>
+
 
       </ul>
     </details>

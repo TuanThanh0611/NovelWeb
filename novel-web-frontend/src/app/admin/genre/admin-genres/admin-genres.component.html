@@ -1,0 +1,75 @@
+<div class="w-full flex justify-between items-center">
+  <div>
+    <h1 class="text-2xl font-bold">Categories</h1>
+    <div>Add and delete categories</div>
+  </div>
+  <button class="btn btn-primary" routerLink="/admin/genres/create">
+    Create categories
+  </button>
+</div>
+
+<div class="border-t w-full border-solid border-gray-300 mt-3 mb-5"></div>
+
+<!-- Kiểm tra trạng thái thành công và danh sách có dữ liệu -->
+<div *ngIf="genresQuery.isSuccess() && genresQuery.data()?.length !== 0; else noData">
+  <div class="overflow-x-auto border border-gray-300 rounded-md">
+    <table class="table table-lg table-zebra">
+      <thead class="border-gray-300">
+      <tr class="border-gray-300">
+        <th></th>
+        <th>Public Id</th>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody class="border-0">
+      <tr *ngFor="let genre of genresQuery.data(); let i = index; trackBy: trackByPublicId" class="border-gray-300">
+        <th>{{ i + 1 }}</th>
+        <td>{{ genre.publicId || 'N/A' }}</td>
+        <td>{{ genre.name || 'Unnamed Category' }}</td>
+        <td>
+          <button (click)="deleteGenre(genre.publicId)" class="btn btn-secondary btn-sm">
+            Delete
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Mẫu hiển thị khi không có dữ liệu -->
+<ng-template #noData>
+  <p>No categories available.</p>
+</ng-template>
+<!-- Mẫu hiển thị khi không có dữ liệu -->
+<ng-template #noData>
+  <p>No categories available.</p>
+</ng-template>
+
+
+<!-- Hiển thị spinner khi đang tải -->
+<ng-template #loading>
+  <div class="flex w-full justify-center">
+    <span class="loading loading-spinner loading-lg"></span>
+  </div>
+</ng-template>
+
+<!-- Hiển thị thông báo lỗi nếu có lỗi -->
+<ng-template #error>
+  <div class="alert alert-error">
+    <span>Error! Failed to load categories.</span>
+  </div>
+</ng-template>
+
+<!-- Hiển thị thông báo khi không có dữ liệu -->
+<ng-template #noData>
+  <div role="alert" class="alert alert-info">
+    <fa-icon [icon]="['fas', 'circle-exclamation']" size="2x"></fa-icon>
+    <span>No category created yet.</span>
+  </div>
+</ng-template>
+
+<!-- Kiểm tra trạng thái và sử dụng các template tương ứng -->
+<!--<div *ngIf="categoriesQuery.isPending(); else loading"></div>-->
+<!--<div *ngIf="categoriesQuery.isError(); else error"></div>-->

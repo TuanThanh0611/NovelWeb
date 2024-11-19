@@ -1,0 +1,68 @@
+:root {
+  --novel-card-background-color: #fff;
+  --border-colorst: #000000 ;
+
+}
+body.dark-mode {
+  --theme-color: white; // Màu cho chế độ tối
+  --novel-card-background-color: #000000;
+  --button-hover-coler: #3a3434;
+  --border-colorst: #e1d8d8
+}
+
+
+.novel-card {
+  flex-direction: column;
+  border: 1px solid ;
+  border-color:var(--border-colorst) ;
+  border-radius: 8px;
+  text-decoration: none; /* Loại bỏ gạch chân */
+  color: inherit;        /* Giữ nguyên màu sắc của nội dung */
+  display: block;
+  overflow: hidden;
+  width: 150px; /* Đảm bảo chiều rộng của thẻ là cố định */
+  text-align: center;
+  background-color: var(--novel-card-background-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.novel-image {
+  width: 100%;
+  height: 187px; /* Cố định chiều cao cho ảnh */
+  object-fit: cover;
+}
+
+.novel-info {
+  padding: 5px;
+}
+
+.novel-name {
+  font-size: 0.9rem;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 5px 0;
+  white-space: nowrap; /* Ngừng dòng khi tên quá dài */
+  overflow: hidden;    /* Ẩn phần văn bản bị tràn */
+  text-overflow: ellipsis; /* Hiển thị dấu ba chấm khi văn bản tràn */
+}
+.novel-rank{
+  text-decoration: none;
+  font-size: 0.7rem;
+}
+.novel-chapters{
+  font-size: 0.9rem;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 3px 0;
+}
+.novel-rating {
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin: 3px 0;
+}

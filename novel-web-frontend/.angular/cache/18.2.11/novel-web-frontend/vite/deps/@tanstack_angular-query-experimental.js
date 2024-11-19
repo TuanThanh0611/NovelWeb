@@ -1,7 +1,7 @@
 import {
   DOCUMENT,
   isPlatformBrowser
-} from "./chunk-EXRBKS4N.js";
+} from "./chunk-CBZAGEEZ.js";
 import {
   DestroyRef,
   ENVIRONMENT_INITIALIZER,
@@ -18,14 +18,16 @@ import {
   runInInjectionContext,
   signal,
   untracked
-} from "./chunk-LGHUO6LN.js";
-import "./chunk-ZSY7TSMJ.js";
+} from "./chunk-FVXSQMDE.js";
+import "./chunk-4N4GOYJH.js";
+import "./chunk-5OPE3T2R.js";
+import "./chunk-FHTVLBLO.js";
 import {
   __async,
   __objRest,
   __spreadProps,
   __spreadValues
-} from "./chunk-BJWEDLTQ.js";
+} from "./chunk-4KQ2WF6L.js";
 
 // node_modules/@tanstack/query-core/build/modern/subscribable.js
 var Subscribable = class {
@@ -3052,7 +3054,7 @@ function withDevtools(optionsFn) {
           }
           el = doc.body.appendChild(document.createElement("div"));
           el.classList.add("tsqd-parent-container");
-          import("./dev-GGO6UGCA.js").then((queryDevtools) => runInInjectionContext(injector, () => {
+          import("./dev-B4KLPCPU.js").then((queryDevtools) => runInInjectionContext(injector, () => {
             devtools = new queryDevtools.TanstackQueryDevtools(__spreadProps(__spreadValues({}, options()), {
               client: getResolvedQueryClient(),
               queryFlavor: "Angular Query",

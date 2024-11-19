@@ -1,0 +1,9 @@
+<div class="novel-grid-container">
+  <div class="novel-grid">
+    <ng-container *ngFor="let novel of novels">
+      <a [routerLink]="['/novel', novel.publicId]" class="novel-link">
+        <app-novelcard [novel]="novel"></app-novelcard>
+      </a>
+    </ng-container>
+  </div>
+</div>

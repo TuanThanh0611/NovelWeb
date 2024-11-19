@@ -1,0 +1,46 @@
+<div class="author-request-container">
+  <h2>Apply to Become an Author</h2>
+  <form (ngSubmit)="onSubmit()" #authorForm="ngForm">
+    <!-- Name Field -->
+    <div class="form-group">
+      <label for="name">Full Name:</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        [(ngModel)]="formData.name"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <!-- Email Field -->
+    <div class="form-group">
+      <label for="email">Email Address:</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="formData.email"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <!-- Why You Want to Become an Author -->
+    <div class="form-group">
+      <label for="reason">Why do you want to become an author?</label>
+      <textarea
+        id="reason"
+        name="reason"
+        [(ngModel)]="formData.reason"
+        class="form-control"
+        rows="5"
+        required
+      ></textarea>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary" [disabled]="!authorForm.valid">Submit</button>
+  </form>
+</div>

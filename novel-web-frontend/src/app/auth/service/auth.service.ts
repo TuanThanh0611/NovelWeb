@@ -72,7 +72,7 @@ export class AuthService {
   }
   toQueryResult():CreateQueryResult<ConnectedUser>{
     return injectQuery(()=>({
-      queryKey:['connected-userr'],
+      queryKey:['connected-user'],
       queryFn:()=>firstValueFrom(this.getAuthenticatedUser()),
     }));
   }

@@ -4,6 +4,13 @@ import {LogintypeComponent} from './auth/logintype/logintype.component';
 import {LoginComponent} from './auth/login/login.component';
 import {ForgetpassComponent} from './auth/forgetpass/forgetpass.component';
 import {RegisterwithemailComponent} from './auth/registerwithemail/registerwithemail.component';
+import {TestcardisplayComponent} from './noveldisplay/testcardisplay/testcardisplay.component';
+import {AuthorRequestComponent} from './admin/author-request/author-request.component';
+import {AuthorPageComponent} from './admin/author-page/author-page.component';
+import {AdminDashboardComponent} from './admin/admin-dashboard/admin-dashboard.component';
+import {CreateGenreComponent} from './admin/genre/create-genre/create-genre.component';
+import {AdminGenresComponent} from './admin/genre/admin-genres/admin-genres.component';
+
 
 export const routes: Routes = [
 
@@ -17,6 +24,12 @@ export const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
+  {
+    path: 'admin/genres/list',
+    component: AdminGenresComponent,
+
+  },
+  { path: 'admin-genre-create', component: CreateGenreComponent },
 
   {
     path: 'forgetpass',
@@ -26,4 +39,10 @@ export const routes: Routes = [
     path: 'regiswithemail',
     component: RegisterwithemailComponent
   },
+  {
+    path: 'testcard',
+    component: TestcardisplayComponent},
+  { path: 'apply-author', component: AuthorRequestComponent },
+  { path: 'author-page', component: AuthorPageComponent },
+  { path: 'admin-dashboard', component: AdminDashboardComponent }
 ];

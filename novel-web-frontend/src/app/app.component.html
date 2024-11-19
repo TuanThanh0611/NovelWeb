@@ -1,9 +1,11 @@
 <div class="flex flex-col min-h-screen">
-  <app-navbar></app-navbar>
+
+
+
+
+  <app-navbar *ngIf="showLayout"></app-navbar>
   <div class="container mx-auto py-7 grow">
-    <div class="mx-5">
-      <router-outlet></router-outlet>
-    </div>
+    <router-outlet></router-outlet>
   </div>
-  <app-footer class="mt-auto"></app-footer>
+  <app-footer *ngIf="showLayout" class="mt-auto"></app-footer>
 </div>

@@ -1,0 +1,164 @@
+/* General Container */
+.admin-dashboard-container {
+  font-family: Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Dashboard Layout */
+.dashboard-layout {
+  display: flex;
+  height: calc(100vh - 60px); /* Chiều cao toàn bộ màn hình trừ khoảng trống */
+}
+
+/* Left Panel (Navigation) */
+.left-panel {
+  width: 200px; /* Fixed width */
+  background-color: #2c3e50;
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.left-panel button {
+  background-color: #34495e;
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.left-panel button:hover {
+  background-color: #1abc9c;
+}
+
+/* Middle Panel (Create Section) */
+.middle-panel {
+  flex: 2; /* Chiếm 2/7 chiều rộng */
+  background-color: #ecf0f1;
+  padding: 20px;
+}
+
+.middle-panel h2 {
+  margin-bottom: 15px;
+}
+
+.middle-panel form div {
+  margin-bottom: 10px;
+}
+
+.middle-panel input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Right Panel (List Section) */
+.right-panel {
+  flex: 4; /* Chiếm 4/7 chiều rộng */
+  background-color: #bdc3c7;
+  padding: 20px;
+}
+
+.right-panel h2 {
+  margin-bottom: 15px;
+}
+
+.right-panel table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.right-panel table th,
+.right-panel table td {
+  border: 1px solid #7f8c8d;
+  padding: 8px;
+  text-align: left;
+}
+
+.right-panel table th {
+  background-color: #34495e;
+  color: white;
+}
+
+.right-panel table tbody tr:hover {
+  background-color: #ecf0f1;
+}
+/* Middle Panel (Dashboard Overview) */
+.middle-panel h2 {
+  margin-bottom: 15px;
+}
+
+.overview-item {
+  margin-bottom: 20px;
+}
+
+.overview-item h3 {
+  margin-bottom: 5px;
+}
+
+.overview-item p {
+  font-size: 18px;
+  font-weight: bold;
+  color: #34495e;
+}
+
+/* Dashboard Overview */
+.middle-panel h2 {
+  margin-bottom: 20px;
+}
+
+/* Overview Item */
+.overview-item {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.overview-item h3 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.overview-item p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin: 0;
+  padding: 10px;
+  background-color: #ecf0f1;
+  border-radius: 8px;
+  min-width: 120px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design for smaller screens */
+@media (max-width: 768px) {
+  .overview-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .overview-item p {
+    margin-top: 10px;
+  }
+}

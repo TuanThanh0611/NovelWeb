@@ -1,0 +1,45 @@
+:root {
+ --background-color:#fff;
+ --novel-grid-border-color: #414040;
+}
+body.dark-mode .novel-grid-container{
+  --theme-color: white; // Màu cho chế độ tối
+  --button-color: #000000;
+  --button-hover-coler: #3a3434;
+  --border-colors: #c53030;
+}
+
+
+
+.novel-grid-container {
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1000px;
+  border: 1px solid ; /* Thêm viền mỏng */
+  border-color: var(--novel-grid-border-color);
+  border-radius: 8px; /* Bo góc nhẹ */
+  background-color: var(--background-color); /* Thêm màu nền để nổi bật */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+}
+
+.novel-grid {
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: repeat(6, 1fr); /* Mặc định là 6 cột */
+}
+
+.novel-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.novel-link:hover {
+  text-decoration: none;
+}
+
+/* Điều chỉnh bố cục ở chế độ thu nhỏ */
+@media (max-width: 768px) {
+  .novel-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 cột khi thu nhỏ */
+  }
+}

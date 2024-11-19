@@ -1,0 +1,53 @@
+<div class="admin-dashboard-container">
+  <h1>Admin Dashboard</h1>
+
+  <!-- Dashboard Layout -->
+  <div class="dashboard-layout" style="display: flex; height: 100vh;">
+    <!-- Left Panel: Navigation -->
+    <div class="left-panel" style="width: 14.2857%; background-color: #f5f5f5; padding: 16px;">
+      <button class="btn btn-block" routerLink="/">Back to Home</button>
+      <button class="btn btn-block"routerLink="/admin-genre-create">Create Genre</button>
+      <button class="btn btn-block">View Genres</button>
+      <button class="btn btn-block">Create Novel</button>
+      <button class="btn btn-block">View Novels</button>
+      <button class="btn btn-block">View Users</button>
+    </div>
+
+    <!-- Right Panel: Fixed Information -->
+    <div class="right-panel" style="flex: 1; padding: 16px;">
+      <div style="display: grid; grid-template-rows: auto auto; grid-gap: 16px;">
+        <!-- Top Section: 2 Large Boxes -->
+        <div style="display: flex; gap: 16px;">
+          <div class="info-box large" style="flex: 1; background: #2196f3; color: white; padding: 16px; border-radius: 8px;">
+            <h3>Total Views</h3>
+            <p style="font-size: 24px; font-weight: bold;">{{ totalViews }}</p>
+          </div>
+          <div class="info-box large" style="flex: 1; background: #4caf50; color: white; padding: 16px; border-radius: 8px;">
+            <h3>Total Visits</h3>
+            <p style="font-size: 24px; font-weight: bold;">{{ totalVisits }}</p>
+          </div>
+        </div>
+
+        <!-- Bottom Section: 4 Smaller Boxes -->
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+          <div class="info-box small" style="background: #ff5722; color: white; padding: 16px; border-radius: 8px;">
+            <h4>Total Users</h4>
+            <p style="font-size: 18px; font-weight: bold;">{{ totalUsers }}</p>
+          </div>
+          <div class="info-box small" style="background: #ff9800; color: white; padding: 16px; border-radius: 8px;">
+            <h4>Total Authors</h4>
+            <p style="font-size: 18px; font-weight: bold;">{{ totalAuthors }}</p>
+          </div>
+          <div class="info-box small" style="background: #03a9f4; color: white; padding: 16px; border-radius: 8px;">
+            <h4>Today's Views</h4>
+            <p style="font-size: 18px; font-weight: bold;">{{ todayViews }}</p>
+          </div>
+          <div class="info-box small" style="background: #8bc34a; color: white; padding: 16px; border-radius: 8px;">
+            <h4>This Week's Views</h4>
+            <p style="font-size: 18px; font-weight: bold;">{{ weekViews }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -8,23 +8,6 @@
 .new-release-container {
   margin-top: 20px;
   width: 100%;
+  background-position: center;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%; /* Đảm bảo header chiếm toàn bộ chiều rộng */
-  margin-bottom: 10px;
-}
-
-.header h2 {
-  margin: 0;
-  font-size: 24px;
-}
-
-.view-more {
-  color: #6c63ff;
-  text-decoration: none;
-  font-weight: bold;
-}

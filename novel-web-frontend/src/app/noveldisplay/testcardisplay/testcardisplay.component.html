@@ -1,1 +1,5 @@
-<p>testcardisplay works!</p>
+<div class="test-card-display">
+  <ng-container *ngFor="let novel of novels">
+    <app-novelcard [novel]="novel"></app-novelcard>
+  </ng-container>
+</div>
