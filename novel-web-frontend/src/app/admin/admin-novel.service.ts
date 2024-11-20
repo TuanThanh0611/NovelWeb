@@ -34,9 +34,8 @@ export class AdminNovelService {
     );
   }
 
-  createProduct(product: BaseNovel): Observable<Novel> {
+  createNovel(novel: BaseNovel): Observable<Novel> {
     const formData = new FormData();
-
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
@@ -60,5 +59,12 @@ export class AdminNovelService {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any[]>(`http://localhost:8080/api/novel`,{ headers });
+  }
+
+  uploadPicture(formData: FormData): Observable<any> {
+    const url = `http://localhost:8080/upload`;  // Địa chỉ endpoint upload ảnh
+    const headers = new HttpHeaders();  // Nếu cần, bạn có thể thêm header tùy chọn
+
+    return this.http.post<any>(url, formData, { headers });
   }
 }

@@ -1,75 +1,67 @@
-<div class="w-full flex justify-between items-center">
-  <div>
-    <h1 class="text-2xl font-bold">Categories</h1>
-    <div>Add and delete categories</div>
+<div class="categories-container mx-auto p-4">
+  <!-- Header Section -->
+  <div class="header-section flex justify-between items-center border-b border-custom-gray pb-4">
+    <div>
+      <h1 class="title text-3xl font-extrabold text-primary">Categories</h1>
+      <p class="description text-sm text-secondary">
+        Manage your categories by adding or removing them below.
+      </p>
+    </div>
+    <button class="create-btn btn-primary" routerLink="/admin-genre-create">Create Genre</button>
   </div>
-  <button class="btn btn-primary" routerLink="/admin/genres/create">
-    Create categories
-  </button>
+
+  <!-- Data Table -->
+  <div *ngIf="genresQuery.isSuccess() && genresQuery.data()?.length !== 0; else noData" class="table-container mt-6">
+    <div class="table-wrapper overflow-x-auto shadow rounded-lg border border-custom-gray">
+      <table class="data-table table-auto w-full bg-white">
+        <thead class="table-header bg-light-gray">
+        <tr class="header-row text-left text-secondary font-medium">
+          <th class="header-cell py-3 px-4">#</th>
+          <th class="header-cell py-3 px-4">Public Id</th>
+          <th class="header-cell py-3 px-4">Name</th>
+          <th class="header-cell py-3 px-4 text-center">Actions</th>
+        </tr>
+        </thead>
+        <tbody class="table-body">
+        <tr *ngFor="let genre of genresQuery.data(); let i = index; trackBy: trackByPublicId"
+            class="body-row hover:bg-hover-gray border-b border-custom-gray">
+          <td class="body-cell py-3 px-4">{{ i + 1 }}</td>
+          <td class="body-cell py-3 px-4">{{ genre.publicId || 'N/A' }}</td>
+          <td class="body-cell py-3 px-4">{{ genre.name || 'Unnamed Category' }}</td>
+          <td class="body-cell py-3 px-4 text-center">
+            <button (click)="deleteGenre(genre.publicId)"
+                    class="delete-btn btn-danger transition hover:bg-red-600">
+              Delete
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- No Data Template -->
+  <ng-template #noData>
+    <div class="no-data text-center mt-10">
+      <fa-icon [icon]="['fas', 'folder-open']" size="4x" class="icon text-gray-300"></fa-icon>
+      <p class="message text-secondary text-lg mt-4">No categories available.</p>
+    </div>
+  </ng-template>
+
+  <!-- Loading Spinner -->
+  <ng-template #loading>
+    <div class="loading-spinner flex justify-center mt-10">
+      <span class="spinner loading-lg"></span>
+    </div>
+  </ng-template>
+
+  <!-- Error Notification -->
+  <ng-template #error>
+    <div class="error-alert text-center mt-10">
+      <fa-icon [icon]="['fas', 'circle-exclamation']" size="2x" class="icon text-error"></fa-icon>
+      <p class="message text-error mt-4">
+        Error! Failed to load categories. Please try again later.
+      </p>
+    </div>
+  </ng-template>
 </div>
-
-<div class="border-t w-full border-solid border-gray-300 mt-3 mb-5"></div>
-
-<!-- Kiểm tra trạng thái thành công và danh sách có dữ liệu -->
-<div *ngIf="genresQuery.isSuccess() && genresQuery.data()?.length !== 0; else noData">
-  <div class="overflow-x-auto border border-gray-300 rounded-md">
-    <table class="table table-lg table-zebra">
-      <thead class="border-gray-300">
-      <tr class="border-gray-300">
-        <th></th>
-        <th>Public Id</th>
-        <th>Name</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
-      <tbody class="border-0">
-      <tr *ngFor="let genre of genresQuery.data(); let i = index; trackBy: trackByPublicId" class="border-gray-300">
-        <th>{{ i + 1 }}</th>
-        <td>{{ genre.publicId || 'N/A' }}</td>
-        <td>{{ genre.name || 'Unnamed Category' }}</td>
-        <td>
-          <button (click)="deleteGenre(genre.publicId)" class="btn btn-secondary btn-sm">
-            Delete
-          </button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- Mẫu hiển thị khi không có dữ liệu -->
-<ng-template #noData>
-  <p>No categories available.</p>
-</ng-template>
-<!-- Mẫu hiển thị khi không có dữ liệu -->
-<ng-template #noData>
-  <p>No categories available.</p>
-</ng-template>
-
-
-<!-- Hiển thị spinner khi đang tải -->
-<ng-template #loading>
-  <div class="flex w-full justify-center">
-    <span class="loading loading-spinner loading-lg"></span>
-  </div>
-</ng-template>
-
-<!-- Hiển thị thông báo lỗi nếu có lỗi -->
-<ng-template #error>
-  <div class="alert alert-error">
-    <span>Error! Failed to load categories.</span>
-  </div>
-</ng-template>
-
-<!-- Hiển thị thông báo khi không có dữ liệu -->
-<ng-template #noData>
-  <div role="alert" class="alert alert-info">
-    <fa-icon [icon]="['fas', 'circle-exclamation']" size="2x"></fa-icon>
-    <span>No category created yet.</span>
-  </div>
-</ng-template>
-
-<!-- Kiểm tra trạng thái và sử dụng các template tương ứng -->
-<!--<div *ngIf="categoriesQuery.isPending(); else loading"></div>-->
-<!--<div *ngIf="categoriesQuery.isError(); else error"></div>-->

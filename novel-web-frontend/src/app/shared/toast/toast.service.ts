@@ -22,4 +22,12 @@ export class ToastService {
       (toastToCompare) => toastToCompare != toast
     );
   }
+
+  error(failedToUploadPicture: string) {
+    
+  }
+
+  success(pictureUploadedSuccessfully: string) {
+    
+  }
 }

@@ -30,6 +30,7 @@
   padding: 0.75rem;
   font-size: 1rem;
   transition: border-color 0.3s ease-in-out;
+  width: 100%;
 }
 
 .input:focus {
@@ -51,6 +52,7 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 100%;
 }
 
 .btn:hover {
@@ -88,4 +90,21 @@ h1 {
   color: #333;
   text-align: center;
   margin-bottom: 1.5rem;
+}
+
+/* Select input with multiple options styling */
+select[multiple] {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.75rem;
+  width: 100%;
+  height: auto;
+  min-height: 150px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease-in-out;
+}
+
+select[multiple]:focus {
+  border-color: #007bff;
+  outline: none;
 }

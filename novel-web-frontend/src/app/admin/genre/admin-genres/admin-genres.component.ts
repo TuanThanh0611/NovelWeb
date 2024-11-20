@@ -5,13 +5,14 @@ import {ToastService} from '../../../shared/toast/toast.service';
 import {injectMutation, injectQuery, injectQueryClient} from '@tanstack/angular-query-experimental';
 import {lastValueFrom} from 'rxjs';
 import {CommonModule} from '@angular/common';
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-admin-genres',
   standalone: true,
-  imports: [
-    FaIconComponent,CommonModule
-  ],
+    imports: [
+        FaIconComponent, CommonModule, RouterLink
+    ],
   templateUrl: './admin-genres.component.html',
   styleUrl: './admin-genres.component.scss'
 })

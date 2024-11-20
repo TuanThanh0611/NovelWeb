@@ -12,13 +12,11 @@ export interface NovelPicture {
 }
 
 export interface BaseNovel {
-  brand: string;
-  color: string;
+  title: string; // Dữ liệu chỉ cần kiểu string
+  author: string;
   description: string;
-  name: string;
-  genre: NovelGenre;
-  featured: boolean;
-  picture: NovelPicture;
+  genres:NovelGenre[];
+  picture: NovelPicture|null;
 }
 
 export interface Novel extends BaseNovel {
@@ -30,15 +28,11 @@ export type CreateGenreFormContent = {
 };
 
 export type CreateNovelFormContent = {
-  brand: FormControl<string>;
-  color: FormControl<string>;
+  title: FormControl<string>;
+  author: FormControl<string>;
   description: FormControl<string>;
-  name: FormControl<string>;
-  price: FormControl<number>;
-  genre: FormControl<string>;
-  featured: FormControl<boolean>;
-  pictures: FormControl<NovelPicture[]>;
-  stock: FormControl<number>;
+  genres: FormControl<NovelGenre[]>;
+  picture: FormControl<NovelPicture|null >;
 };
 
 export interface ProductFilter {

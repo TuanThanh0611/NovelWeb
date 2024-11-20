@@ -33,7 +33,8 @@ private authService=inject(AuthService);
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
           // Danh sách các route không cần navbar và footer
-          const noLayoutRoutes = ['/login', '/regiswithemail','/admin-dashboard'];
+          const noLayoutRoutes = ['/login', '/regiswithemail','/admin-dashboard','/logintype',
+          '/apply-author'];
           this.showLayout = !noLayoutRoutes.includes(event.urlAfterRedirects);
         }
       });

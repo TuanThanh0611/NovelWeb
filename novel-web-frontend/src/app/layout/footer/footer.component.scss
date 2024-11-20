@@ -1,10 +1,23 @@
 .footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  background-color: #e9edf5; /* Màu nền footer */
+  color: #0e1415; /* Màu chữ */
+  text-align: center; /* Căn giữa nội dung */
+  padding: 20px 0; /* Khoảng cách trên và dưới */
+  bottom: 0;
   width: 100%;
-  max-width: 800px;
-  margin: auto;
-  padding: 10px;
-  box-sizing: border-box;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng cho footer */
+}
+
+.footer-content a {
+  color: #1abc9c; /* Màu cho liên kết */
+  text-decoration: none; /* Loại bỏ gạch chân */
+}
+
+.footer-content a:hover {
+  text-decoration: underline; /* Gạch chân khi hover */
+}
+
+.footer p {
+  margin: 5px 0; /* Khoảng cách giữa các dòng */
+  font-size: 0.9rem; /* Cỡ chữ */
 }

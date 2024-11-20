@@ -27,15 +27,42 @@ body {
   max-width: 400px;
   width: 100%;
   text-align: center;
+  justify-content: center;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+
 .logo {
-  width: 100px;
-  height: auto;
-  margin-bottom: 20px;
+  flex-shrink: 0; /* Đảm bảo logo không bị co lại */
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; /* Thêm khoảng cách dưới logo */
+  margin-left: 137px;
+
+  border-radius: 15px; /* Làm mềm các góc */
+  transition: transform 0.2s ease-in-out, border-radius 0.2s ease-in-out;
 }
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo img {
+  justify-content: center;
+  height: 50px; /* Chiều cao của logo */
+  width: auto; /* Giữ tỷ lệ hình ảnh */
+  cursor: pointer; /* Thay đổi con trỏ khi hover */
+  border-radius: 15px; /* Làm mềm các góc */
+
+}
+
+.logo img:hover {
+  border-radius: 20px;
+}
+
 
 h1 {
   font-size: 1.5rem;

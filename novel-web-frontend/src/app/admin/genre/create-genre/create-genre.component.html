@@ -1,26 +1,32 @@
-<div class="grid grid-cols-3">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 h-screen justify-center items-center">
+  <!-- Spacer on the left side for better alignment -->
   <div></div>
-  <form id="createForm" (ngSubmit)="create()" [formGroup]="createForm">
-    <h1 class="text-lg font-bold">Create new category</h1>
-    <label class="form-control w-full">
+
+  <!-- Form for creating category -->
+  <form id="createForm" (ngSubmit)="create()" [formGroup]="createForm" class="card shadow-lg p-6 w-full md:w-3/4 lg:w-1/2">
+    <h1 class="text-xl font-bold text-center mb-6">Create New Category</h1>
+
+    <label class="form-control w-full mb-4">
       <div class="label">
-        <span class="label-text">Name</span>
+        <span class="label-text">Category Name</span>
       </div>
-      <input type="text" placeholder="Type name here" class="input input-bordered w-full"
-             formControlName="name" [class.input-error]="name.invalid && !name.untouched"/>
+      <input type="text" placeholder="Type name here"
+             class="input input-bordered w-full"
+             formControlName="name"
+             [class.input-error]="name.invalid && !name.untouched" />
       <div class="label">
         <span class="label-text-alt text-red-600" *ngxControlError="name; track: 'required'">
           Name is required
         </span>
       </div>
     </label>
-    <button type="submit" class="btn btn-primary btn-wide w-full"
-            [disabled]="createForm.invalid">
-      @if(loading) {
-        <span class="loading loading-spinner"></span>
-      }
-      Create category
+
+    <button type="submit" class="btn btn-primary btn-wide w-full mt-4" [disabled]="createForm.invalid">
+      <span *ngIf="loading" class="loading loading-spinner loading-md mr-2"></span>
+      Create Category
     </button>
   </form>
+
+  <!-- Spacer on the right side for better alignment -->
   <div></div>
 </div>

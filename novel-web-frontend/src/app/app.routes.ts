@@ -10,6 +10,8 @@ import {AuthorPageComponent} from './admin/author-page/author-page.component';
 import {AdminDashboardComponent} from './admin/admin-dashboard/admin-dashboard.component';
 import {CreateGenreComponent} from './admin/genre/create-genre/create-genre.component';
 import {AdminGenresComponent} from './admin/genre/admin-genres/admin-genres.component';
+import {NovelComponent} from './admin/novel/novel.component';
+import {CreateNovelComponent} from './admin/novel/create-novel/create-novel.component';
 
 
 export const routes: Routes = [
@@ -24,6 +26,7 @@ export const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
+  { path: 'admin-novel-create', component: CreateNovelComponent },
   {
     path: 'admin/genres/list',
     component: AdminGenresComponent,
