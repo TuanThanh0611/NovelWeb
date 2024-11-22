@@ -80,7 +80,7 @@ export class AuthService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.jwtService.getToken()}`
     });
-    return this.http.get<ConnectedUser>(`${BASE_URL}/api/auth/getauthenticateduser`, { headers });
+    return this.http.get<ConnectedUser>(`${BASE_URL}/api/auth/get-authenticated-user`, { headers });
   }
   async initAuthentication(): Promise<void> {
     const isAuthenticated = await this.checkAuth();

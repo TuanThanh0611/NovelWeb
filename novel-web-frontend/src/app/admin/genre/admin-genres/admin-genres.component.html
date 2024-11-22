@@ -2,9 +2,9 @@
   <!-- Header Section -->
   <div class="header-section flex justify-between items-center border-b border-custom-gray pb-4">
     <div>
-      <h1 class="title text-3xl font-extrabold text-primary">Categories</h1>
+      <h1 class="title text-3xl font-extrabold text-primary">Genres</h1>
       <p class="description text-sm text-secondary">
-        Manage your categories by adding or removing them below.
+       Quản lí genres bằng cách thêm, xóa.
       </p>
     </div>
     <button class="create-btn btn-primary" routerLink="/admin-genre-create">Create Genre</button>
@@ -44,7 +44,7 @@
   <ng-template #noData>
     <div class="no-data text-center mt-10">
       <fa-icon [icon]="['fas', 'folder-open']" size="4x" class="icon text-gray-300"></fa-icon>
-      <p class="message text-secondary text-lg mt-4">No categories available.</p>
+      <p class="message text-secondary text-lg mt-4">No genres available.</p>
     </div>
   </ng-template>
 
@@ -60,7 +60,7 @@
     <div class="error-alert text-center mt-10">
       <fa-icon [icon]="['fas', 'circle-exclamation']" size="2x" class="icon text-error"></fa-icon>
       <p class="message text-error mt-4">
-        Error! Failed to load categories. Please try again later.
+        Error! Failed to load genres. Please try again later.
       </p>
     </div>
   </ng-template>

@@ -14,13 +14,9 @@ public class NovelPicture {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "novel_fk", referencedColumnName = "id")
-    private Novel novel;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    @Lob
-    @Column(name = "file", nullable = false)
-    private byte[] file;
 
     @Column(name = "file_content_type")
     private String fileContentType;

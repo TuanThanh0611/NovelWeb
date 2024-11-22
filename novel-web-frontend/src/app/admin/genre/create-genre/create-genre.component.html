@@ -4,11 +4,11 @@
 
   <!-- Form for creating category -->
   <form id="createForm" (ngSubmit)="create()" [formGroup]="createForm" class="card shadow-lg p-6 w-full md:w-3/4 lg:w-1/2">
-    <h1 class="text-xl font-bold text-center mb-6">Create New Category</h1>
+    <h1 class="text-xl font-bold text-center mb-6">Create New Genre</h1>
 
     <label class="form-control w-full mb-4">
       <div class="label">
-        <span class="label-text">Category Name</span>
+        <span class="label-text">Genre Name</span>
       </div>
       <input type="text" placeholder="Type name here"
              class="input input-bordered w-full"
@@ -23,7 +23,7 @@
 
     <button type="submit" class="btn btn-primary btn-wide w-full mt-4" [disabled]="createForm.invalid">
       <span *ngIf="loading" class="loading loading-spinner loading-md mr-2"></span>
-      Create Category
+      Create Genre
     </button>
   </form>
 

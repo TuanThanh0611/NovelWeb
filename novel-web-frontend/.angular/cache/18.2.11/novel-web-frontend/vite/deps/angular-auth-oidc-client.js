@@ -1,9 +1,9 @@
 import {
-  toSignal
-} from "./chunk-HWDFN7VB.js";
-import {
   Router
 } from "./chunk-7CMRUZPT.js";
+import {
+  toSignal
+} from "./chunk-HWDFN7VB.js";
 import "./chunk-EPKSRRUE.js";
 import {
   HttpClient,
@@ -35,10 +35,10 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule
 } from "./chunk-FVXSQMDE.js";
+import "./chunk-5OPE3T2R.js";
 import {
   forkJoin
 } from "./chunk-4N4GOYJH.js";
-import "./chunk-5OPE3T2R.js";
 import {
   BehaviorSubject,
   Observable,

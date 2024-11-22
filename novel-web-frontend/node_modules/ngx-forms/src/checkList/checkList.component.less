@@ -1,0 +1,75 @@
+// Grays
+@gray-darker: #222222;
+@gray-dark: #58595b;
+@gray: #6d6e71;
+@gray-light: #a8a6ae;
+@gray-lighter: #bcbec0;
+
+// Brand Colors
+@brand-primary: #0797a7;
+@brand-success: #1fa260;
+@brand-warning: #e27a3e;
+@brand-danger: #602524;
+@brand-info: #0078a4;
+@brand-action: #E95E51;
+@brand-accent: #EAF0F3;
+
+.check-list{
+	position: relative;
+}
+
+.dropdown {
+	position: absolute;
+	top: 33px;
+	left: 0px;
+	width: 100%;
+	padding: 0;
+	z-index: 1000;
+	background-color: #fff;
+	border: 1px solid rgba(0,0,0,0.15);
+	border-radius: 0;
+	max-height: 250px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+label {
+	color: @brand-primary;
+	font-size: 1.2em;
+	font-weight: 400;
+}
+
+.placeholder {
+	text-align: left;
+	color: @gray-lighter;
+}
+
+.placeholder > span {
+	color: @gray-dark;
+	margin-top: 9px;
+}
+
+.option{
+	font-weight: normal;
+    display: block;
+    white-space: pre;
+    min-height: 1.2em;
+    padding: 0px 2px 1px;
+}
+
+.option:hover{
+	background-color: lighten(@gray-lighter, 20%);
+}
+
+.invalid {
+	border: 1px solid #f4b2ac;
+	border-left: 5px solid #E95E51;
+}
+
+.disabled {
+	background-color: @gray-lighter;
+}
+
+.disabled > .placeholder {
+	color: black;
+}

@@ -44,4 +44,5 @@ private authService=inject(AuthService);
       this.authService.connectedUserQuery = this.authService.toQueryResult();
 
   }
+
 }

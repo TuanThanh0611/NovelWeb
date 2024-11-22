@@ -1,0 +1,166 @@
+<div class="edit-container {{newForm?.Params?.Style}}">
+	<div class="row">
+		<div *ngFor="let field of newForm?.Fields">
+			<div *ngIf="checkGroup(field, newForm.Fields) && !field.HideInForm">
+				<div [ngSwitch]="field.Type" class="field-input">
+
+					<!--Header-->
+					<div *ngSwitchCase="fieldType.Header" class="{{field.Params && field.Params.Width ? 'col-lg-' + field.Params.Width : 'col-lg-12'}}">
+						<h3 class="header">{{field.Name}}</h3>
+					</div>
+
+					<!--Static-->
+					<div *ngSwitchCase="fieldType.Static" class="{{field.Params && field.Params.Width ? 'col-lg-'+field.Params.Width : 'col-lg-4'}}">
+						<label>{{field.Name}} {{(field?.Required && !display) ? '*' : ''}}<i class="fa fa-question-circle" *ngIf="field.HelpText" (click)="helpText[field.Name] = !helpText[field.Name]"></i></label>
+						<div class="help-text" *ngIf="helpText[field.Name]" [@slideInOut]="helpText[field.Name]">
+							<p [@slideInOutChild]="helpText[field.Name]">{{field.HelpText}}</p>
+						</div>
+						<p class="">{{calcStaticValue(field)}}</p>
+					</div>
+
+					<!--text-->
+					<div *ngSwitchCase="fieldType.Text" class="{{field.Params && field.Params.Width ? 'col-lg-' + field.Params.Width : 'col-lg-4'}}">
+						<label>{{field.Name}} {{(field?.Required && !display) ? '*' : ''}} <i class="fa fa-question-circle" *ngIf="field.HelpText" (click)="helpText[field.Name] = !helpText[field.Name]"></i></label>
+						<div class="help-text" *ngIf="helpText[field.Name]" [@slideInOut]="helpText[field.Name]"><p [@slideInOutChild]="helpText[field.Name]">{{field.HelpText}}</p></div>
+						<input *ngIf="!display" class="form-control" [(ngModel)]="field.Value" required="{{field?.Required}}" [class.invalid]="isFieldInvalid(field)" [disabled]="locked" id="{{getId(field)}}">
+						<p *ngIf="display">{{field.Value}}</p>
+					</div>
+
+					<!--numeric-->
+					<div *ngSwitchCase="fieldType.Numeric" class="{{field.Params && field.Params.Width ? 'col-lg-' + field.Params.Width : 'col-lg-4'}}">
+						<label>{{field.Name}} {{(field?.Required && !display) ? '*' : ''}}<i class="fa fa-question-circle" *ngIf="field.HelpText" (click)="helpText[field.Name] = !helpText[field.Name]"></i></label>
+						<div class="help-text" *ngIf="helpText[field.Name]" [@slideInOut]="helpText[field.Name]"><p [@slideInOutChild]="helpText[field.Name]">{{field.HelpText}}</p></div>
+						<input type="number" *ngIf="!display" class="form-control" [(ngModel)]="field.Value" required="{{field?.Required}}" [class.invalid]="isFieldInvalid(field)" [disabled]="locked" id="{{getId(field)}}">
+						<p *ngIf="display">{{field.Value}}</p>
+					</div>
+
+					<!--email-->
+					<div *ngSwitchCase="fieldType.Email" class="{{field.Params && field.Params.Width ? 'col-lg-' + field.Params.Width : 'col-lg-4'}}">
+						<label>{{field.Name}} {{(field?.Required && !display) ? '*' : ''}}<i class="fa fa-question-circle" *ngIf="field.HelpText" (click)="helpText[field.Name] = !helpText[field.Name]"></i></label>
+						<div class="help-text" *ngIf="helpText[field.Name]" [@slideInOut]="helpText[field.Name]"><p [@slideInOutChild]="helpText[field.Name]">{{field.HelpText}}</p></div>
+						<input *ngIf="!display" class="form-control" [(ngModel)]="field.Value" required="{{field?.Required}}" [class.invalid]="isFieldInvalid(field)" [disabled]="locked">
+						<p *ngIf="display">{{field.Value}}</p>
+					</div>
+
+					<!--TextArea-->
+					<div *ngSwitchCase="fieldType.TextArea" class="{{field.Params && field.Params.Width ? 'col-lg-' + field.Params.Width : 'col-lg-12'}}">
+						<label>{{field.Name}} {{(field?.Required && !display) ? '*' : ''}}<i class="fa fa-question-circle" *ngIf="field.HelpText" (click)="helpText[field.Name] = !helpText[field.Name]"></i></label>
+						<div class="help-text" *ngIf="helpText[field.Name]" [@slideInOut]="helpText[field.Name]"><p [@slideInOutChild]="helpText[field.Name]">{{field.HelpText}}</p></div>
+						<div *ngIf="!display" [class.disabled]="locked" class="text-area" id="text-area" [attr.contenteditable]="!locked" [textContent]="field.Value" (keyup)="field.Value=$event.target.innerText" [class.invalid]="isFieldInvalid(field)">{{field.Value}}</div>
+						<p *ngIf="display">{{field.Value}}</p>
+					</div>
+
+					<!--RichText-->
+					<div *ngSwitchCase="fieldType.RichText" class="{{field.Params && field.Params.Width ? 'col-lg-' + field.Params.Width : 'col-lg-12'}}">
+						<label>{{field.Name}} {{(field?.Required && !display) ? '*' : ''}}<i class="fa fa-question-circle" *ngIf="field.HelpText" (click)="helpText[field.Name] = !helpText[field.Name]"></i></label>
+						<div class="help-text" *ngIf="helpText[field.Name]" [@slideInOut]="helpText[field.Name]"><p [@slideInOutChild]="helpText[field.Name]">{{field.HelpText}}</p></div>
+						<quill [(ngModel)]="field.Value" [(readOnly)]="display" [theme]="display ? 'bubble' : 'snow'" ngDefaultControl></quill>
+						<!--<p *ngIf="display">{{field.Value}}</p>-->
+					</div>
+
+					<!--Date-->
+					<div *ngSwitchCase="fieldType.Date" class="{{field.Params && field.Params.Width ? 'col-lg-' + field.Params.Width : 'col-lg-4'}}">
+						<label>{{field.Name}} {{(field?.Required && !display) ? '*' : ''}}<i class="fa fa-question-circle" *ngIf="field.HelpText" (click)="helpText[field.Name] = !helpText[field.Name]"></i></label>
+						<div class="help-text" *ngIf="helpText[field.Name]" [@slideInOut]="helpText[field.Name]"><p [@slideInOutChild]="helpText[field.Name]">{{field.HelpText}}</p></div>
+
+						<div>
+							<ct-date-picker *ngIf="!display" [(date)]="field.Value" (dateChange)="callChanged($event, field);">
+								<input #date class="form-control" [class.invalid]="isFieldInvalid(field)" id="{{getId(field)}}"/>
+							</ct-date-picker>
+						</div>
+
+						<!--<ct-datepicker *ngIf="!display" [(date)]="field.Value" [inputClass]="{'form-control': true, 'invalid': isFieldInvalid(field)}" [ctDisabled]="locked"></ct-datepicker>-->
+						<!--<input *ngIf="!display" class="form-control" type="date" [(ngModel)]="field.Value" [class.invalid]="isFieldInvalid(field)" [disabled]="locked">-->
+						<p *ngIf="display">{{formatDate(field.Value)}}</p>
+					</div>
+
+					<!--Dual-Date-->
+					<div *ngSwitchCase="fieldType.DualDate" class="{{field.Params && field.Params.Width ? 'col-lg-' + field.Params.Width : 'col-lg-8'}}">
+						<label>{{field.Name}} {{(field?.Required && !display) ? '*' : ''}}<i class="fa fa-question-circle" *ngIf="field.HelpText" (click)="helpText[field.Name] = !helpText[field.Name]"></i></label>
+						<div class="help-text" *ngIf="helpText[field.Name]" [@slideInOut]="helpText[field.Name]"><p [@slideInOutChild]="helpText[field.Name]">{{field.HelpText}}</p></div>
+						<div>
+							<ct-dual-picker *ngIf="!display" [(dateTo)]="field.Value.To" [(dateFrom)]="field.Value.From"id="{{getId(field)}}" >
+									<input class="form-control dual-date" [class.invalid]="isFieldInvalid(field)" #dateFrom id="{{getId(field)}}-From"/>
+									<input class="form-control dual-date" [class.invalid]="isFieldInvalid(field)" #dateTo id="{{getId(field)}}-To"/>
+							</ct-dual-picker>
+						</div>
+						<!--<ct-datepicker *ngIf="!display" [(date)]="field.Value" [inputClass]="{'form-control': true, 'invalid': isFieldInvalid(field)}" [ctDisabled]="locked"></ct-datepicker>-->
+						<!--<input *ngIf="!display" class="form-control" type="date" [(ngModel)]="field.Value" [class.invalid]="isFieldInvalid(field)" [disabled]="locked">-->
+						<p *ngIf="display">{{formatDate(field.Value.To)}} - {{formatDate(field.Value.From)}}</p>
+					</div>
+
+					<!--Options-->
+					<div *ngSwitchCase="fieldType.Options" class="{{field.Params && field.Params.Width ? 'col-lg-' + field.Params.Width : 'col-lg-4'}}">
+						<label>{{field.Name}} {{(field?.Required && !display) ? '*' : ''}}<i class="fa fa-question-circle" *ngIf="field.HelpText" (click)="helpText[field.Name] = !helpText[field.Name]"></i></label>
+						<div class="help-text" *ngIf="helpText[field.Name]" [@slideInOut]="helpText[field.Name]"><p [@slideInOutChild]="helpText[field.Name]">{{field.HelpText}}</p></div>
+						<search-options [(ngModel)]="field.Value" [options]="field.Params?.OptionsArray | where: field.Params?.whereFunc" [required]="field?.Required" (onChange)="callChanged($event, field);" [readOnly]="display" [disabled]="locked || field.Params?.Disabled || disableCallback(field)" [inputId]="getId(field)"></search-options>
+						<!--<select class="form-control" [(ngModel)]="field.Value" required="{{field?.Required}}" (change)="callChanged($event.target.value, field);" [class.invalid]="isFieldInvalid(field)">
+							<option *ngFor="let option of field.Params?.OptionsArray" value="{{option.Value}}">{{option.Name}}</option>
+						</select>-->
+					</div>
+
+					<!--Checklist-->
+					<div *ngSwitchCase="fieldType.Checklist" class="{{field.Params && field.Params.Width ? 'col-lg-' + field.Params.Width : 'col-lg-4'}}">
+						<label>{{field.Name}} {{(field?.Required && !display) ? '*' : ''}}<i class="fa fa-question-circle" *ngIf="field.HelpText" (click)="helpText[field.Name] = !helpText[field.Name]"></i></label>
+						<div class="help-text" *ngIf="helpText[field.Name]" [@slideInOut]="helpText[field.Name]">
+							<p [@slideInOutChild]="helpText[field.Name]">{{field.HelpText}}</p>
+						</div>
+						<check-list [options]="field.Params?.OptionsArray" [values]="field.Value" (onChecked)="optionChecked(field, $event);" [required]="field?.Required" [disabled]="locked || display || field.Params?.Disabled ||
+						disableCallback(field)"></check-list>
+					</div>
+
+					<!--Checkbox-->
+					<div *ngSwitchCase="fieldType.Checkbox" class="{{field.Params && field.Params.Width ? 'col-lg-' + field.Params.Width : 'col-lg-2'}} checkbox-padding {{field.Params?.Style}}">
+						<md-checkbox [(ngModel)]="field.Value" [checked]="field.Value" (onChecked)="optionChecked(field, $event);" [disabled]="locked || display" id="{{getId(field)}}">{{field.Name}}</md-checkbox>
+					</div>
+
+					<!--Slider-->
+					<!--<div *ngSwitchCase="fieldType.Slider" class="{{field.Params && field.Params.Width ? 'col-lg-' + field.Params.Width : 'col-lg-2'}} {{field.Params?.Style}}">
+						<toggle-slider [(ngModel)]="field.Value" [disabled]="locked || display">{{field.Name}}</toggle-slider>
+					</div>-->
+
+					<!--Button-->
+					<div *ngSwitchCase="fieldType.Button" class="{{field.Params && field.Params.Width ? 'col-lg-' + field.Params.Width : 'col-lg-2'}}">
+						<button *ngIf="!disableCallback(field)" type="button" (click)="callChanged($event.target.value, field);" class="generic-button {{field.Params?.Style}}" [class.disabled-btn]="locked || field.Params?.Disabled" [disabled]="locked || field.Params?.Disabled">
+							<i class="{{field.Params.Icon}}"></i> {{field.Value}}</button>
+					</div>
+
+					<!--Link-->
+					<div *ngSwitchCase="fieldType.Link" class="{{field.Params && field.Params.Width ? 'col-lg-' + field.Params.Width : 'col-lg-6'}}">
+						<label>{{field.Name}} <i class="fa fa-question-circle" *ngIf="field.HelpText" (click)="helpText[field.Name] = !helpText[field.Name]"></i></label>
+						<div class="help-text" *ngIf="helpText[field.Name]" [@slideInOut]="helpText[field.Name]"><p [@slideInOutChild]="helpText[field.Name]">{{field.HelpText}}</p></div>
+						<div><a *ngIf="display" href="{{field.Value}}">{{field.Value}}</a></div>
+						<input *ngIf="!display" class="form-control" [(ngModel)]="field.Value" required="{{field?.Required}}" [class.invalid]="isFieldInvalid(field)" [disabled]="locked">
+					</div>
+
+					<!--Edit-List-->
+					<div *ngSwitchCase="fieldType.List" class="{{field.Params && field.Params.Width ? 'col-lg-' + field.Params.Width : 'col-lg-12'}}">
+						<label *ngIf="field.Name !== ''">{{field.Name}} <i class="fa fa-question-circle" *ngIf="field.HelpText" (click)="helpText[field.Name] = !helpText[field.Name]"></i></label>
+						<div class="help-text" *ngIf="helpText[field.Name]" [@slideInOut]="helpText[field.Name]">
+							<p [@slideInOutChild]="helpText[field.Name]">{{field.HelpText}}</p>
+						</div>
+						<edit-list [forms]="field.Value" (onAdd)="listOnAdd(field)" [emptyMessage]="field?.Params?.ListParams?.EmptyMessage" [locked]="field?.Params?.Disabled" [addText]="field?.Params?.ListParams?.AddText"></edit-list>
+					</div>
+
+					<!--Component-->
+					<div *ngSwitchCase="fieldType.Component" class="{{field.Params && field.Params.Width ? 'col-lg-' + field.Params.Width : 'col-lg-12'}}">
+						<label *ngIf="field.Name !== ''">{{field.Name}} <i class="fa fa-question-circle" *ngIf="field.HelpText" (click)="helpText[field.Name] = !helpText[field.Name]"></i></label>
+						<dynamic-component [componentData]="field.Value"></dynamic-component>
+					</div>
+
+					<!--DocketSearch-->
+					<!--<div *ngSwitchCase="fieldType.DocketSearch" class="{{field.Params && field.Params.Width ? 'col-lg-' + field.Params.Width : 'col-lg-12'}}">
+						<label *ngIf="field.Name !== ''">{{field.Name}} <i class="fa fa-question-circle" *ngIf="field.HelpText" (click)="helpText[field.Name] = !helpText[field.Name]"></i></label>
+						<div class="help-text" *ngIf="helpText[field.Name]" [@slideInOut]="helpText[field.Name]"><p [@slideInOutChild]="helpText[field.Name]">{{field.HelpText}}</p></div>
+						<docket-search [dockets]="field.Value" [editing]="!locked && !display" (dataCall)="callDataCall($event, field);" (onChange)="field.Value = $event; callChanged($event, field);" [inputId]="getId(field)"></docket-search>
+					</div>-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="mar-top-sm">
+		<button *ngIf="!locked && showButtons(form)" class="btn add-item" (click)="save();" type="button" id="save-button" [disabled]="isFormInvalid()">Save</button>
+		<button *ngIf="showButtons(form)" type="button" (click)="cancel();" class="cancel"><i class="fa fa-times"></i> Cancel</button>
+		<button type="button" *ngIf="newForm.Util && newForm.Id !== 0 && !locked" (click)="util();" class="util" [disabled]="locked">{{newForm.UtilText}}</button>
+	</div>
+</div>

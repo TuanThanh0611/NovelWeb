@@ -1,0 +1,26 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div *ngFor="let header of headers" class="header" [style.width]="calcHeaderWidth()"><label>{{header}}</label></div>
+	</div>
+</div>
+
+<div *ngIf="emptyMessage && forms | isEmpty" class="empty-message">{{emptyMessage}}</div>
+<div [class.form-list]="listHeight" [style.max-height]="getHeight()" id="form-list">
+	<div *ngFor="let form of forms">
+		<div *ngIf="!editing[form.Id]" class="field-row" (click)="edit(form);">
+			<div *ngFor="let field of form.Fields | groupByFields" class="field" [style.width]="calcFieldWidth()">
+				<div [ngSwitch]="field.Type" [class.text-center]="field.Type === fieldType.Button">
+					<p *ngSwitchCase="fieldType.Email"><a href="mailto:{{field.Value}}" (click)="$event.stopPropagation();"><i class="fa fa-envelope"></i></a></p>
+					<button *ngSwitchCase="fieldType.Button" type="button" (click)="callChanged($event, form, field);" title="{{field.Params?.AltText}}" class="generic-button {{field.Params?.Style}}"><i class="{{field.Params.Icon}}" [class.btn-icon]="field.Value"></i>{{field.Value}}</button>
+					<p *ngSwitchDefault>
+						<i *ngIf="field.Params && field.Params.Icon && field.Value" class="{{field.Params.Icon}}"></i> {{getValue(field) || '-'}}
+					</p>
+				</div>
+			</div>
+		</div>
+		<div *ngIf="editing[form.Id]">
+			<edit-form [form]="form" (onCancel)="cancelItem($event)" (onSave)="saveItem($event)" [locked]="locked"></edit-form>
+		</div>
+	</div>
+</div>
+<button class="btn add-item padding-top-lg" (click)="addItem()" type="button" [disabled]="disableAdd()" *ngIf="!locked && displayAdd" id="{{addId}}">{{addText ? addText : 'Add Item'}}</button>

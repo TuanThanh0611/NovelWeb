@@ -2,12 +2,13 @@ package com.ivo.novel_web_backend.entity;
 
 
 import jakarta.persistence.*;
+import lombok.Data;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-
+@Data
 @Entity
 @Table(name = "novel")
 public class Novel {
@@ -22,7 +23,7 @@ public class Novel {
     @Column(name = "public_id", nullable = false)
     private UUID publicId;
 
-    @Column(name = "title")
+    @Column(name = "title",nullable = false, unique = true)
     private String title;
 
     @Column(name="auth_name")
@@ -53,5 +54,6 @@ public class Novel {
 
 
 
-    @OneToOne(mappedBy = "novel", cascade = CascadeType.ALL, orphanRemoval = true)
-    private NovelPicture novelPicture;}
+    @Column(name = "name_of_picture")
+    private String nameofpicture;
+}

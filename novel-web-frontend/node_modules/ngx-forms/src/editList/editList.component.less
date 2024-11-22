@@ -1,0 +1,75 @@
+// Grays
+@gray-darker: #222222;
+@gray-dark: #58595b;
+@gray: #6d6e71;
+@gray-light: #a8a6ae;
+@gray-lighter: #bcbec0;
+
+// Brand Colors
+@brand-primary: #0797a7;
+@brand-success: #1fa260;
+@brand-warning: #e27a3e;
+@brand-danger: #602524;
+@brand-info: #0078a4;
+@brand-action: #E95E51;
+@brand-accent: #EAF0F3;
+
+
+.header {
+	display: inline-block;
+	label {
+		margin: 14px;
+		margin-bottom: 0;
+	}
+}
+
+.field-row {
+
+	border-bottom: 1px solid lighten(@gray-lighter, 10%);
+	background-color: white;
+	p {
+		margin: 14px;
+	}
+
+	&:hover {
+		background-color: @brand-accent;
+		cursor: pointer;
+	}
+}
+
+.field {
+	display: inline-block;
+}
+
+.add-item {
+	background-color: transparent;
+	border: none;
+	color: @brand-action;
+	font-size: 18px;
+}
+
+.empty-message {
+	padding-left: 12px;
+	color: @gray-light;
+}
+
+.generic-button{
+	background-color: transparent;
+	border: none;
+	font-size: 14px;
+	color: @brand-primary;
+	padding: 8px;
+
+	i{
+		font-size: 18px;
+	}
+}
+
+.btn-icon {
+	padding-right: 5px;
+}
+
+.form-list {
+	overflow-y: auto;
+	overflow-x: hidden;
+}

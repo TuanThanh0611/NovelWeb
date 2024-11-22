@@ -16,7 +16,6 @@ export interface BaseNovel {
   author: string;
   description: string;
   genres:NovelGenre[];
-  picture: NovelPicture|null;
 }
 
 export interface Novel extends BaseNovel {

@@ -1,0 +1,11 @@
+<div class="search-options" *ngIf="!readOnly">
+	<input class="form-control search" [(ngModel)]="search" [class.invalid]="isInvalid()" (click)="openDropdown()" (keyup)="eventHandler($event.keyCode)"
+		[disabled]="disabled" placeholder="{{placeholder}}" id="{{inputId}}">
+	<i class="pull-right caret" (click)="openDropdown()" *ngIf="!disabled"></i>
+	<div class="dropdown" *ngIf="toggled">
+		<button class="option" *ngFor="let option of options | where: searchMatch.bind(this); let i = index" id="select-{{i}}" (click)="set(option[valueField]); $event.stopPropagation();">{{option[displayField]}}</button>
+	</div>
+</div>
+<div *ngIf="readOnly">
+	<p>{{search}}</p>
+</div>

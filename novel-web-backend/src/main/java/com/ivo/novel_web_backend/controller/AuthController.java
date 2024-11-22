@@ -100,7 +100,7 @@ public class AuthController {
 
 
 
-    @GetMapping("/getauthenticateduser")
+    @GetMapping("/get-authenticated-user")
     public ResponseEntity<UserDTO> getAuthenticatedUser(@AuthenticationPrincipal Jwt jwtToken) {
         try {
 

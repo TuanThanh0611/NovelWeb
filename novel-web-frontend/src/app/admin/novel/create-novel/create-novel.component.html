@@ -1,111 +1,63 @@
-<div class="grid grid-cols-3">
-  <div></div>
-  <form id="createForm" (ngSubmit)="create()" [formGroup]="createForm">
-    <h1 class="text-lg font-bold">Create a New Novel:)</h1>
+<div class="container">
+  <form id="createForm" (ngSubmit)="create()" [formGroup]="createForm" class="form-container">
+    <h1 class="text-3xl font-bold mb-6 text-center">Create a New Novel</h1>
 
     <!-- Title -->
-    <label class="form-control w-full">
-      <div class="label">
-        <span class="label-text">Title</span>
-      </div>
-      <input type="text" placeholder="Type title here"
-             class="input input-bordered w-full" formControlName="title"
+    <div class="form-group">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" id="title" placeholder="Type title here"
+             class="form-input" formControlName="title"
              [class.input-error]="title.invalid && !title.untouched" />
-      <div class="label">
-        <span class="label-text-alt text-red-600"
-              *ngxControlError="title; track:'required'">
-          Title is required
-        </span>
+      <div *ngxControlError="title; track:'required'" class="error-text">
+        Title is required
       </div>
-    </label>
-
-    <!-- Author -->
-    <label class="form-control w-full">
-      <div class="label">
-        <span class="label-text">Author</span>
-      </div>
-      <input type="text" placeholder="Type author here"
-             class="input input-bordered w-full" formControlName="author"
-             [class.input-error]="author.invalid && !author.untouched" />
-      <div class="label">
-        <span class="label-text-alt text-red-600"
-              *ngxControlError="author; track:'required'">
-          Author is required
-        </span>
-      </div>
-    </label>
-
-
-    <!-- Multiple Genres Selection -->
-    <label class="form-control w-full">
-      <div class="label">
-        <span class="label-text">Genres</span>
-      </div>
-      <select class="select select-bordered w-full" formControlName="genres" multiple>
-        <option disabled>Select genres</option>
-
-        <!-- Kiểm tra trạng thái thành công và danh sách có dữ liệu -->
-        <ng-container *ngIf="genresQuery.isSuccess() && genresQuery.data()?.length !== 0">
-          <option *ngFor="let genre of genresQuery.data(); trackBy: trackByPublicId"
-                  [value]="genre.publicId + '+' + genre.name">
-            {{ genre.name || 'Unknown genre' }}
-          </option>
-        </ng-container>
-      </select>
-      <div class="label"></div>
-    </label>
-
-    <!-- Description -->
-    <label class="form-control w-full">
-      <div class="label">
-        <span class="label-text">Description</span>
-      </div>
-      <textarea placeholder="Type description here"
-                class="textarea textarea-bordered w-full" formControlName="description"
-                [class.input-error]="description.invalid && !description.untouched"> </textarea>
-      <div class="label">
-        <span class="label-text-alt text-red-600"
-              *ngxControlError="description; track:'required'">
-          Description is required
-        </span>
-      </div>
-    </label>
-
-    <!-- Pictures -->
-    <label class="form-control w-full">
-      <div class="label">
-        <span class="label-text">Pictures</span>
-      </div>
-      <input type="file"
-             class="file-input w-full" formControlName="pictures"
-             (change)="onUploadNewPicture($event.target)"
-             [class.input-error]="picture.invalid && !picture.untouched" />
-      <div class="label">
-        <span class="label-text-alt text-red-600"
-              *ngxControlError="picture; track:'required'">
-          At least one picture is required
-        </span>
-      </div>
-    </label>
-
-    <!-- Featured -->
-    <div class="form-control w-full">
-      <label class="label cursor-pointer">
-        <span class="label-text">Featured</span>
-      </label>
-      <div class="flex justify-center">
-        <input type="checkbox" checked="checked" class="checkbox checkbox-primary"
-               formControlName="featured">
-      </div>
-      <div class="label"></div>
     </div>
 
+    <!-- Author -->
+    <div class="form-group">
+      <label for="author" class="form-label">Author</label>
+      <input type="text" id="author" placeholder="Type author here"
+             class="form-input" formControlName="author"
+             [class.input-error]="author.invalid && !author.untouched" />
+      <div *ngxControlError="author; track:'required'" class="error-text">
+        Author is required
+      </div>
+    </div>
+
+    <!-- Genres -->
+    <div class="form-group">
+      <label class="form-label">Genres</label>
+      <div class="checkbox-container">
+        <ng-container *ngIf="genresQuery.isSuccess() && genresQuery.data()?.length !== 0">
+          <div *ngFor="let genre of genresQuery.data(); trackBy: trackByPublicId" class="checkbox-item">
+            <input type="checkbox" [id]="genre.publicId"
+                   [value]="genre.publicId" (change)="onGenreChange($event)" />
+            <label [for]="genre.publicId">{{ genre.name || 'Unknown genre' }}</label>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="form-group">
+      <label for="description" class="form-label">Description</label>
+      <textarea id="description" placeholder="Type description here"
+                class="form-input textarea" formControlName="description"
+                [class.input-error]="description.invalid && !description.untouched"></textarea>
+      <div *ngxControlError="description; track:'required'" class="error-text">
+        Description is required
+      </div>
+    </div>
+
+    <!-- Pictures -->
+    <input type="file" id="pictures" class="form-input" formControlName="nameofpicture"
+           (change)="onUploadNewPicture($event)"
+           />
+
     <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary btn-wide w-full"
-            [disabled]="createForm.invalid || loading">
-      <span *ngIf="loading" class="loading-spinner loading"></span>
+    <button type="submit" class="btn btn-primary w-full" [disabled]="createForm.invalid || loading">
+      <span *ngIf="loading" class="loading-spinner"></span>
       Create Novel
     </button>
   </form>
-  <div></div>
 </div>

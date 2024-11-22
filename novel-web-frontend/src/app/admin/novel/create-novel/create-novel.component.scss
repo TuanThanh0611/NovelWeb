@@ -1,110 +1,112 @@
-/* Center the content horizontally and vertically using grid */
-.grid {
-  display: grid;
-  grid-template-columns: 1fr; /* Single column on small screens */
-  gap: 1.5rem;
-  height: 100vh; /* Full screen height */
-  align-items: center;
-  justify-items: center;
-
-  @media (min-width: 768px) {
-    grid-template-columns: 1fr 3fr 1fr; /* Center form with space on both sides on medium and larger screens */
-  }
+// Container and Form
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-/* Style for the form card */
-.card {
-  background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.form-container {
+  background-color: #f9f9f9;
   border-radius: 8px;
-  padding: 2rem;
-  width: 100%;
-  max-width: 600px;
-  border: 1px solid #eaeaea;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Form input field styling */
-.input {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 0.75rem;
+h1 {
+  color: #333;
+}
+
+// Form Group
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
   font-size: 1rem;
-  transition: border-color 0.3s ease-in-out;
-  width: 100%;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
 }
 
-.input:focus {
-  border-color: #007bff;
+.form-input,
+.textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-input:focus,
+.textarea:focus {
+  border-color: #4C9EEB;
   outline: none;
 }
 
 .input-error {
-  border-color: #f44336;
+  border-color: #e74c3c;
 }
 
-/* Button styling */
-.btn {
-  background-color: #007bff;
-  color: white;
-  padding: 1rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 4px;
+.error-text {
+  color: #e74c3c;
+  font-size: 0.875rem;
+  margin-top: 5px;
+}
+
+// Checkbox container
+.checkbox-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox {
   cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+// Button Styling
+.btn {
+  padding: 12px 20px;
+  background-color: #4C9EEB;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
   transition: background-color 0.3s ease;
-  width: 100%;
 }
 
 .btn:hover {
-  background-color: #0056b3;
+  background-color: #3a83c5;
 }
 
 .btn:disabled {
-  background-color: #d1d1d1;
+  background-color: #aaa;
   cursor: not-allowed;
 }
 
-.loading {
-  color: white;
-  font-size: 1rem;
+.loading-spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 4px solid #fff;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
 }
 
-/* Responsive styling for smaller screens */
-@media (max-width: 768px) {
-  .card {
-    width: 100%; /* Full width on small screens */
-  }
-}
-
-/* Error message for form input */
-.label-text-alt {
-  font-size: 0.875rem;
-  color: #f44336;
-  margin-top: 0.5rem;
-}
-
-/* Heading styling */
-h1 {
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: #333;
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-/* Select input with multiple options styling */
-select[multiple] {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 0.75rem;
-  width: 100%;
-  height: auto;
-  min-height: 150px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease-in-out;
-}
-
-select[multiple]:focus {
-  border-color: #007bff;
-  outline: none;
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

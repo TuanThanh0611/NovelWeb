@@ -1,0 +1,140 @@
+// Grays
+@gray-darker: #222222;
+@gray-dark: #58595b;
+@gray: #6d6e71;
+@gray-light: #a8a6ae;
+@gray-lighter: #bcbec0;
+
+// Brand Colors
+@brand-primary: #0797a7;
+@brand-success: #1fa260;
+@brand-warning: #e27a3e;
+@brand-danger: #602524;
+@brand-info: #0078a4;
+@brand-action: #E95E51;
+@brand-accent: #EAF0F3;
+
+.edit-container{
+	background-color: @brand-accent;
+	padding: 10px;
+
+	textarea {
+		resize: vertical;
+	}
+}
+
+// .required {
+// 	display: inline-block;
+// }
+
+// .required:after{
+// 	content: '*';
+//     display: inline-block;
+//     font-size: x-large;
+//     position: absolute;
+//     padding-left: 6px;
+//     top: 28px;
+//     left: calc(~'100% - 62px');
+// 	color: @brand-action;
+// }
+
+.dropdown-style {
+	background-color: white;
+}
+
+.dual-date {
+	width: calc(~'50% - 2px');
+	display: inline-block;
+}
+
+.add-item {
+	color: white;
+	background-color: @brand-action;
+}
+
+.cancel{
+	background: transparent;
+	border: none;
+	font-size: 16px;
+}
+
+.util{
+	background: transparent;
+	border: none;
+	font-size: 16px;
+	float: right;
+}
+
+.help-text{
+	border-left: 3px solid @brand-primary;
+	background-color: darken(@brand-accent, 5%);
+	padding: 8px 4px;
+	margin: 4px;
+	overflow: hidden;
+}
+
+.field-input > div {
+	margin-bottom: 12px;
+}
+
+.dropdown-menu {
+	width: 100%;
+}
+
+.header {
+	color: @brand-primary;
+	border-bottom: 1px solid lighten(@gray-lighter, 10%);
+    padding-bottom: 5px;
+}
+
+.option {
+	display: block;
+}
+
+.fa-question-circle {
+	color: @brand-info;
+
+	&:hover {
+		cursor: pointer;
+		color: darken(@brand-info, 10%);
+	}
+}
+
+.invalid {
+  border: 1px solid lighten(@brand-action, 20%);
+  border-left: 5px solid @brand-action;
+}
+
+.checkbox-padding {
+	padding-top: 29px;
+}
+
+.text-area{
+	border: 1px solid #27aae1;
+	width: 100%;
+	min-height: 100px;
+	background-color: white;
+	border-radius: 3px;
+	padding: 10px;
+}
+
+.generic-button{
+	background-color: transparent;
+	border: none;
+	font-size: 14px;
+	color: @brand-primary;
+	padding: 8px;
+
+	i {
+		padding-right: 5px;
+		font-size: 18px;
+	}
+}
+
+.disabled-btn {
+	cursor: not-allowed;
+}
+
+.disabled {
+	background-color: @gray-lighter;
+}

@@ -17,10 +17,10 @@ import {
   setClassMetadata,
   ɵɵdefineDirective
 } from "./chunk-FVXSQMDE.js";
+import "./chunk-5OPE3T2R.js";
 import {
   fromEvent
 } from "./chunk-4N4GOYJH.js";
-import "./chunk-5OPE3T2R.js";
 import {
   ReplaySubject,
   Subject,

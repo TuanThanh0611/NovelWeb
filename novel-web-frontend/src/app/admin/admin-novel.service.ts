@@ -41,9 +41,8 @@ export class AdminNovelService {
 
     // Gửi yêu cầu HTTP POST với headers và formData
     return this.http.post<Novel>(
-      `http://localhost:8080/api/novel`,
-      formData,
-      { headers }
+      `http://localhost:8080/api/author/create-novel`,
+      formData
     );
   }
 
@@ -61,10 +60,15 @@ export class AdminNovelService {
     return this.http.get<any[]>(`http://localhost:8080/api/novel`,{ headers });
   }
 
-  uploadPicture(formData: FormData): Observable<any> {
-    const url = `http://localhost:8080/upload`;  // Địa chỉ endpoint upload ảnh
-    const headers = new HttpHeaders();  // Nếu cần, bạn có thể thêm header tùy chọn
+  uploadPicture(formData: FormData): Observable<{ fileName: string }> {
+    const url = `http://localhost:8080/api/author/upload-picture`; // Endpoint upload ảnh
+    const token = localStorage.getItem('authToken');  // Lấy token từ localStorage nếu cần
 
-    return this.http.post<any>(url, formData, { headers });
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`);  // Thêm Authorization header nếu cần
+
+    // Gửi FormData chứa tệp ảnh lên backend
+    return this.http.post<{ fileName: string }>(url, formData, { headers });
   }
+
 }

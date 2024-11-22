@@ -1,0 +1,8 @@
+<button class="toggle-slider" (click)="toggle()" [disabled]="disabled">
+	<div *ngIf="disabled" class="disabled"></div>
+	<div class="slider" [@stateChanged]="animState">
+		<span class="true-box">{{trueText}}</span>
+		<span class="slider-box"></span>
+		<span class="false-box">{{falseText}}</span>
+	</div>
+</button>

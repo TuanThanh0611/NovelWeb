@@ -1,0 +1,86 @@
+// Grays
+@gray-darker: #222222;
+@gray-dark: #58595b;
+@gray: #6d6e71;
+@gray-light: #a8a6ae;
+@gray-lighter: #bcbec0;
+
+// Brand Colors
+@brand-primary: #0797a7;
+@brand-success: #1fa260;
+@brand-warning: #e27a3e;
+@brand-danger: #602524;
+@brand-info: #0078a4;
+@brand-action: #E95E51;
+@brand-accent: #EAF0F3;
+
+.slider {
+	position: relative;
+	width: 150%;
+}
+
+.toggle-slider {
+	display: inline-block;
+    cursor: pointer;
+    border-radius: 0;
+    border: 1px solid;
+    border-color: #333;
+    position: relative;
+    text-align: left;
+    overflow: hidden;
+    line-height: 8px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    vertical-align: middle;
+    min-width: 80px;
+	padding: 0px;
+}
+
+.true-box, .false-box, .slider-box {
+	cursor: pointer;
+    display: inline-block;
+    float: left;
+    height: 100%;
+    line-height: 20px;
+    padding: 4px;
+    text-align: center;
+    width: 33%;
+    white-space: nowrap;
+}
+
+.true-box {
+	color: #fff;
+    background: #1fa260;
+	min-height: 28px;
+}
+
+.false-box {
+	color: #000;
+    background: #bcbec0;
+	min-height: 28px;
+}
+
+.slider-box {
+	border-right: none;
+    border-left: none;
+    text-align: center;
+    margin-top: -1px;
+    margin-bottom: -1px;
+    z-index: 100;
+    background: #fff;
+	min-height: 28px;
+}
+
+.disabled {
+	position: absolute;
+	background-color: fade(@gray, 50%);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.disabled:hover {
+	cursor: not-allowed;
+}
