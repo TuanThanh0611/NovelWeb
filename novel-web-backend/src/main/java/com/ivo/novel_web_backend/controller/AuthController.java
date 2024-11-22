@@ -64,7 +64,7 @@ public class AuthController {
 
 
     @PostMapping("/token")
-    ApiResponse<IntrospectResponse> introspect(@RequestBody IntrospectRequest request) throws ParseException, JOSEException, ParseException, JOSEException {
+    ApiResponse<IntrospectResponse> introspect(@RequestBody IntrospectRequest request) throws ParseException, JOSEException {
         var result =authService.intropect(request);
         return ApiResponse.<IntrospectResponse>builder().
                 result(result)

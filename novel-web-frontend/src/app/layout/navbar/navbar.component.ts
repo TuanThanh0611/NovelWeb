@@ -90,8 +90,7 @@ export class NavbarComponent implements OnInit {
     this.showMenu = !this.showMenu;
   }
   logout(){
-    this.jwtService.deleteToken();
-    alert("Logout success");
+    this.authService.logout();
   }
 
   logintype(): void {

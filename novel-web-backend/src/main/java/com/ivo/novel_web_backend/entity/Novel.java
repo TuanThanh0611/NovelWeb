@@ -52,8 +52,4 @@ public class Novel {
     )
     private Set<Genre> genres = new HashSet<>();
 
-
-
-    @Column(name = "name_of_picture")
-    private String nameofpicture;
 }

@@ -37,9 +37,14 @@ export class JwtService {
       return null;
   }
 
-  introspect(introspectRequest:any):Observable<any>{
-    return this.http.post(`${BASE_URL}/api/auth/token`, introspectRequest)
+  introspect(introspectRequest: any): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${introspectRequest.token}` // Thêm Bearer Token vào header
+    });
+
+    return this.http.post(`${BASE_URL}/api/auth/token`, introspectRequest, { headers });
   }
+
 
   public isTokenValid(token: string): boolean {
     try {

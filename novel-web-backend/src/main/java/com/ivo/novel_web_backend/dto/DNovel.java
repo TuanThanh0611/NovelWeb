@@ -22,7 +22,5 @@ public class DNovel{
 
     String description;
 
-    String nameofpicture;
-
     List<Genre> genre;
 }

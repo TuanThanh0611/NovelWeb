@@ -27,8 +27,6 @@ public class NovelDTO {
     @JsonProperty("description")
     private String description;
 
-    @JsonProperty("nameofpicture")
-    private String nameofpicture;
 
     @JsonProperty("genre")
     private List<Genre> genre;

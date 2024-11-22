@@ -32,7 +32,7 @@ public class AuthorController {
     @Autowired
     NovelMapper novelMapper;
 
-    @PostMapping("/create-novel")
+    @PostMapping("create-novel")
     public ResponseEntity<ApiResponse<NovelDTO>> save(@RequestBody NovelDTO request) {
         ApiResponse<NovelDTO> apiResponse =new ApiResponse<>();
 

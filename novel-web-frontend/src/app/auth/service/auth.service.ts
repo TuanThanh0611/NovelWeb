@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import {firstValueFrom, Observable} from 'rxjs';
 import {JwtService} from './jwt.service';
+import {NavbarComponent} from '../../layout/navbar/navbar.component';
 const BASE_URL = "http://localhost:8080";
 @Injectable({
   providedIn: 'root'
@@ -33,12 +34,15 @@ export class AuthService {
   login(loginRequest: any): Observable<any> {
     return this.http.post(`${BASE_URL}/api/auth/login`, loginRequest)
   }
+  logout():void{
+    this.jwtService.deleteToken();
+    this.connectedUserQuery=undefined;
+    console.error('Logout Success');
+    alert("Logout Success");
+
+  }
   checkAuth(): boolean {
     const token = this.jwtService.getToken();
-    if (!token || !this.jwtService.isTokenValid(token)) {
-      return false;
-    }
-
     let isAuthenticated = false;
 
     this.jwtService.introspect({ token }).subscribe(

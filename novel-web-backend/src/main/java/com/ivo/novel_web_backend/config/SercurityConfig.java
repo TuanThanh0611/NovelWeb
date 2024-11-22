@@ -28,15 +28,13 @@ public class SercurityConfig {
 
     private final String[] PUBLIC_ENDPOINTS = {
             "/api/genres",
-            "api/auth/token",
-            "/api/author/create-novel",
+            "/api/author",
             "/test/firstname",
             "/users",
             "/api/auth/login",
-            "/auth/token",
+            "/api/auth/token",
             "/auth/introspect",
             "/api/auth/regis",
-            "/api/auth/test",
             "/api/auth/get-authenticated-user"
     };
 
@@ -49,11 +47,10 @@ public class SercurityConfig {
                 .authorizeHttpRequests(request ->
                         request
                                 .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
+                                .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
                                 .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS).permitAll()
-                                .requestMatchers(HttpMethod.POST, "/api/product").authenticated()
-                                .requestMatchers(HttpMethod.GET, "/api/product").authenticated()
                                 .requestMatchers(HttpMethod.DELETE, "/api/genres").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/api/author/create-novel").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/author/create-novel").authenticated()
                                 .requestMatchers(HttpMethod.POST, "/api/auth/update").authenticated()
                                 .requestMatchers(HttpMethod.POST, "/api/auth/updatepassword").authenticated()
                                 .anyRequest().authenticated()

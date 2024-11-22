@@ -5,6 +5,7 @@ import {FooterComponent} from './layout/footer/footer.component';
 import {CommonModule, isPlatformBrowser, NgClass} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {AuthService} from './auth/service/auth.service';
+import {JwtService} from './auth/service/jwt.service';
 
 @Component({
   standalone: true,
@@ -23,6 +24,7 @@ import {AuthService} from './auth/service/auth.service';
 export class AppComponent implements OnInit {
   showLayout = true;
 private authService=inject(AuthService);
+private jwtService=inject(JwtService);
 
 
   platformId = inject(PLATFORM_ID);
@@ -42,6 +44,18 @@ private authService=inject(AuthService);
         this.authService.initAuthentication();
       }
       this.authService.connectedUserQuery = this.authService.toQueryResult();
+      const introspectRequest = {
+        token: `${this.jwtService.getToken()}`  // Sử dụng backticks để thực hiện interpolation
+      };
+
+      this.jwtService.introspect(introspectRequest).subscribe(isValid => {
+        if (isValid) {
+          console.log('Token hợp lệ');
+        } else {
+          this.authService.logout()
+        }
+      });
+
 
   }
 
