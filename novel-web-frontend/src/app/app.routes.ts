@@ -13,6 +13,7 @@ import {AdminGenresComponent} from './admin/genre/admin-genres/admin-genres.comp
 
 import {CreateNovelComponent} from './admin/novel/create-novel/create-novel.component';
 import {AdminNovelsComponent} from './admin/novel/admin-novels/admin-novels.component';
+import {RoleGuard} from './auth/role-guard';
 
 
 export const routes: Routes = [
@@ -49,5 +50,6 @@ export const routes: Routes = [
     component: TestcardisplayComponent},
   { path: 'apply-author', component: AuthorRequestComponent },
   { path: 'author-page', component: AuthorPageComponent },
-  { path: 'admin-dashboard', component: AdminDashboardComponent }
+  { path: 'admin-dashboard', component: AdminDashboardComponent,
+    canActivate: [RoleGuard], }
 ];

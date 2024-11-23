@@ -26,7 +26,7 @@ export class CreateNovelComponent {
   public author = new FormControl<string>('', { validators: [Validators.required], nonNullable: true });
   public description = new FormControl<string>('', { validators: [Validators.required], nonNullable: true });
   public genres = this.formBuilder.array<NovelGenre>([], [Validators.required]);
-
+  public coverFile: File | null = null;
 
   public createForm = this.formBuilder.group({
     title: this.title,
@@ -45,7 +45,8 @@ export class CreateNovelComponent {
   }));
 
   public createMutation = injectMutation(() => ({
-    mutationFn: (novel: BaseNovel) => lastValueFrom(this.novelService.createNovel(novel)),
+    mutationFn: (data: { novel: BaseNovel; coverFile: File }) =>
+      lastValueFrom(this.novelService.createNovel(data.novel, data.coverFile)), // Gọi đúng phương thức với 2 tham số
     onSettled: () => (this.loading = false),
     onSuccess: () => {
       this.toastService.success('Novel created successfully!');
@@ -53,7 +54,6 @@ export class CreateNovelComponent {
     },
     onError: () => this.toastService.error('Failed to create the novel. Please try again.'),
   }));
-
   public onGenreChange(event: Event): void {
     const target = event.target as HTMLInputElement;
     const genresArray = this.createForm.get('genres') as FormArray;
@@ -71,20 +71,9 @@ export class CreateNovelComponent {
     if (!input || !input.files) {
       return;
     }
-
     const file = input.files[0];
     if (file) {
-      const formData = new FormData();
-      formData.append('file', file);
-
-      this.novelService.uploadPicture(formData).subscribe({
-        next: (response: { fileName: string | undefined }) => {
-          this.toastService.success('Picture uploaded successfully!');
-        },
-        error: () => {
-          this.toastService.error('Failed to upload picture.');
-        },
-      });
+      this.coverFile = file; // Lưu tệp ảnh
     }
   }
 
@@ -93,6 +82,10 @@ export class CreateNovelComponent {
   public create(): void {
     if (this.createForm.invalid) {
       this.toastService.error('Please fill out all required fields.');
+      return;
+    }
+    if (!this.coverFile) {
+      this.toastService.error('Please upload a cover picture.');
       return;
     }
 
@@ -104,7 +97,17 @@ export class CreateNovelComponent {
     };
 
     this.loading = true;
-    this.createMutation.mutate(novelToCreate);
+
+    this.novelService.createNovel(novelToCreate, this.coverFile).subscribe({
+      next: () => {
+        this.toastService.success('Novel created successfully!');
+        this.router.navigate(['/novels']);
+      },
+      error: () => {
+        this.loading = false;
+        this.toastService.error('Failed to create the novel. Please try again.');
+      },
+    });
   }
 
 

@@ -50,11 +50,17 @@
     </div>
 
     <!-- Pictures -->
-    <input type="file" id="pictures" class="form-input" formControlName="picture"
-           (change)="onUploadNewPicture($event)"
-           />
+    <div class="form-group">
+    <label for="coverFile" class="form-label">Cover Picture</label>
+    <input type="file" id="coverFile" class="form-input"
+           (change)="onUploadNewPicture($event)" />
+    <div *ngIf="!coverFile && createForm.invalid" class="error-text">
+      Please upload a cover picture.
+    </div>
+</div>
 
-    <!-- Submit Button -->
+
+<!-- Submit Button -->
     <button type="submit" class="btn btn-primary w-full" [disabled]="createForm.invalid || loading">
       <span *ngIf="loading" class="loading-spinner"></span>
       Create Novel

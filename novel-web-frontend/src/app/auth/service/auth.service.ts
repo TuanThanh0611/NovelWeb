@@ -26,7 +26,24 @@ export class AuthService {
     private jwtService:JwtService,
 
     @Inject(PLATFORM_ID) private platformId: Object
-  ) { }
+  ) {
+    const introspectRequest = {
+      token: `${this.jwtService.getToken()}`  // Sử dụng backticks để thực hiện interpolation
+    };
+    this.jwtService.introspect(introspectRequest).subscribe(isValid => {
+      if (isValid) {
+        console.log('Token hợp lệ');
+      } else {
+        this.connectedUserQuery=undefined;
+      }
+    });
+  }
+  hasAnyRoles(user: ConnectedUser, roles: Array<string> | string): boolean {
+    if (!Array.isArray(roles)) {
+      roles = [roles];
+    }
+    return user.roles ? user.roles.some((role) => roles.includes(role)) : false;
+  }
   register(registerRequest: any): Observable<any> {
     return this.http.post(`${BASE_URL}/api/auth/regis`, registerRequest);
   }

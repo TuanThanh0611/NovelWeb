@@ -36,13 +36,13 @@
         <details [open]="isUserMenuOpen" class="user-menu">
           <summary><i class="fas fa-user"></i></summary>
           <ul class="z-30">
-            <li>{{ userInfo?.username }}</li>
-            <li><a routerLink="profile"><i class="fas fa-user-circle"></i> Profile</a></li>
+           <div class ="usernamedecor"><li>{{ userInfo?.username }}</li></div>
+    <li><a routerLink="profile"><i class="fas fa-user-circle"></i> Profile</a></li>
             <li><a routerLink="settings"><i class="fas fa-cogs"></i> Settings</a></li>
             <li> <a (click)="navigateToAuthorPage()">
               <i class="fas fa-book-open"></i> Author
             </a></li>
-            <li><a routerLink="logout" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            <li><a  (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
 
           </ul>
         </details>

@@ -1,11 +1,12 @@
 import { inject, Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 
 
 import {List} from "postcss/lib/list";
 import {BaseNovel, Novel, NovelGenre} from './model/novel.model';
+import {catchError} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -34,17 +35,33 @@ export class AdminNovelService {
     );
   }
 
-  createNovel(novel: BaseNovel): Observable<Novel> {
+  createNovel(novel: BaseNovel, cover: File): Observable<Novel> {
     const formData = new FormData();
     const token = localStorage.getItem('authToken');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    // Gửi yêu cầu HTTP POST với headers và formData
+    formData.append('title', novel.title);
+    formData.append('author', novel.author);
+    formData.append('description', novel.description);
+    formData.append('genres', JSON.stringify(novel.genres || []));
+    if (cover) {
+      formData.append('cover', cover);
+    }
+    formData.forEach((value, key) => {
+      console.log(key, value);
+    });
+
     return this.http.post<Novel>(
       `http://localhost:8080/api/author/create-novel`,
-      formData
+      formData,
+      { headers: { 'Authorization': `Bearer ${token}` } }
+    ).pipe(
+      catchError((error) => {
+        console.error('Error during HTTP request:', error);
+        return throwError(error);
+      })
     );
   }
+
 
 
   deleteNovel(publicId: string): Observable<string> {
