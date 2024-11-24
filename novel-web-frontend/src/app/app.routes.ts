@@ -14,6 +14,7 @@ import {AdminGenresComponent} from './admin/genre/admin-genres/admin-genres.comp
 import {CreateNovelComponent} from './admin/novel/create-novel/create-novel.component';
 import {AdminNovelsComponent} from './admin/novel/admin-novels/admin-novels.component';
 import {RoleGuard} from './auth/role-guard';
+import {UploadFileComponent} from './admin/upload-file/upload-file.component';
 
 
 export const routes: Routes = [
@@ -40,6 +41,10 @@ export const routes: Routes = [
   {
     path: 'forgetpass',
     component: ForgetpassComponent
+  },
+  {
+    path: 'upfile',
+    component: UploadFileComponent
   },
   {
     path: 'regiswithemail',

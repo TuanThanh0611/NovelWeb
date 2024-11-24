@@ -51,5 +51,7 @@ public class Novel {
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
     private Set<Genre> genres = new HashSet<>();
+    @Column(name = "path_to_image")
+    private String pathToImage;
 
 }

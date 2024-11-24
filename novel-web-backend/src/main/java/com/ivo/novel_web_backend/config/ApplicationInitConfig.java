@@ -22,11 +22,11 @@ public class ApplicationInitConfig {
     @Bean
     ApplicationRunner applicationRunner(UserRepository userRepository){
         return args -> {
-            if(userRepository.findUsersByEmail("admin@gmail.com").isEmpty()){
+            if(userRepository.findUsersByEmail("adminw@gmail.com").isEmpty()){
                 var roles=new HashSet<String>();
                 roles.add(Role.ADMIN.name());
                 User user= User.builder()
-                        .email("admin@gmail.com")
+                        .email("adminw@gmail.com")
                         .password(passwordEncoder.encode("admin"))
                         .roles(roles)
                         .build();

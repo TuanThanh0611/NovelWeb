@@ -27,6 +27,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class SercurityConfig {
 
     private final String[] PUBLIC_ENDPOINTS = {
+            "/simple-form-upload-mvc",
             "/api/genres",
             "/api/author",
             "/test/firstname",
@@ -46,7 +47,9 @@ public class SercurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Cấu hình CORS
                 .authorizeHttpRequests(request ->
                         request
+                                .requestMatchers(HttpMethod.GET,"/images/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
+
                                 .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
                                 .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS).permitAll()
                                 .requestMatchers(HttpMethod.DELETE, "/api/genres").permitAll()
