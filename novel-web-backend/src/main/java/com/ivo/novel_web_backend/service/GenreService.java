@@ -3,6 +3,7 @@ package com.ivo.novel_web_backend.service;
 import com.ivo.novel_web_backend.Exception.AppException;
 import com.ivo.novel_web_backend.Exception.ErrorCode;
 import com.ivo.novel_web_backend.dto.DGenre;
+import com.ivo.novel_web_backend.dto.GenreDTO;
 import com.ivo.novel_web_backend.entity.Genre;
 import com.ivo.novel_web_backend.mapper.GenreMapper;
 import com.ivo.novel_web_backend.repository.GenreRepository;
@@ -20,9 +21,9 @@ public class GenreService {
     @Autowired
     private GenreMapper genreMapper;
     @Transactional
-    public DGenre createGenre(DGenre genre) {
+    public GenreDTO createGenre(GenreDTO genre) {
         genre.setPublicId(UUID.randomUUID());
-        genreRepository.save(genreMapper.DGenreToGenre(genre));
+        genreRepository.save(genreMapper.GenreDTOToGenre(genre));
         return genre;
     }
     @Transactional

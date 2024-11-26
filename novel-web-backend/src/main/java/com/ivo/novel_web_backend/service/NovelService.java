@@ -4,8 +4,11 @@ import com.ivo.novel_web_backend.Enums.Status;
 import com.ivo.novel_web_backend.Exception.AppException;
 import com.ivo.novel_web_backend.Exception.ErrorCode;
 import com.ivo.novel_web_backend.dto.DNovel;
+import com.ivo.novel_web_backend.dto.GenreDTO;
+import com.ivo.novel_web_backend.dto.NovelDTO;
 import com.ivo.novel_web_backend.entity.Genre;
 import com.ivo.novel_web_backend.entity.Novel;
+import com.ivo.novel_web_backend.mapper.GenreMapper;
 import com.ivo.novel_web_backend.mapper.NovelMapper;
 import com.ivo.novel_web_backend.repository.GenreRepository;
 import com.ivo.novel_web_backend.repository.NovelRepository;
@@ -22,6 +25,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class NovelService {
@@ -31,27 +35,55 @@ public class NovelService {
     GenreRepository genreRepository;
     @Autowired
     NovelMapper novelMapper;
+    @Autowired
+    GenreMapper genreMapper;
+    @Autowired
+    GenreService genreService;
     private static final String UPLOAD_DIR = "/path/to/upload/directory";
     @Transactional
-    public DNovel createNovel(DNovel dNovel) {
+    public NovelDTO createNovel(NovelDTO dNovel) {
+        if(dNovel.getGenres().get(0) == null){
+            throw new AppException(ErrorCode.CATCH_ERROR);
+        }
 
         if (dNovel.getPublicId() == null) {
             dNovel.setPublicId(UUID.randomUUID());
         }
 
-        Novel novelEntity = novelMapper.DNovelToNovel(dNovel);
+        List<GenreDTO> genres = dNovel.getGenres();
+
+        // Save genres before associating them with the novel
+        genres.forEach(genre -> {
+            if (!genreRepository.existsGenresByName(genre.getName())) {
+                genreService.createGenre(new GenreDTO(genre.getName()));
+            }
+        });
+
+        // Ensure that all genres are saved and then fetch them from the database
+        List<Genre> savedGenres = genres.stream()
+                .map(genre -> genreRepository.findByName(genre.getName()).orElse(null)) // Extract Genre from Optional
+                .filter(Objects::nonNull) // Make sure to exclude any null values
+                .collect(Collectors.toList());
+
+        // Chuyển từ NovelDTO sang Novel
+        Novel novelEntity = novelMapper.NovelDTOToNovel(dNovel);
+
         if (novelRepository.existsByTitle(novelEntity.getTitle())) {
             throw new RuntimeException("Title '" + novelEntity.getTitle() + "' is already taken!");
         }
+
+        Set<Genre> setGenres = new HashSet<>(savedGenres); // Ensure all genres are saved
+        novelEntity.setGenres(setGenres);
         novelEntity.setPublishedDate(LocalDate.now());
         novelEntity.setRanking(9999);
         novelEntity.setChapterNumber(0);
         novelRepository.save(novelEntity);
-//        if(novelEntity.getTitle()!=null){
-//            throw new AppException(ErrorCode.CATCH_ERROR);
-//        }
-        return novelMapper.NovelToDNovel(novelEntity);
-
+        NovelDTO novelDTO = novelMapper.NovelToNovelDTO(novelEntity);
+        novelDTO.setGenres(genreMapper.GenreSetToGenreDTOList(setGenres));
+        if(novelDTO.getGenres()==null){
+            System.out.println(novelDTO.getGenres().get(0).getName());
+        }
+        return novelMapper.NovelToNovelDTO(novelEntity);
     }
 
         @Transactional
@@ -71,50 +103,56 @@ public class NovelService {
     }
 
     @Transactional
-    public List<DNovel> getAllNovels() {
+    public List<NovelDTO> getAllNovels() {
         if(novelRepository.findAll().get(0).getId()==null){
             throw new AppException(ErrorCode.CATCH_ERROR);
         }
-        return novelMapper.NovelListToDNovelList(novelRepository.findAll());
+        return novelMapper.NovelListToNovelDTOList(novelRepository.findAll());
 
     }
     @Transactional
-    public UUID deleteNovel(UUID productId) {
-        novelRepository.deleteByPublicId(productId);
+    public UUID deleteNovel(UUID publicId) {
+        Novel novel = novelRepository.findByPublicId(publicId);
+        if (novel != null) {
+            // Xóa các quan hệ trong bảng novel_genre_mapping
+            novel.getGenres().clear(); // Xóa các quan hệ genre của novel
 
-        return productId;
+            // Sau khi xóa các quan hệ, tiến hành xóa novel
+            novelRepository.delete(novel);
+        }
+        return publicId;
     }
     @Transactional
-    public Novel getNovelById(UUID id) {
+    public NovelDTO getNovelById(UUID id) {
         try{
         if(id==null){
             return getSampleNovel();
         }
-        return novelRepository.findByPublicId(id);}catch (Exception e){
+        return novelMapper.NovelToNovelDTO(novelRepository.findByPublicId(id));}catch (Exception e){
+
             return getSampleNovel();
         }
     }
-    private Novel getSampleNovel() {
-        Novel novel = new Novel();
+    private NovelDTO getSampleNovel() {
+        NovelDTO novel = new NovelDTO();
         novel.setPublicId(null);
         novel.setTitle("The Return of the Legendary All-Master");
         novel.setSubtitle("역대급 올마스터의 회귀");
         novel.setAuthName("Kite");
         novel.setRanking(1083);
-        novel.setStar(3.6);
+        novel.setRating(3.6);
         novel.setDescription("An epic return of the legendary master in the martial world.");
         novel.setViews(2430);
         novel.setChapterNumber(223);
         novel.setPublishedDate(LocalDate.now().minusYears(1)); // Sample Published Date
         novel.setStatus(Status.ONGOING);
-        novel.setSummary("The first-ever virtual reality game, New World. Synchronization starts.");
         novel.setCover("http://localhost:8080/images/cổ-chân-nhân.jpg");
 
         // Sample Genres (Now using Genre entity)
-        Set<Genre> genres = new HashSet<>();
-        Genre genre1 = new Genre(1L, "Action", UUID.randomUUID(), null);
-        Genre genre2 = new Genre(2L, "Adventure", UUID.randomUUID(), null);
-        Genre genre3 = new Genre(3L, "Fantasy", UUID.randomUUID(), null);
+        List<GenreDTO> genres = new LinkedList();
+        GenreDTO genre1 = new GenreDTO( UUID.randomUUID(), "Action");
+        GenreDTO genre2 = new GenreDTO(  UUID.randomUUID(),"Adventure");
+        GenreDTO genre3 = new GenreDTO( UUID.randomUUID(),"Fantasy");
         genres.add(genre1);
         genres.add(genre2);
         genres.add(genre3);

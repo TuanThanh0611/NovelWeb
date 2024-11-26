@@ -17,6 +17,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -47,26 +48,33 @@ public class AuthorController {
     @PostMapping("/create-novel")
     public ResponseEntity<ApiResponse<NovelDTO>> save(@RequestBody NovelDTO request) {
         ApiResponse<NovelDTO> apiResponse =new ApiResponse<>();
-        DNovel dNovel =novelMapper.NovelDTOToDNovel(request);
-        apiResponse.setResult(novelMapper.DNovelToNovelDTO(novelService.createNovel(dNovel)));
+        apiResponse.setResult((novelService.createNovel(request)));
         return ResponseEntity.ok(apiResponse);
     }
     @GetMapping("/getalls")
     @CrossOrigin(origins = "http://localhost:4200")
     public List<NovelDTO> getAllProducts() {
-        return novelMapper.DNovelListToNovelDTOList(novelService.getAllNovels());
+        return (novelService.getAllNovels());
     }
 
 
-    @DeleteMapping
+    @DeleteMapping("/{publicId}")
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<ApiResponse<Void>> delete(@RequestBody UUID publicId) {
-        ApiResponse<Void> apiResponse =new ApiResponse<>();
-        if(publicId==null)
-            apiResponse.setMessage("Delete novel failed");
-        novelService.deleteNovel(publicId);
-        apiResponse.setMessage("Delete novel successful");
-        return ResponseEntity.ok(apiResponse);
+    public ResponseEntity<ApiResponse<Void>> delete(@PathVariable UUID publicId) {
+        ApiResponse<Void> apiResponse = new ApiResponse<>();
 
+        if (publicId == null) {
+            apiResponse.setMessage("Delete novel failed. Invalid ID.");
+            return ResponseEntity.badRequest().body(apiResponse);
+        }
+
+        try {
+            novelService.deleteNovel(publicId);
+            apiResponse.setMessage("Delete novel successful");
+            return ResponseEntity.ok(apiResponse);
+        } catch (Exception e) {
+            apiResponse.setMessage("Delete novel failed. " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(apiResponse);
+        }
     }
 }

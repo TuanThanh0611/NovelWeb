@@ -44,7 +44,8 @@ export class AdminNovelService {
         title: novel.title,
         authName: novel.authName,
         description: novel.description,
-        genres: novel.genres,  // Mảng genres dưới dạng JSON
+        genres: novel.genres,
+        cover:novel.cover,
       },
       {
         headers: {
@@ -64,9 +65,16 @@ export class AdminNovelService {
 
 
   deleteNovel(publicId: string): Observable<string> {
-    return this.http.request<string>('delete', `http://localhost:8080/api/author`, {
-      body: `"${publicId}"`, // Bao publicId trong dấu ngoặc kép
-      headers: { 'Content-Type': 'application/json' }});
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      throw new Error('No authentication token found');
+    }
+
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`)
+      .set('Content-Type', 'application/json');
+
+    return this.http.delete<string>(`http://localhost:8080/api/author/${publicId}`, { headers });
   }
 
   findAllNovels(): Observable<any[]> {

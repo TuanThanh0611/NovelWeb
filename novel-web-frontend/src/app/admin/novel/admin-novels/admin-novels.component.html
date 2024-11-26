@@ -27,7 +27,12 @@
           <th class="header-cell py-3 px-4">Title</th>
           <th class="header-cell py-3 px-4">Public Id</th>
           <th class="header-cell py-3 px-4">Author</th>
-          <th class="header-cell py-3 px-4">Categories</th>
+          <th class="header-cell py-3 px-4">Genres</th>
+          <th class="header-cell py-3 px-4">Ranking</th>
+          <th class="header-cell py-3 px-4">Cover</th>
+          <th class="header-cell py-3 px-4">Views</th>
+          <th class="header-cell py-3 px-4">Summary</th>
+          <th class="header-cell py-3 px-4">Published Date</th>
           <th class="header-cell py-3 px-4 text-center">Actions</th>
         </tr>
         </thead>
@@ -38,15 +43,21 @@
             <a class="link" [routerLink]="['/novel', novel.publicId]">{{ novel.title }}</a>
           </td>
           <td class="body-cell py-3 px-4">{{ novel.publicId }}</td>
-          <td class="body-cell py-3 px-4">{{ novel.authName }}</td>
+          <td class="body-cell py-3 px-4">{{ novel.authName || 'N/A' }}</td>
           <td class="body-cell py-3 px-4">
-            <!-- Iterate through genre list -->
             <ng-container *ngIf="novel.genres?.length > 0; else noGenres">
-                <span *ngFor="let g of novel.genre; let last = last">
+                <span *ngFor="let g of novel.genres; let last = last">
                   {{ g.name }}<span *ngIf="!last">, </span>
                 </span>
             </ng-container>
             <ng-template #noGenres>N/A</ng-template>
+          </td>
+          <td class="body-cell py-3 px-4">{{ novel.ranking || 'N/A' }}</td>
+          <td class="body-cell py-3 px-4">{{ novel.cover || 'N/A' }}</td>
+          <td class="body-cell py-3 px-4">{{ novel.views || 0 }}</td>
+          <td class="body-cell py-3 px-4">{{ novel.description || 'No summary available' }}</td>
+          <td class="body-cell py-3 px-4">
+            {{ novel.publishedDate ? (novel.publishedDate | date: 'mediumDate') : 'N/A' }}
           </td>
           <td class="body-cell py-3 px-4 text-center">
             <button (click)="deleteNovel(novel.publicId)" class="delete-btn btn-danger transition hover:bg-red-600">
@@ -64,23 +75,6 @@
     <div class="no-data text-center mt-10">
       <fa-icon [icon]="['fas', 'folder-open']" size="4x" class="icon text-gray-300"></fa-icon>
       <p class="message text-secondary text-lg mt-4">No novels available.</p>
-    </div>
-  </ng-template>
-
-  <!-- Loading Spinner -->
-  <ng-template #loading>
-    <div class="loading-spinner flex justify-center mt-10">
-      <span class="spinner loading-lg"></span>
-    </div>
-  </ng-template>
-
-  <!-- Error Notification -->
-  <ng-template #error>
-    <div class="error-alert text-center mt-10">
-      <fa-icon [icon]="['fas', 'circle-exclamation']" size="2x" class="icon text-error"></fa-icon>
-      <p class="message text-error mt-4">
-        Error! Failed to load novels. Please try again later.
-      </p>
     </div>
   </ng-template>
 </div>

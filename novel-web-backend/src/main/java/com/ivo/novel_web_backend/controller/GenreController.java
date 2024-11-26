@@ -35,8 +35,8 @@ public class GenreController {
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<ApiResponse<GenreDTO>> save(@RequestBody GenreDTO request) {
         ApiResponse<GenreDTO> apiResponse =new ApiResponse<>();
-        DGenre genre =genreMapper.GenreDTOToDGenre(request);
-        apiResponse.setResult(genreMapper.DGenreToGenreDTO(genreService.createGenre(genre)));
+        genreService.createGenre(request);
+        apiResponse.setResult(request);
         return ResponseEntity.ok(apiResponse);
     }
     @GetMapping

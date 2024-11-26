@@ -15,4 +15,8 @@ public interface NovelMapper {
     DNovel NovelDTOToDNovel(NovelDTO novelDTO);
     List<DNovel> NovelListToDNovelList(List<Novel> novelList);
     List<NovelDTO> DNovelListToNovelDTOList(List<DNovel> novelList);
-}
+
+    Novel NovelDTOToNovel(NovelDTO novelDTO);
+    NovelDTO NovelToNovelDTO(Novel novel);
+    List<NovelDTO> NovelListToNovelDTOList(List<Novel> novelList);
+ }

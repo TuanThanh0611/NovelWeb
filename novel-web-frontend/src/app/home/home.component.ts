@@ -19,7 +19,7 @@ export class HomeComponent {
     {
       publicId:'6e97df34-a574-4438-8d61-add541fa5d80',
       title: 'Cổ chân nhân',
-      imageUrl: 'http://localhost:8080/images/cổ-chân-nhân.jpg',
+      imageUrl: 'http://localhost:8080/images/nô-lệ-bóng-tối.jpg',
       chapters: 50,
       rank:1,
       rating: 4.9,

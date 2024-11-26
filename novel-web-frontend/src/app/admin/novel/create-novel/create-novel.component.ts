@@ -27,6 +27,7 @@ export class CreateNovelComponent {
   public title = new FormControl<string>('', { validators: [Validators.required], nonNullable: true });
   public authName = new FormControl<string|undefined>('', { validators: [Validators.required] });
   public description = new FormControl<string>('', { validators: [Validators.required], nonNullable: true });
+  public cover = new FormControl<string>('', { validators: [Validators.required], nonNullable: true });
   public genres = this.formBuilder.array<NovelGenre>([], [Validators.required]);
   constructor(private fileUploadService: FileUploadService, private router: Router) {
   }
@@ -89,6 +90,7 @@ export class CreateNovelComponent {
     this.file = event.target.files.item(0);
     // Lấy tên novel từ form (ví dụ: title)
     const novelTitle = this.title.value?.replace(/\s+/g, '-').toLowerCase();
+
     if (novelTitle) {
       const fileExtension = this.file.name.split('.').pop(); // Lấy phần mở rộng của file gốc
       const newFileName = `${novelTitle}.${fileExtension}`; // Tạo tên mới cho file
@@ -96,6 +98,7 @@ export class CreateNovelComponent {
       // Tạo một file mới với tên mới
       const newFile = new File([this.file], newFileName, { type: this.file.type });
       this.file = newFile; // Cập nhật file với tên mới
+      this.cover.setValue(newFileName);
     }
   }
 
@@ -111,6 +114,7 @@ export class CreateNovelComponent {
       authName: this.authName.value ?? undefined,
       genres: this.genres.value.filter((g) => g !== null) as NovelGenre[],
       description: this.description.value,
+      cover:this.cover.value ?? this.cover.value,
     };
 
     this.loading = true;

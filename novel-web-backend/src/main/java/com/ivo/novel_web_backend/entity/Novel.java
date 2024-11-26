@@ -36,11 +36,10 @@ public class Novel {
     @Column(name="ranking")
     private int ranking;
 
-    @Column(name = "star")
-    private Double star;  // Sử dụng Double thay vì double
+    @Column(name = "rating")
+    private Double rating;  // Sử dụng Double thay vì double
 
-
-    @Column(name = "description")
+    @Column(name = "description",length = 5000)
     private String description;
 
     @Column(name = "views")
@@ -51,12 +50,10 @@ public class Novel {
     private LocalDate publishedDate;
     @Column(name="status")
     private Status status;
-    @Column(name="summary")
-    private String summary;
     @Column(name="cover")
     private String cover;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinTable(
             name = "novel_genre_mapping",
             joinColumns = @JoinColumn(name = "novel_id"),

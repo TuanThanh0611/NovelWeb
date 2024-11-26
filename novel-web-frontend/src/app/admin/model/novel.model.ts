@@ -16,6 +16,7 @@ export interface BaseNovel {
   authName: string|undefined;
   description: string;
   genres:NovelGenre[];
+  cover: string;
 }
 
 export interface Novel extends BaseNovel {
