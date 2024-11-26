@@ -5,10 +5,14 @@ import com.ivo.novel_web_backend.dto.NovelDTO;
 import com.ivo.novel_web_backend.entity.Novel;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface NovelMapper {
     Novel DNovelToNovel(DNovel novel);
     DNovel NovelToDNovel(Novel novel);
     NovelDTO DNovelToNovelDTO(DNovel novel);
     DNovel NovelDTOToDNovel(NovelDTO novelDTO);
+    List<DNovel> NovelListToDNovelList(List<Novel> novelList);
+    List<NovelDTO> DNovelListToNovelDTOList(List<DNovel> novelList);
 }

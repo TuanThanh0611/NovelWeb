@@ -9,7 +9,8 @@ import {Component, Input} from '@angular/core';
 })
 export class NovelcardComponent {
   @Input() novel: any = {
-    name: '',
+    publicId:'',
+    title: '',
     rank: 0,
     chapters: 0,
     rating: 0,

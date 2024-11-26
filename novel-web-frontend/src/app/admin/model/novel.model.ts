@@ -13,7 +13,7 @@ export interface NovelPicture {
 
 export interface BaseNovel {
   title: string; // Dữ liệu chỉ cần kiểu string
-  author: string;
+  authName: string|undefined;
   description: string;
   genres:NovelGenre[];
 }
@@ -28,10 +28,9 @@ export type CreateGenreFormContent = {
 
 export type CreateNovelFormContent = {
   title: FormControl<string>;
-  author: FormControl<string>;
+  authName: FormControl<string>;
   description: FormControl<string>;
   genres: FormControl<NovelGenre[]>;
-  picture: FormControl<NovelPicture|null >;
 };
 
 export interface ProductFilter {

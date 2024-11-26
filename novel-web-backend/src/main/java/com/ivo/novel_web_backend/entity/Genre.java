@@ -1,11 +1,13 @@
 package com.ivo.novel_web_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -29,6 +31,8 @@ public class Genre {
     @Column(name = "public_id", unique = true, nullable = false)
     private UUID publicId;
 
-    @ManyToMany(mappedBy = "genres")
-    private Set<Novel> novels;
+    @ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY) // Liên kết với `genres` trong `Novel`
+    @JsonIgnore
+    private Set<Novel> novels = new HashSet<>();
+
 }

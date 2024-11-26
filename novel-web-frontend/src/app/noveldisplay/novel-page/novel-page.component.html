@@ -1,0 +1,34 @@
+<div class="novel-container">
+  <div class="novel-header">
+    <img [src]="novel.cover" alt="Novel Cover" class="novel-cover" />
+    <div class="novel-info">
+      <h1 class="novel-title">{{ novel.title }}</h1>
+      <h2 class="novel-subtitle">{{ novel.subtitle }}</h2>
+      <p><strong>Author:</strong> {{ novel.authName }}</p>
+      <p><strong>Rank:</strong> <span class="rank">#{{ novel.ranking }}</span></p>
+      <p><strong>Rating:</strong> <span class="rating">{{ novel.star }} ⭐</span></p>
+      <p><strong>Chapters:</strong> {{ novel.chapters }}</p>
+      <p><strong>Views:</strong> {{ novel.views }}</p>
+      <p><strong>Bookmarked:</strong> {{ novel.bookmarked }}</p>
+      <p>
+        <strong>Status:</strong>
+        <span class="status" [ngClass]="novel.status.toLowerCase()">{{ novel.status }}</span>
+      </p>
+      <div class="novel-tags">
+        <span class="tag" *ngFor="let tag of novel.genres">{{ tag }}</span>
+      </div>
+      <div class="buttons">
+        <button class="btn read" (click)="onRead()">{{ novel.readButtonText }}</button>
+        <button class="btn" [class.disabled]="novel.isLibraryDisabled" (click)="onLibrary()">
+          {{ novel.isLibraryDisabled ? 'Library Disabled' : 'Add to Library' }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="novel-summary">
+    <h3>Summary</h3>
+    <p>
+      {{ novel.summary }}
+    </p>
+  </div>
+</div>

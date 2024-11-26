@@ -15,11 +15,11 @@
 
     <!-- Author -->
     <div class="form-group">
-      <label for="author" class="form-label">Author</label>
-      <input type="text" id="author" placeholder="Type author here"
-             class="form-input" formControlName="author"
-             [class.input-error]="author.invalid && !author.untouched" />
-      <div *ngxControlError="author; track:'required'" class="error-text">
+      <label for="authName" class="form-label">Author</label>
+      <input type="text" id="authName" placeholder="Type author here"
+             class="form-input" formControlName="authName"
+             [class.input-error]="authName.invalid && !authName.untouched" />
+      <div *ngxControlError="authName; track:'required'" class="error-text">
         Author is required
       </div>
     </div>
@@ -50,18 +50,17 @@
     </div>
 
     <!-- Pictures -->
-    <div class="form-group">
-    <label for="coverFile" class="form-label">Cover Picture</label>
-    <input type="file" id="coverFile" class="form-input"
-           (change)="onUploadNewPicture($event)" />
-    <div *ngIf="!coverFile && createForm.invalid" class="error-text">
-      Please upload a cover picture.
+    <div class="upload-container">
+      <label for="file-upload" class="upload-label">Upload Cover:</label>
+      <div class="upload-content">
+        <input type="file" id="file-upload" (change)="selectFile($event)" class="upload-input" />
+      </div>
     </div>
-</div>
+
 
 
 <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary w-full" [disabled]="createForm.invalid || loading">
+    <button (click)="uploadFile()" type="submit" class="btn btn-primary w-full" [disabled]="createForm.invalid || loading">
       <span *ngIf="loading" class="loading-spinner"></span>
       Create Novel
     </button>

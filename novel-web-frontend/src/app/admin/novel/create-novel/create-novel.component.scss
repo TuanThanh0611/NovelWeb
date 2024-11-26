@@ -110,3 +110,54 @@ h1 {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+
+  .upload-label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #34495e;
+    margin-bottom: 5px;
+  }
+
+  .upload-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .upload-input {
+      padding: 10px;
+      border: 1px solid #bdc3c7;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+
+      &:focus {
+        border-color: #3498db;
+        outline: none;
+      }
+
+      &::file-selector-button {
+        background: #3498db;
+        color: white;
+        padding: 8px 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background: #2980b9;
+        }
+
+        &:focus {
+          outline: none;
+          background: #1e6ea5;
+        }
+      }
+    }
+  }
+}

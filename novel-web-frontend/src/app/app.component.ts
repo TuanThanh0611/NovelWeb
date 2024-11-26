@@ -44,18 +44,24 @@ private jwtService=inject(JwtService);
         this.authService.initAuthentication();
       }
       this.authService.connectedUserQuery = this.authService.toQueryResult();
-      const introspectRequest = {
-        token: `${this.jwtService.getToken()}`  // Sử dụng backticks để thực hiện interpolation
-      };
+      const introspectRequest = { token: this.jwtService.getToken() };
 
-      this.jwtService.introspect(introspectRequest).subscribe(isValid => {
-        if (isValid) {
-          console.log('Token hợp lệ');
-        } else {
-          this.authService.logout()
+      this.jwtService.introspect(introspectRequest).subscribe(
+        isValid => {
+          if (isValid) {
+            console.log('Token hợp lệ');
+          } else {
+            console.warn('Token không hợp lệ. Đăng xuất...');
+            this.authService.logout();
+          }
+        },
+        error => {
+          console.error('Lỗi introspect:', error);
+          if (error.status === 401) {
+            this.authService.logout();
+          }
         }
-      });
-
+      );
 
   }
 

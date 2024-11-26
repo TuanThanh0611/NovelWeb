@@ -22,7 +22,5 @@ public class DNovel{
 
     String description;
 
-    List<GenreDTO> genre;
-
-    String pathToImage;
+    List<DGenre> genre;
 }

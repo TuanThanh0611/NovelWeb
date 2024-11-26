@@ -24,12 +24,7 @@ public class NovelDTO {
     private String authName;
 
     private String description;
-    @JsonProperty("genres")
-    private List<Genre> genre;
 
-    private MultipartFile cover;
-    public String getNameofpicture() {
-        // Ví dụ trả về tên của file ảnh bìa
-        return cover != null ? cover.getOriginalFilename() : null;
-    }
+    private List<GenreDTO> genre;
+
 }

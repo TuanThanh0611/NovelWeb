@@ -21,4 +21,13 @@ public class GenreDTO {
     public GenreDTO(@JsonProperty("name") String name) {
         this.name = name;
     }
+    public GenreDTO(UUID id, String name) {
+        this.publicId = id;
+        this.name = name;
+    }
+
+    // Constructor chấp nhận UUID
+    public GenreDTO(UUID publicId) {
+        this.publicId = publicId;
+    }
 }

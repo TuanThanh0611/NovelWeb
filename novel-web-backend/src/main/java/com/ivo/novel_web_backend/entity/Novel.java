@@ -1,10 +1,13 @@
 package com.ivo.novel_web_backend.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ivo.novel_web_backend.Enums.Status;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -25,15 +28,17 @@ public class Novel {
 
     @Column(name = "title",nullable = false, unique = true)
     private String title;
-
+    @Column(name="subtitle")
+    private String subtitle;
     @Column(name="auth_name")
     private String authName;
 
     @Column(name="ranking")
     private int ranking;
 
-    @Column(name="start")
-    private double start;
+    @Column(name = "star")
+    private Double star;  // Sử dụng Double thay vì double
+
 
     @Column(name = "description")
     private String description;
@@ -42,16 +47,24 @@ public class Novel {
     private int views;
     @Column(name="chapter_number")
     private int chapterNumber;
+    @Column(name = "published_date")
+    private LocalDate publishedDate;
+    @Column(name="status")
+    private Status status;
+    @Column(name="summary")
+    private String summary;
+    @Column(name="cover")
+    private String cover;
 
-
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "novel_genre_mapping",
             joinColumns = @JoinColumn(name = "novel_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
     private Set<Genre> genres = new HashSet<>();
-    @Column(name = "path_to_image")
-    private String pathToImage;
 
+    public void setGenres(Set<Genre> genres) {
+        this.genres = genres;
+    }
 }

@@ -13,4 +13,7 @@ public interface GenreMapper {
     DGenre GenreDTOToDGenre(GenreDTO genre);
     GenreDTO DGenreToGenreDTO(DGenre genre);
     List<GenreDTO> DGenreListToGenreDTOList(List<DGenre> genres);
+    List<DGenre> GenreDTOListToDGenreList(List<GenreDTO> genres);
+    List<Genre> DGenreListToGenreList(List<DGenre> genres);
+
 }

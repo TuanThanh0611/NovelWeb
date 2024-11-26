@@ -1,7 +1,8 @@
 <div class="novel-grid-container">
   <div class="novel-grid">
+    <!-- Duyệt qua danh sách novels và tạo card -->
     <ng-container *ngFor="let novel of novels">
-      <a [routerLink]="['/novel', novel.publicId]" class="novel-link">
+      <a [routerLink]="['/novelpage', novel.publicId]" class="novel-link">
         <app-novelcard [novel]="novel"></app-novelcard>
       </a>
     </ng-container>

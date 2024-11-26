@@ -30,6 +30,7 @@ public class SercurityConfig {
             "/simple-form-upload-mvc",
             "/api/genres",
             "/api/author",
+            "/api/author/getalls",
             "/test/firstname",
             "/users",
             "/api/auth/login",
@@ -49,10 +50,12 @@ public class SercurityConfig {
                         request
                                 .requestMatchers(HttpMethod.GET,"/images/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/novel/**").permitAll()
 
                                 .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
                                 .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS).permitAll()
                                 .requestMatchers(HttpMethod.DELETE, "/api/genres").permitAll()
+                                .requestMatchers(HttpMethod.DELETE, "/api/author").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/author/create-novel").authenticated()
                                 .requestMatchers(HttpMethod.POST, "/api/auth/update").authenticated()
                                 .requestMatchers(HttpMethod.POST, "/api/auth/updatepassword").authenticated()

@@ -8,6 +8,8 @@ import { injectMutation, injectQuery } from '@tanstack/angular-query-experimenta
 import { lastValueFrom } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NgxControlError } from 'ngxtension/control-error';
+import {FileDetails} from '../../../shared/model/file-details.model';
+import {FileUploadService} from '../../../services/file-upload.service';
 
 @Component({
   selector: 'app-create-novel',
@@ -20,20 +22,25 @@ export class CreateNovelComponent {
   public formBuilder = inject(FormBuilder);
   public novelService = inject(AdminNovelService);
   public toastService = inject(ToastService);
-  public router = inject(Router);
+
 
   public title = new FormControl<string>('', { validators: [Validators.required], nonNullable: true });
-  public author = new FormControl<string>('', { validators: [Validators.required], nonNullable: true });
+  public authName = new FormControl<string|undefined>('', { validators: [Validators.required] });
   public description = new FormControl<string>('', { validators: [Validators.required], nonNullable: true });
   public genres = this.formBuilder.array<NovelGenre>([], [Validators.required]);
-  public coverFile: File | null = null;
+  constructor(private fileUploadService: FileUploadService, private router: Router) {
+  }
 
+  file!: File;
+  fileDetails!: FileDetails;
+  fileUris: Array<string> = [];
   public createForm = this.formBuilder.group({
     title: this.title,
-    author: this.author,
+    authName: this.authName,
     genres: this.genres,
     description: this.description,
   });
+
   trackByPublicId(index: number, item: any): any {
     return item.publicId; }
 
@@ -46,7 +53,7 @@ export class CreateNovelComponent {
 
   public createMutation = injectMutation(() => ({
     mutationFn: (data: { novel: BaseNovel; coverFile: File }) =>
-      lastValueFrom(this.novelService.createNovel(data.novel, data.coverFile)), // Gọi đúng phương thức với 2 tham số
+      lastValueFrom(this.novelService.createNovel(data.novel)), // Gọi đúng phương thức với 2 tham số
     onSettled: () => (this.loading = false),
     onSuccess: () => {
       this.toastService.success('Novel created successfully!');
@@ -66,17 +73,31 @@ export class CreateNovelComponent {
     }
   }
 
-  public onUploadNewPicture(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (!input || !input.files) {
-      return;
-    }
-    const file = input.files[0];
-    if (file) {
-      this.coverFile = file; // Lưu tệp ảnh
+  uploadFile() {
+    this.fileUploadService.upload(this.file).subscribe({
+      next: (data) => {
+        this.fileDetails = data;
+        this.fileUris.push(this.fileDetails.fileUri);
+        alert("File Uploaded Successfully")
+      },
+      error: (e) => {
+        console.log(e);
+      }
+    });
+  }
+  selectFile(event: any) {
+    this.file = event.target.files.item(0);
+    // Lấy tên novel từ form (ví dụ: title)
+    const novelTitle = this.title.value?.replace(/\s+/g, '-').toLowerCase();
+    if (novelTitle) {
+      const fileExtension = this.file.name.split('.').pop(); // Lấy phần mở rộng của file gốc
+      const newFileName = `${novelTitle}.${fileExtension}`; // Tạo tên mới cho file
+
+      // Tạo một file mới với tên mới
+      const newFile = new File([this.file], newFileName, { type: this.file.type });
+      this.file = newFile; // Cập nhật file với tên mới
     }
   }
-
 
 
   public create(): void {
@@ -84,21 +105,17 @@ export class CreateNovelComponent {
       this.toastService.error('Please fill out all required fields.');
       return;
     }
-    if (!this.coverFile) {
-      this.toastService.error('Please upload a cover picture.');
-      return;
-    }
 
     const novelToCreate: BaseNovel = {
       title: this.title.value,
-      author: this.author.value,
+      authName: this.authName.value ?? undefined,
       genres: this.genres.value.filter((g) => g !== null) as NovelGenre[],
       description: this.description.value,
     };
 
     this.loading = true;
 
-    this.novelService.createNovel(novelToCreate, this.coverFile).subscribe({
+    this.novelService.createNovel(novelToCreate).subscribe({
       next: () => {
         this.toastService.success('Novel created successfully!');
         this.router.navigate(['/novels']);

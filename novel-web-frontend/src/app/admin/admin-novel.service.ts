@@ -35,57 +35,46 @@ export class AdminNovelService {
     );
   }
 
-  createNovel(novel: BaseNovel, cover: File): Observable<Novel> {
-    const formData = new FormData();
+  createNovel(novel: BaseNovel): Observable<any> {
     const token = localStorage.getItem('authToken');
-
-    formData.append('title', novel.title);
-    formData.append('author', novel.author);
-    formData.append('description', novel.description);
-    formData.append('genres', JSON.stringify(novel.genres || []));
-    if (cover) {
-      formData.append('cover', cover);
-    }
-    formData.forEach((value, key) => {
-      console.log(key, value);
-    });
 
     return this.http.post<Novel>(
       `http://localhost:8080/api/author/create-novel`,
-      formData,
-      { headers: { 'Authorization': `Bearer ${token}` } }
+      {
+        title: novel.title,
+        authName: novel.authName,
+        description: novel.description,
+        genres: novel.genres,  // Mảng genres dưới dạng JSON
+      },
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json', // Đảm bảo Content-Type là application/json
+        }
+      }
     ).pipe(
       catchError((error) => {
         console.error('Error during HTTP request:', error);
         return throwError(error);
       })
     );
+
   }
 
 
 
   deleteNovel(publicId: string): Observable<string> {
-    return this.http.request<string>('delete', `http://localhost:8080/api/genres`, {
+    return this.http.request<string>('delete', `http://localhost:8080/api/author`, {
       body: `"${publicId}"`, // Bao publicId trong dấu ngoặc kép
-      headers: { 'Content-Type': 'application/json' }
-    });
+      headers: { 'Content-Type': 'application/json' }});
   }
 
   findAllNovels(): Observable<any[]> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any[]>(`http://localhost:8080/api/novel`,{ headers });
+    return this.http.get<any[]>(`http://localhost:8080/api/author/getalls`,{ headers });
   }
 
-  uploadPicture(formData: FormData): Observable<{ fileName: string }> {
-    const url = `http://localhost:8080/api/author/upload-picture`; // Endpoint upload ảnh
-    const token = localStorage.getItem('authToken');  // Lấy token từ localStorage nếu cần
 
-    const headers = new HttpHeaders()
-      .set('Authorization', `Bearer ${token}`);  // Thêm Authorization header nếu cần
-
-    // Gửi FormData chứa tệp ảnh lên backend
-    return this.http.post<{ fileName: string }>(url, formData, { headers });
-  }
 
 }

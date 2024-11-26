@@ -17,12 +17,13 @@ import {NovelgridComponent} from '../noveldisplay/novelgrid/novelgrid.component'
 export class HomeComponent {
   novels = [
     {
-      name: 'The Rising Dawn',
-      imageUrl: '/01704-is-it-bad-that-the-main-characters-a-roleplayer.jpg',
+      publicId:'6e97df34-a574-4438-8d61-add541fa5d80',
+      title: 'Cổ chân nhân',
+      imageUrl: 'http://localhost:8080/images/cổ-chân-nhân.jpg',
       chapters: 50,
-      rank:1234,
-      rating: 4.8,
-      publicId:'/neme'
+      rank:1,
+      rating: 4.9,
+
     },
     {
       name: 'Shadow of the Moon',
@@ -38,10 +39,11 @@ export class HomeComponent {
     },
     {
       name: 'Chronicles of Magic',
-      imageUrl: 'assets/images/novel4.jpg',
+      imageUrl: 'http://localhost:8080/images/01700-mysteries-of-immortal-puppet-master.jpg',
       chapters: 42,
       rating: 4.5,
     },
+
     {
       name: 'Fate’s Whisper',
       imageUrl: 'assets/images/novel5.jpg',

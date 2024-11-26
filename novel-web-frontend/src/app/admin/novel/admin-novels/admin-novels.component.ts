@@ -26,7 +26,7 @@ export class AdminNovelsComponent {
   }
 
   novelsQuery = injectQuery(() => ({
-    queryKey: ['product'],
+    queryKey: ['novel'],
     queryFn: () =>
       lastValueFrom(this.novelService.findAllNovels()),
   }));
@@ -43,7 +43,7 @@ export class AdminNovelsComponent {
   }
 
   private onDeletionSuccess() {
-    this.queryClient.invalidateQueries({ queryKey: ['products'] });
+    this.queryClient.invalidateQueries({ queryKey: ['novel'] });
     this.toastService.show('Product deleted', 'SUCCESS');
   }
 
