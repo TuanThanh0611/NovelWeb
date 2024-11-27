@@ -1,11 +1,12 @@
 .novel-container {
   font-family: Arial, sans-serif;
   color: #fff;
-  background: linear-gradient(135deg, #1b2430, #212d42);
+  background-color: #1b2430;
   border-radius: 12px;
   padding: 20px;
   max-width: 900px;
   margin: auto;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .novel-header {
@@ -15,7 +16,8 @@
 }
 
 .novel-cover {
-  width: 200px;
+  width: 260px;
+  height: auto;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
@@ -25,18 +27,14 @@
 }
 
 .novel-title {
-  font-size: 1.8rem;
+  font-size: 2rem;
   margin: 0;
-}
-
-.novel-subtitle {
-  font-size: 1rem;
-  color: #aaa;
-  margin: 5px 0 10px;
+  color: #fff;
 }
 
 .rank {
   color: gold;
+  font-weight: bold;
 }
 
 .rating {
@@ -76,7 +74,7 @@
 }
 
 .btn.read {
-  background-color: #4caf50;
+  background-color: #36ad36;
   color: white;
 }
 
@@ -87,13 +85,63 @@
 }
 
 .novel-summary {
-  margin-top: 20px;
-  padding: 15px;
-  background: #2a394d;
+  margin-top: 30px;
+  background-color: #2a2f3b;
+  padding: 20px;
   border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .novel-summary h3 {
-  margin-top: 0;
-  color: #4a90e2;
+  font-size: 1.6rem;
+  color: #f9fafa;
+  margin-bottom: 10px;
+}
+
+.novel-summary p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #d1d1d1;
+}
+
+.novel-details {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.novel-chapters,
+.user-reviews {
+  flex: 1;
+  padding: 15px;
+  background: #2a2f3b;
+  border-radius: 10px;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.novel-chapters h3,
+.user-reviews h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #f9fafa;
+}
+
+.novel-chapters p,
+.user-reviews p {
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
+.update-time {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-left: 10px;
+}
+
+.novel-summary p {
+  font-size: 1rem;
+  color: #b0b0b0;
+  text-align: justify;
 }

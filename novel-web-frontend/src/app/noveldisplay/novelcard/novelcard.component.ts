@@ -11,9 +11,9 @@ export class NovelcardComponent {
   @Input() novel: any = {
     publicId:'',
     title: '',
-    rank: 0,
-    chapters: 0,
+    ranking: 0,
+    chapterNumber: 0,
     rating: 0,
-    imageUrl: '',
+    cover: '',
   };
 }

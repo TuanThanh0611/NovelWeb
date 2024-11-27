@@ -1,23 +1,36 @@
-.footer {
-  background-color: #e9edf5; /* Màu nền footer */
-  color: #0e1415; /* Màu chữ */
-  text-align: center; /* Căn giữa nội dung */
-  padding: 20px 0; /* Khoảng cách trên và dưới */
-  bottom: 0;
-  width: 100%;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng cho footer */
+:root {
+  --footer-background-color: #e9edf5;
+  --footer-content-color: #1abc9c;
+  --novel-grid-border-color: #414040;
 }
 
-.footer-content a {
-  color: #1abc9c; /* Màu cho liên kết */
-  text-decoration: none; /* Loại bỏ gạch chân */
+body.dark-mode {
+  --footer-background-color: #692469;
 }
 
-.footer-content a:hover {
-  text-decoration: underline; /* Gạch chân khi hover */
-}
+.footer-container {
+  .footer {
+    background-color: var(--footer-background-color); /* Màu nền */
+    color: var(--footer-content-color); /* Màu chữ */
+    text-align: center;
+    padding: 20px 0;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng cho footer */
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
 
-.footer p {
-  margin: 5px 0; /* Khoảng cách giữa các dòng */
-  font-size: 0.9rem; /* Cỡ chữ */
+  .footer-content a {
+    color: var(--footer-content-color);
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+  }
+
+  .footer-content a:hover {
+    text-decoration: underline;
+  }
+
+  .footer p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+  }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, DecimalPipe, NgClass } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import {NovelService} from '../../services/novel/novel.service';
+import {NovelPageInfo} from '../../admin/model/novel.model';
 
 @Component({
   selector: 'app-novel-page',
@@ -17,22 +18,11 @@ import {NovelService} from '../../services/novel/novel.service';
 export class NovelPageComponent implements OnInit {
   publicId!: string; // ID của novel từ URL
   genres: string[] = [];
-  novel = {
-    title: '',
-    subtitle: '',
-    authName: '',
-    ranking: 0,
-    star: 0,
-    summary: '',
-    status: '',
-    genres: [],
-    readButtonText: 'Read Chapter 1', // Thêm thuộc tính này
-    isLibraryDisabled: false, // Thêm thuộc tính này
-    bookmarked: 0,
-    chapters:0,
-    views:0,
-    cover:"http://localhost:8080/images/cổ-chân-nhân.jpg",
-  };
+  novel:NovelPageInfo|null=null;
+  latestChapter: string='1000 ';
+  chapterUpdatedTime:string='Nov 27';
+  reviewsCount: string='66';
+  averageScore: string='4.9';
 
 
   constructor(private route: ActivatedRoute,private novelService: NovelService) {}
@@ -46,9 +36,20 @@ export class NovelPageComponent implements OnInit {
   }
 
   loadNovelDetails(publicId: string): void {
-    this.novelService.getNovel(publicId).subscribe((data) => {
-      this.novel = data;  // Lưu thông tin tiểu thuyết
-      this.genres = data.genres.map((genre: any) => genre.name);  // Lưu danh sách thể loại
+    this.novelService.getNovel(publicId).subscribe({
+      next: (data: NovelPageInfo | null) => {
+        if (data) {
+          this.novel = data;  // Lưu thông tin tiểu thuyết
+          this.genres = data.genres.map((genre: any) => genre.name);  // Lưu danh sách thể loại
+        } else {
+          console.error('No data received');
+          // Xử lý khi không có dữ liệu (có thể hiển thị thông báo lỗi cho người dùng)
+        }
+      },
+      error: (err) => {
+        console.error('Error loading novel details:', err);
+        // Xử lý khi có lỗi trong quá trình gọi API
+      }
     });
   }
   onRead(): void {

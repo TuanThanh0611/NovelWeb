@@ -16,6 +16,7 @@ import {AdminNovelsComponent} from './admin/novel/admin-novels/admin-novels.comp
 import {RoleGuard} from './auth/role-guard';
 import {UploadFileComponent} from './admin/upload-file/upload-file.component';
 import {NovelPageComponent} from './noveldisplay/novel-page/novel-page.component';
+import {AddChapterComponent} from './admin/chapter/add-chapter/add-chapter.component';
 
 
 export const routes: Routes = [
@@ -50,6 +51,10 @@ export const routes: Routes = [
   {
     path: 'regiswithemail',
     component: RegisterwithemailComponent
+  },
+  {
+    path: 'novelpage/:publicId/add-chapter',
+    component: AddChapterComponent
   },
   {
     path: 'novelpage/:publicId',

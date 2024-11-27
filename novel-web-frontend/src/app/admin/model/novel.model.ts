@@ -18,7 +18,29 @@ export interface BaseNovel {
   genres:NovelGenre[];
   cover: string;
 }
+export interface CardNovelInfo {
+  title: string;
+  publicId: string;
+  chapterNumber: number;
+  ranking: number;
+  rating: number;
+  cover: string;
+}
+export interface NovelPageInfo {
+  title: string;
+  subtitle: string;
+  authName: string;
+  description: string;
+  genres: NovelGenre[];
+  status:string;
+  publicId: string;
+  views: number;
+  chapterNumber: number;
+  ranking: number;
+  rating: number;
+  cover: string;
 
+}
 export interface Novel extends BaseNovel {
   publicId: string;
 }

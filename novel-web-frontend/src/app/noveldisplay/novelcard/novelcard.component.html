@@ -1,9 +1,9 @@
 <div class="novel-card">
-  <img [src]="novel.imageUrl" alt="{{ novel.title }}" class="novel-image" />
+  <img [src]="'http://localhost:8080/images/' + novel.cover" alt="{{ novel.title }}" class="novel-image" />
   <div class="novel-info">
     <h3 class="novel-title">{{ novel.title }}</h3>
-    <p class="novel-rank"><i class="fas fa-trophy"></i> RANK {{ novel.rank }}</p>
-    <p class="novel-chapters"><i class="fas fa-book-open"></i> {{ novel.chapters }} Chapters</p>
+    <p class="novel-rank"><i class="fas fa-trophy"></i> RANK {{ novel.ranking }}</p>
+    <p class="novel-chapters"><i class="fas fa-book-open"></i> {{ novel.chapterNumber }} Chapters</p>
     <p class="novel-rating">⭐ {{ novel.rating }}</p>
   </div>
 </div>
