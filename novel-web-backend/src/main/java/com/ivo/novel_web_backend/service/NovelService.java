@@ -40,46 +40,41 @@ public class NovelService {
     @Autowired
     GenreService genreService;
     private static final String UPLOAD_DIR = "/path/to/upload/directory";
+
+    public NovelService(NovelRepository novelRepository, GenreRepository genreRepository, NovelMapper novelMapper, GenreMapper genreMapper, GenreService genreService) {
+        this.novelRepository = novelRepository;
+        this.genreRepository = genreRepository;
+        this.novelMapper = novelMapper;
+        this.genreMapper = genreMapper;
+        this.genreService = genreService;
+    }
+
     @Transactional
     public NovelDTO createNovel(NovelDTO dNovel) {
-        if(dNovel.getGenres().get(0) == null){
-            throw new AppException(ErrorCode.CATCH_ERROR);
-        }
-
         if (dNovel.getPublicId() == null) {
             dNovel.setPublicId(UUID.randomUUID());
         }
-
-        List<GenreDTO> genres = dNovel.getGenres();
-
-        // Save genres before associating them with the novel
-        genres.forEach(genre -> {
-            if (!genreRepository.existsGenresByName(genre.getName())) {
-                genreService.createGenre(new GenreDTO(genre.getName()));
-            }
-        });
-
-        // Ensure that all genres are saved and then fetch them from the database
-        List<Genre> savedGenres = genres.stream()
-                .map(genre -> genreRepository.findByName(genre.getName()).orElse(null)) // Extract Genre from Optional
-                .filter(Objects::nonNull) // Make sure to exclude any null values
-                .collect(Collectors.toList());
-
         // Chuyển từ NovelDTO sang Novel
         Novel novelEntity = novelMapper.NovelDTOToNovel(dNovel);
 
         if (novelRepository.existsByTitle(novelEntity.getTitle())) {
             throw new RuntimeException("Title '" + novelEntity.getTitle() + "' is already taken!");
         }
+        List<Genre> list=dNovel.getGenres();
+        Set<Genre> genres = new HashSet<>();
+        for (Genre genre : list) {
 
-        Set<Genre> setGenres = new HashSet<>(savedGenres); // Ensure all genres are saved
-        novelEntity.setGenres(setGenres);
+            Genre genreT = genreRepository.findByPublicId(genre.getPublicId());
+            genres.add(genreT);
+        }
+        novelEntity.setGenres(genres);
+
+        novelEntity.setRating((double) 0);
         novelEntity.setPublishedDate(LocalDate.now());
         novelEntity.setRanking(9999);
         novelEntity.setChapterNumber(0);
         novelRepository.save(novelEntity);
         NovelDTO novelDTO = novelMapper.NovelToNovelDTO(novelEntity);
-        novelDTO.setGenres(genreMapper.GenreSetToGenreDTOList(setGenres));
         if(novelDTO.getGenres()==null){
             System.out.println(novelDTO.getGenres().get(0).getName());
         }
@@ -124,14 +119,14 @@ public class NovelService {
     }
     @Transactional
     public NovelDTO getNovelById(UUID id) {
-        try{
+
         if(id==null){
             return getSampleNovel();
+        }if(novelMapper.NovelToNovelDTO(novelRepository.findByPublicId(id)).getGenres()==null){
+            throw new AppException(ErrorCode.CATCH_ERROR);
         }
-        return novelMapper.NovelToNovelDTO(novelRepository.findByPublicId(id));}catch (Exception e){
+        return novelMapper.NovelToNovelDTO(novelRepository.findByPublicId(id));
 
-            return getSampleNovel();
-        }
     }
     private NovelDTO getSampleNovel() {
         NovelDTO novel = new NovelDTO();
@@ -149,14 +144,7 @@ public class NovelService {
         novel.setCover("http://localhost:8080/images/cổ-chân-nhân.jpg");
 
         // Sample Genres (Now using Genre entity)
-        List<GenreDTO> genres = new LinkedList();
-        GenreDTO genre1 = new GenreDTO( UUID.randomUUID(), "Action");
-        GenreDTO genre2 = new GenreDTO(  UUID.randomUUID(),"Adventure");
-        GenreDTO genre3 = new GenreDTO( UUID.randomUUID(),"Fantasy");
-        genres.add(genre1);
-        genres.add(genre2);
-        genres.add(genre3);
-        novel.setGenres(genres);
+
 
         return novel;
     }

@@ -15,8 +15,7 @@ public class LatestNovel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @UuidGenerator
-    @Column(name = "public_id", nullable = false)
+    @Column(name = "public_id")
     private UUID publicId;
 
     @Column(name = "title",nullable = false, unique = true)

@@ -59,7 +59,7 @@ public class JwtUtils {
                 .issuer("ivo.com")
                 .issueTime(new Date())
                 .expirationTime(new Date(
-                        Instant.now().plus(3, ChronoUnit.HOURS).toEpochMilli()
+                        Instant.now().plus(72, ChronoUnit.HOURS).toEpochMilli()
                 ))
                 .claim("scope",buildScope(user))
                 .claim("id", user.getId())

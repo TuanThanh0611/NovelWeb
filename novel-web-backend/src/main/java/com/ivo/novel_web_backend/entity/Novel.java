@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ivo.novel_web_backend.Enums.Status;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDate;
@@ -22,8 +23,8 @@ public class Novel {
     @Column(name = "id")
     private Long id;
 
-    @UuidGenerator
-    @Column(name = "public_id", nullable = false)
+
+    @Column(name = "public_id")
     private UUID publicId;
 
     @Column(name = "title",nullable = false, unique = true)
@@ -53,13 +54,17 @@ public class Novel {
     @Column(name="cover")
     private String cover;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "novel_genre_mapping",
             joinColumns = @JoinColumn(name = "novel_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
+    @EqualsAndHashCode.Exclude
     private Set<Genre> genres = new HashSet<>();
+    @OneToMany
+    private Set<Chapter> chapters = new HashSet<>();
+
 
     public void setGenres(Set<Genre> genres) {
         this.genres = genres;

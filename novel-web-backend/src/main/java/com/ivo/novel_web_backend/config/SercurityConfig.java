@@ -32,6 +32,7 @@ public class SercurityConfig {
             "/api/author",
             "/api/author/getalls",
             "/test/firstname",
+            "/api/novel/get-12latest",
             "/users",
             "/api/auth/login",
             "/api/auth/token",
@@ -51,8 +52,6 @@ public class SercurityConfig {
                                 .requestMatchers(HttpMethod.GET,"/images/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/novel/**").permitAll()
-
-                                .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
                                 .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS).permitAll()
                                 .requestMatchers(HttpMethod.DELETE, "/api/genres").permitAll()
                                 .requestMatchers(HttpMethod.DELETE, "/api/author").permitAll()

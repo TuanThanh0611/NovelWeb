@@ -5,6 +5,7 @@ import com.ivo.novel_web_backend.dto.NovelDTO;
 import com.ivo.novel_web_backend.entity.Genre;
 import com.ivo.novel_web_backend.entity.LatestNovel;
 import com.ivo.novel_web_backend.entity.Novel;
+import com.ivo.novel_web_backend.repository.LatestNovelRepository;
 import com.ivo.novel_web_backend.service.LastestNovelService;
 import com.ivo.novel_web_backend.service.NovelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,15 +26,19 @@ public class NovelController {
    NovelService novelService;
    @Autowired
     LastestNovelService lastestNovelService;
+   @Autowired
+    LatestNovelRepository latestNovelRepository;
 
 
     @GetMapping("/{publicId}")
     public ResponseEntity<NovelDTO> getNovel(@PathVariable UUID publicId) {
+
         return ResponseEntity.ok(novelService.getNovelById(publicId));
     }
     @PostMapping("/update-latest")
     public ResponseEntity<String> updateLatest() {
         try{
+            latestNovelRepository.deleteAll();
         lastestNovelService.updateLatestNovel();
         return ResponseEntity.ok("Updated latest novel successfully");
     }

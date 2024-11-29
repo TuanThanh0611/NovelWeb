@@ -36,7 +36,7 @@ public class NovelDTO {
 
     private String description;
 
-    private List<GenreDTO> genres;
+    private List<Genre> genres;
 
     private int chapterNumber;
     private Status status;

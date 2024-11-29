@@ -2,6 +2,7 @@ package com.ivo.novel_web_backend.repository;
 
 import com.ivo.novel_web_backend.entity.Genre;
 import com.ivo.novel_web_backend.entity.Novel;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +16,8 @@ public interface NovelRepository extends JpaRepository<Novel, Long> {
     void deleteByPublicId(UUID publicId);
     Novel findByPublicId(UUID publicId);
     List<Novel> findTop12ByOrderByPublishedDateDesc();
+
+    @EntityGraph(attributePaths = {"genres"})
+    List<Novel> findAll();
 
 }

@@ -14,4 +14,5 @@ public interface GenreRepository extends JpaRepository<Genre,Long> {
     void deleteByPublicId(UUID publicId);
     Optional<Genre> findByName(String name);
     Boolean existsGenresByName(String name);
+    Genre findGenreByPublicId(UUID publicId);
 }
