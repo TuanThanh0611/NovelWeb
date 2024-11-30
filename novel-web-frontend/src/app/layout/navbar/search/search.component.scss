@@ -1,0 +1,108 @@
+:root {
+  --background-colorf: #bb1616;
+  --search-background-color: #2677d5; /* Màu nền sáng cho thanh tìm kiếm */
+  --search-border-color: #d5af37; /* Màu viền cho thanh tìm kiếm */
+  --search-focus-border-color: #fac94c; /* Màu viền khi focus */
+  --search-placeholder-color: #888; /* Màu chữ placeholder */
+  --button-color: #000000;
+}
+
+body.dark-mode .novel-grid-container {
+  --theme-color: white; /* Màu cho chế độ tối */
+  --button-color: #000000;
+  --button-hover-coler: #3a3434;
+  --border-colors: #c53030;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.search-bar-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  height: 90px;
+}
+
+.search-bar {
+  width: 80%; /* Để thanh tìm kiếm chiếm toàn bộ chiều rộng */
+  height: 34px;
+  padding: 12px 35px 12px 45px; /* Thêm padding trái cho icon */
+  font-size: 14px; /* Điều chỉnh kích thước font chữ để dễ nhìn */
+  border: 1px solid var(--search-border-color);
+  border-radius: 25px; /* Bo tròn góc để thanh tìm kiếm mềm mại */
+  background-color: #8b24e7; /* Màu nền của thanh tìm kiếm */
+  color: white; /* Màu chữ */
+  transition: all 0.3s ease; /* Thêm hiệu ứng khi chuyển động focus */
+}
+
+.search-bar:focus {
+  border-color: var(--search-focus-border-color);
+  box-shadow: 0 0 12px rgba(210, 151, 30, 0.5); /* Hiệu ứng bóng đổ khi focus */
+  outline: none; /* Bỏ viền mặc định của trình duyệt */
+}
+
+.search-bar::placeholder {
+  color: var(--search-placeholder-color);
+  font-style: italic; /* Làm chữ placeholder mờ và nghiêng */
+}
+
+.search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30px;
+  color: white;
+}
+
+.novel-list {
+  margin-top: 30px;
+}
+
+.novel-grid-container {
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1000px;
+  border: 1px solid; /* Thêm viền mỏng */
+  border-color: var(--novel-grid-border-color);
+  border-radius: 12px; /* Bo góc mượt mà */
+  background-color: var(--background-colorf); /* Thêm màu nền để nổi bật */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Đổ bóng mạnh hơn */
+}
+
+.novel-grid {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(6, 1fr); /* Mặc định là 6 cột */
+}
+
+.novel-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.novel-link:hover {
+  text-decoration: none;
+}
+
+/* Điều chỉnh bố cục ở chế độ thu nhỏ */
+@media (max-width: 768px) {
+  .novel-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 cột khi thu nhỏ */
+  }
+
+  .search-bar {
+    width: 90%; /* Giảm chiều rộng thanh tìm kiếm trên màn hình nhỏ */
+  }
+}
+
+.no-results {
+  color: red;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 20px;
+}

@@ -53,7 +53,7 @@ public class AuthorController {
     }
     @GetMapping("/getalls")
     @CrossOrigin(origins = "http://localhost:4200")
-    public List<NovelDTO> getAllProducts() {
+    public List<NovelDTO> getAllNovels() {
         return (novelService.getAllNovels());
     }
 

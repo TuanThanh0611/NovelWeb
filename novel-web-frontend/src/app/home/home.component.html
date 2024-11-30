@@ -1,7 +1,13 @@
 <app-banner></app-banner>
 
+<div class="main-container">
+  <div class="content">
+    <app-new></app-new>
+    <app-novelgrid [novels]="novels"></app-novelgrid>
+  </div>
 
-<app-new></app-new>
-<app-novelgrid [novels]="novels"></app-novelgrid>
-
-
+  <!-- Phần bên phải chiếm không gian trống -->
+  <div class="right-side">
+    <app-event></app-event>
+  </div>
+</div>

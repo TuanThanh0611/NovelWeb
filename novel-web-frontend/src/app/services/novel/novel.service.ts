@@ -25,6 +25,16 @@ export class NovelService {
       })
     );
   }
+  getAllNovel():Observable<CardNovelInfo[]> {
+    return this.http.get<CardNovelInfo[]>(`http://localhost:8080/api/author/getalls`).pipe(
+      tap((data) => {
+      }),
+      catchError((error) => {
+        console.error('Error fetching novel details:', error);
+        return throwError(() => new Error('Failed to fetch novel details'));
+      })
+    );
+  }
 
 
   get12LatestNovels(): Observable<CardNovelInfo[]> {

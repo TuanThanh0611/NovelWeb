@@ -9,10 +9,10 @@
       <p><strong>Chapters:</strong> {{ novel.chapterNumber }}</p>
       <p><strong>Views:</strong> {{ novel.views }}</p>
       <div class="novel-tags">
-        <span class="tag" *ngFor="let tag of novel.genres">{{ tag }}</span>
+        <span class="tag" *ngFor="let tag of novel.genres">{{ tag.name }}</span>
       </div>
       <div class="buttons">
-        <button class="btn read">READ CHAPTER 1</button>
+        <button (click)="chapter1()" class="btn read">READ CHAPTER 1</button>
         <button class="btn disabled">LIBRARY DISABLED</button>
       </div>
     </div>
@@ -20,10 +20,10 @@
 
   <!-- Section for Novel Chapters and User Reviews -->
   <div class="novel-details">
-    <div class="novel-chapters">
+    <button (click)="chapterlist()" class="novel-chapters">
       <h3>Novel Chapters</h3>
       <p>{{ latestChapter }} <span class="update-time">({{ chapterUpdatedTime }})</span></p>
-    </div>
+    </button>
 
     <div class="user-reviews">
       <h3>User Reviews</h3>
@@ -41,3 +41,4 @@
 <ng-template #loading>
   <p>Loading novel details...</p>
 </ng-template>
+<app-comment-section></app-comment-section>

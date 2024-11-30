@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, DecimalPipe, NgClass } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NovelService} from '../../services/novel/novel.service';
 import {NovelPageInfo} from '../../admin/model/novel.model';
+import {CommentSectionComponent} from '../comment-section/comment-section.component';
 
 @Component({
   selector: 'app-novel-page',
@@ -11,6 +12,7 @@ import {NovelPageInfo} from '../../admin/model/novel.model';
     DecimalPipe,
     NgClass,
     CommonModule,
+    CommentSectionComponent
   ],
   templateUrl: './novel-page.component.html',
   styleUrls: ['./novel-page.component.scss'] // Đúng cú pháp: `styleUrls` (số nhiều)
@@ -25,7 +27,7 @@ export class NovelPageComponent implements OnInit {
   averageScore: string='4.9';
 
 
-  constructor(private route: ActivatedRoute,private novelService: NovelService) {}
+  constructor(private route: ActivatedRoute,private novelService: NovelService,private router: Router,    ) {}
 
   ngOnInit(): void {
     // Lấy tham số 'publicId' từ URL
@@ -33,6 +35,12 @@ export class NovelPageComponent implements OnInit {
       this.publicId = params['publicId'];
       this.loadNovelDetails(this.publicId);
     });
+  }
+  chapter1():void{
+    this.router.navigate([`/read/${this.publicId}/1`]);
+  }
+  chapterlist():void{
+    this.router.navigate([`/chapter-list/${this.publicId}`]);
   }
 
   loadNovelDetails(publicId: string): void {

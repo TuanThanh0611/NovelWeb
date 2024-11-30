@@ -1,0 +1,77 @@
+.chapter-list {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chapter-list h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+}
+
+.chapters {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.chapter-item {
+  display: flex;
+  justify-content: space-between; /* Đẩy phần ngày sát bên phải */
+  align-items: center; /* Căn giữa nội dung theo chiều dọc */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.chapter-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.chapter-item strong {
+  color: #2c3e50;
+}
+.date {
+  color: #7f8c8d;
+  font-size: 14px;
+  white-space: nowrap; /* Đảm bảo ngày không bị xuống dòng */
+}
+.chapter-item a {
+  color: #3498db;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.chapter-item a:hover {
+  text-decoration: underline;
+}
+
+.chapter-item .date {
+  color: #7f8c8d;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.error {
+  color: #e74c3c;
+  text-align: center;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.empty {
+  text-align: center;
+  font-size: 16px;
+  color: #7f8c8d;
+  margin-top: 20px;
+}

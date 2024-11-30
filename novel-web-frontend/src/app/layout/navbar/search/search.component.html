@@ -1,0 +1,28 @@
+<div class="search-container">
+  <div class="search-bar-wrapper">
+    <input
+      type="text"
+      placeholder="Tìm kiếm tiểu thuyết..."
+      [(ngModel)]="searchTerm"
+      (input)="onSearch()"
+      class="search-bar"
+    />
+  </div>
+</div>
+
+<div *ngIf="filteredNovels.length > 0" class="novel-list">
+  <div class="novel-grid-container">
+    <div class="novel-grid">
+      <!-- Duyệt qua danh sách novels và tạo card -->
+      <ng-container *ngFor="let novel of filteredNovels">
+        <a [routerLink]="['/novelpage', novel.publicId]" class="novel-link">
+          <app-novelcard [novel]="novel"></app-novelcard>
+        </a>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="filteredNovels.length === 0 && searchTerm" class="no-results">
+  Không tìm thấy tiểu thuyết nào.
+</div>

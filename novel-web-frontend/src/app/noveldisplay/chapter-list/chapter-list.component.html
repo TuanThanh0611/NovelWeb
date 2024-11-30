@@ -1,0 +1,24 @@
+<div class="chapter-list">
+  <h2>Danh sách Chapter</h2>
+
+  <!-- Hiển thị lỗi -->
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Hiển thị danh sách chapter -->
+  <ul *ngIf="chapters && chapters.length > 0" class="chapters">
+    <li *ngFor="let chapter of chapters" class="chapter-item">
+      <strong>Chương {{ chapter.chapterNumber }}:</strong>
+      <a [routerLink]="['/read', chapter.novelPublicId, chapter.chapterNumber]">
+        {{ chapter.title }}
+      </a>
+      <span class="date">({{ chapter.publishedDate | date: 'dd/MM/yyyy' }})</span>
+    </li>
+  </ul>
+
+  <!-- Hiển thị nếu danh sách chapter rỗng -->
+  <div *ngIf="chapters.length === 0" class="empty">
+    Không có chapter nào để hiển thị.
+  </div>
+</div>

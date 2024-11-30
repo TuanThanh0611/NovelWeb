@@ -1,0 +1,70 @@
+:root {
+  --chapter-details-background-color: #fff;
+  --chapter-details-container-background-color: #f4f4f9;
+  --chapter-details-content-color: #d2b4b4;
+}
+body.dark-mode {
+  --chapter-details-background-color: #b40f0f;
+  --chapter-details-container-background-color: #ea6464;
+  --chapter-details-content-color: #bbb8b8;
+}
+
+
+
+
+.chapter-detail-container {
+  max-width: 800px; /* Độ rộng tối đa của khung */
+  margin: 0 auto;  /* Căn giữa trang */
+  padding: 20px;  /* Khoảng cách từ viền */
+  background-color: var(--chapter-details-container-background-color); /* Màu nền nhẹ */
+  border-radius: 10px; /* Góc bo tròn */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
+  font-family: Arial, sans-serif; /* Chọn font */
+}
+
+/* Định dạng tiêu đề chapter */
+.chapter-detail h1 {
+  font-size: 24px;
+  color: #cb3737;
+  margin-bottom: 10px;
+}
+
+/* Định dạng thông tin meta (ngày và lượt xem) */
+.chapter-detail .meta {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 20px;
+}
+
+/* Nội dung chapter */
+.chapter-detail .content {
+  font-size: 16px; /* Kích thước font */
+  line-height: 1.6; /* Khoảng cách giữa các dòng */
+  color: var(--chapter-details-content-color);
+  background-color: var(--chapter-details-background-color); /* Nền trắng cho phần nội dung */
+  padding: 20px;
+  border-radius: 5px; /* Góc bo tròn cho khung nội dung */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng cho nội dung */
+  word-wrap: break-word; /* Đảm bảo text không bị vỡ dòng */
+  max-height: 80vh; /* Giới hạn chiều cao để tránh kéo trang quá dài */
+  overflow-y: auto; /* Cho phép cuộn dọc */
+}
+
+/* Phản hồi khi xem trên thiết bị di động */
+@media (max-width: 600px) {
+  .chapter-detail-container {
+    padding: 15px;
+  }
+
+  .chapter-detail h1 {
+    font-size: 20px;
+  }
+
+  .chapter-detail .meta {
+    font-size: 12px;
+  }
+
+  .chapter-detail .content {
+    font-size: 14px;
+  }
+}

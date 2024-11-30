@@ -7,7 +7,41 @@
 
 .new-release-container {
   margin-top: 20px;
-  width: 100%;
-  background-position: center;
-}
+  width: 100%;}
+  /* Container chính */
+  .main-container {
+    display: flex;
+    justify-content: center; /* Đảm bảo app-new và app-novelgrid ở giữa */
+    align-items: flex-start;
 
+    padding: 20px;
+  }
+
+  /* Phần chứa nội dung chính */
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative; /* Cho phép phần tử con chồng lên nhau */
+  }
+
+  /* Phần bên phải (Event) */
+  .right-side {
+    position: absolute;
+    left:1530px;
+    top: 160px; /* Đặt khoảng cách từ trên xuống */
+    right: 0px;  /* Đặt ở bên phải */
+    width: 30%; /* Chiếm 30% chiều rộng */
+    z-index: 10; /* Đảm bảo phần này chồng lên các phần khác */
+  }
+
+  /* Nếu muốn cố định luôn bên phải ngay cả khi cuộn trang */
+  .right-side.fixed {
+
+    position: fixed;
+    top: 200px;
+    right: 0;
+    width: 300px; /* Cố định chiều rộng */
+    padding: 20px;
+    z-index: 10; margin-bottom: 400px;
+  }

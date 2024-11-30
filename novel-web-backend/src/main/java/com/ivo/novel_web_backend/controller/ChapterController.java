@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -33,5 +35,22 @@ public class ChapterController {
         out.setNovelPublicId(novelPublicId);
       return ResponseEntity.ok( out);
     }
+    @GetMapping("/get-chapter-list")
+    public ResponseEntity<List<ChapterDTO>> getChapterList(@RequestParam UUID novelPublicId) {
+        // Lấy danh sách tất cả chapters từ dịch vụ
+        List<Chapter> chapters = chapterService.getChapterListByNovelPublicId(novelPublicId);
+
+        // Chuyển đổi danh sách Chapter sang danh sách ChapterDTO bằng vòng lặp for
+        List<ChapterDTO> chapterDTOs = new ArrayList<>();
+        for (Chapter chapter : chapters) {
+            ChapterDTO chapterDTO = chapterMapper.ChapterToChapterDTO(chapter);
+            chapterDTO.setNovelPublicId(novelPublicId);
+            chapterDTOs.add(chapterDTO);
+        }
+
+        // Trả về danh sách chapters
+        return ResponseEntity.ok(chapterDTOs);
+    }
+
 
 }

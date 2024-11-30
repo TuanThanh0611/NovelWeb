@@ -38,7 +38,7 @@ export class AdminNovelService {
   createNovel(novel: BaseNovel): Observable<any> {
     const token = localStorage.getItem('authToken');
 
-    return this.http.post<Novel>(
+    return this.http.post<BaseNovel>(
       `http://localhost:8080/api/author/create-novel`,
       {
         title: novel.title,

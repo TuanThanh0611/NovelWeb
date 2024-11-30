@@ -1,0 +1,34 @@
+<div class="ranking-container">
+  <div class="ranking-section">
+    <h3 class="section-title">Most Read</h3>
+    <div class="ranking-list">
+      <ng-container *ngFor="let novel of mostRead">
+        <a [routerLink]="['/novelpage', novel.publicId]" class="novel-link">
+          <app-novelcard [novel]="novel" class="ranking-card"></app-novelcard> <!-- Thêm lớp .ranking-card -->
+        </a>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="ranking-section">
+    <h3 class="section-title">New Trends</h3>
+    <div class="ranking-list">
+      <ng-container *ngFor="let novel of newTrends">
+        <a [routerLink]="['/novelpage', novel.publicId]" class="novel-link">
+          <app-novelcard [novel]="novel" class="ranking-card"></app-novelcard> <!-- Thêm lớp .ranking-card -->
+        </a>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="ranking-section">
+    <h3 class="section-title">User Rated</h3>
+    <div class="ranking-list">
+      <ng-container *ngFor="let novel of userRated">
+        <a [routerLink]="['/novelpage', novel.publicId]" class="novel-link">
+          <app-novelcard [novel]="novel" class="ranking-card"></app-novelcard> <!-- Thêm lớp .ranking-card -->
+        </a>
+      </ng-container>
+    </div>
+  </div>
+</div>

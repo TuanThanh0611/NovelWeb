@@ -1,0 +1,37 @@
+<div class="comment-section">
+  <h3>Bình luận</h3>
+
+  <!-- Hiển thị lỗi -->
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Hiển thị khi đang tải -->
+  <div *ngIf="isLoading" class="loading">
+    Đang tải bình luận...
+  </div>
+
+  <!-- Danh sách bình luận -->
+  <ul *ngIf="comments && comments.length > 0" class="comment-list">
+    <li *ngFor="let comment of comments" class="comment-item">
+      <div class="comment-header">
+        <strong>{{ comment.userName }}</strong>
+        <span class="date">{{ comment.date | date: 'dd/MM/yyyy HH:mm' }}</span>
+      </div>
+      <div class="comment-body">
+        {{ comment.content }}
+      </div>
+    </li>
+  </ul>
+
+  <!-- Hiển thị nếu không có bình luận -->
+  <div *ngIf="comments.length === 0 && !isLoading" class="empty">
+    Chưa có bình luận nào.
+  </div>
+
+  <!-- Form thêm bình luận -->
+  <form (ngSubmit)="addComment()" class="comment-form">
+    <textarea [(ngModel)]="newComment" name="comment" placeholder="Viết bình luận..." rows="3"></textarea>
+    <button type="submit" [disabled]="!newComment.trim()">Thêm bình luận</button>
+  </form>
+</div>

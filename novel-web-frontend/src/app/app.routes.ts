@@ -13,10 +13,15 @@ import {AdminGenresComponent} from './admin/genre/admin-genres/admin-genres.comp
 
 import {CreateNovelComponent} from './admin/novel/create-novel/create-novel.component';
 import {AdminNovelsComponent} from './admin/novel/admin-novels/admin-novels.component';
-import {RoleGuard} from './auth/role-guard';
+
 import {UploadFileComponent} from './admin/upload-file/upload-file.component';
 import {NovelPageComponent} from './noveldisplay/novel-page/novel-page.component';
 import {AddChapterComponent} from './admin/chapter/add-chapter/add-chapter.component';
+import {AdminGuard} from './auth/role-guard';
+import {ChapterDetailComponent} from './noveldisplay/chapter-detail/chapter-detail.component';
+import {ChapterListComponent} from './noveldisplay/chapter-list/chapter-list.component';
+import {SearchComponent} from './layout/navbar/search/search.component';
+import {ProfileComponent} from './profile/profile.component';
 
 
 export const routes: Routes = [
@@ -49,6 +54,10 @@ export const routes: Routes = [
     component: UploadFileComponent
   },
   {
+    path: 'profile',
+    component: ProfileComponent
+  },
+  {
     path: 'regiswithemail',
     component: RegisterwithemailComponent
   },
@@ -56,6 +65,15 @@ export const routes: Routes = [
     path: 'novelpage/:publicId/add-chapter',
     component: AddChapterComponent
   },
+  {
+    path: 'read/:novelPublicId/:chapterNumber',
+    component: ChapterDetailComponent
+  },
+  { path: 'search', component: SearchComponent },
+  {
+  path: 'chapter-list/:novelPublicId',
+  component: ChapterListComponent
+},
   {
     path: 'novelpage/:publicId',
   component: NovelPageComponent,
@@ -66,5 +84,5 @@ export const routes: Routes = [
   { path: 'apply-author', component: AuthorRequestComponent },
   { path: 'author-page', component: AuthorPageComponent },
   { path: 'admin-dashboard', component: AdminDashboardComponent,
-    canActivate: [RoleGuard], }
+    canActivate: [AdminGuard], }
 ];

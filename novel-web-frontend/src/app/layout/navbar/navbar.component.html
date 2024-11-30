@@ -11,12 +11,11 @@
         <a routerLink="/">
         </a>
 
-        <button><i class="fas fa-search"></i> Search</button>
+        <button routerLink="/search"><i class="fas fa-search"></i> Search</button>
         <button><i class="fas fa-th-large"></i> Browse</button>
         <button><i class="fas fa-gem"></i> Ranking</button>
         <button><i class="fas fa-book-open"></i> Updates</button>
         <button><i class="fas fa-filter"></i> Filter</button>
-        <button (click)="test()">Info</button>
         <button (click)="toggleMode()" class="theme-toggle-btn">
 
           <ng-container *ngIf="isDarkMode; else lightModeIcon">
@@ -37,7 +36,7 @@
           <summary><i class="fas fa-user"></i></summary>
           <ul class="z-30">
            <div class ="usernamedecor"><li>{{ userInfo?.username }}</li></div>
-    <li><a routerLink="profile"><i class="fas fa-user-circle"></i> Profile</a></li>
+    <li><a routerLink="/profile"><i class="fas fa-user-circle"></i> Profile</a></li>
             <li><a routerLink="settings"><i class="fas fa-cogs"></i> Settings</a></li>
             <li> <a (click)="navigateToAuthorPage()">
               <i class="fas fa-book-open"></i> Author

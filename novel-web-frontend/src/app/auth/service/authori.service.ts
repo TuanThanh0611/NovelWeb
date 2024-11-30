@@ -17,12 +17,26 @@ export class AuthorizationService {
   }
 
 
-  hasAccess(): Observable<boolean> {
+  hasAdminAccess(): Observable<boolean> {
     this.connectedUser$ = this.authService.getAuthenticatedUser();
     return this.connectedUser$.pipe(
       map((user: ConnectedUser) => {
         this.userf = user;
         return this.userf.roles.some(role => role.toLowerCase() === "admin");
+      }),
+      catchError((error) => {
+        console.error('Error fetching user information:', error);
+        return [false];
+      })
+    );
+  }
+
+  hasAuthorAccess(): Observable<boolean> {
+    this.connectedUser$ = this.authService.getAuthenticatedUser();
+    return this.connectedUser$.pipe(
+      map((user: ConnectedUser) => {
+        this.userf = user;
+        return this.userf.roles.some(role => role.toLowerCase() === "author");
       }),
       catchError((error) => {
         console.error('Error fetching user information:', error);

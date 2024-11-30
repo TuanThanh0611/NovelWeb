@@ -1,16 +1,8 @@
 <div class="chapter-detail-container">
-  <div *ngIf="loading">
-    <p>Loading chapter...</p>
-  </div>
-
-  <div *ngIf="error">
-    <p class="error">{{ error }}</p>
-  </div>
-
   <div *ngIf="chapter" class="chapter-detail">
-    <h1>Chapter {{ chapter.number }}: {{ chapter.title }}</h1>
+    <h1>Chapter {{ chapter.chapterNumber }}: {{ chapter.title }}</h1>
     <p class="meta">
-      Updated on: {{ chapter.updatedDate | date: 'mediumDate' }} • Views: {{ chapter.views }}
+      Updated on: {{ chapter.publishedDate | date: 'mediumDate' }} • Views: {{ 123 }}
     </p>
     <div class="content" [innerHTML]="chapter.content"></div>
   </div>

@@ -47,12 +47,10 @@ public class ChapterService {
         }
         return null;
     }
-//    @Transactional
-//    public List<DGenre> getAllGenres() {
-//        if (genreRepository.count() == 0) {
-//            throw new AppException(ErrorCode.CATCH_ERROR);
-//        }
-//        return genreMapper.GenreToDGenres(genreRepository.findAll());
-//    }
+    @Transactional
+    public List<Chapter> getChapterListByNovelPublicId(UUID novelPublicId) {
+        return chapterRepository.findAllByNovelPublicIdOrderByChapterNumberDesc(novelPublicId);
+    }
+
 
 }

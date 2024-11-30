@@ -4,6 +4,8 @@ import {NewComponent} from './new/new.component';
 import {NovelgridComponent} from '../noveldisplay/novelgrid/novelgrid.component';
 import {NovelService} from '../services/novel/novel.service';
 import {CardNovelInfo} from '../admin/model/novel.model';
+import {RankListComponent} from '../noveldisplay/rank-list/rank-list.component';
+import {EventComponent} from '../event/event.component';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +13,9 @@ import {CardNovelInfo} from '../admin/model/novel.model';
   imports: [
     BannerComponent,
     NewComponent,
-    NovelgridComponent
+    NovelgridComponent,
+    RankListComponent,
+    EventComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

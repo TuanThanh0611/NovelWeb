@@ -7,12 +7,11 @@ import {Observable} from "rxjs";
 @Injectable({
   providedIn: 'root',
 })
-export class RoleGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
   constructor(private authService: AuthorizationService, private router: Router) {}
 
   canActivate(): Observable<boolean> {
-    const hasAccess = this.authService.hasAccess();
-
+    const hasAccess = this.authService.hasAdminAccess();
     if (!hasAccess) {
       alert("Error");
       this.router.navigate(['/']);

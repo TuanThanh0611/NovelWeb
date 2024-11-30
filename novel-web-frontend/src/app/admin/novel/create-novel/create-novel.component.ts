@@ -66,10 +66,13 @@ export class CreateNovelComponent {
     const target = event.target as HTMLInputElement;
     const genresArray = this.createForm.get('genres') as FormArray;
 
-    if (target.checked) {
-      genresArray.push(this.formBuilder.control(target.value));
+    // Giả sử bạn đang làm việc với danh sách genres từ backend và có đối tượng genre đầy đủ
+    const genre = this.genresQuery.data()?.find(g => g.publicId === target.value);
+
+    if (target.checked && genre) {
+      genresArray.push(this.formBuilder.control(genre)); // Lưu toàn bộ đối tượng genre
     } else {
-      const index = genresArray.controls.findIndex((x) => x.value === target.value);
+      const index = genresArray.controls.findIndex((x) => x.value.publicId === target.value);
       if (index !== -1) genresArray.removeAt(index);
     }
   }
