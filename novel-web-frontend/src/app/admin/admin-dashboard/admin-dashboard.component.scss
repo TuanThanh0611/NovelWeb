@@ -43,29 +43,6 @@ h1 {
   background-color: #1abc9c;
 }
 
-/* Middle Panel (Create Section) */
-.middle-panel {
-  flex: 2; /* Chiếm 2/7 chiều rộng */
-  background-color: #ecf0f1;
-  padding: 20px;
-}
-
-.middle-panel h2 {
-  margin-bottom: 15px;
-}
-
-.middle-panel form div {
-  margin-bottom: 10px;
-}
-
-.middle-panel input {
-  width: 100%;
-  padding: 8px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
 /* Right Panel (List Section) */
 .right-panel {
   flex: 4; /* Chiếm 4/7 chiều rộng */
@@ -97,68 +74,47 @@ h1 {
 .right-panel table tbody tr:hover {
   background-color: #ecf0f1;
 }
-/* Middle Panel (Dashboard Overview) */
-.middle-panel h2 {
-  margin-bottom: 15px;
-}
 
-.overview-item {
-  margin-bottom: 20px;
-}
-
-.overview-item h3 {
-  margin-bottom: 5px;
-}
-
-.overview-item p {
-  font-size: 18px;
-  font-weight: bold;
-  color: #34495e;
-}
-
-/* Dashboard Overview */
-.middle-panel h2 {
-  margin-bottom: 20px;
-}
-
-/* Overview Item */
-.overview-item {
-  background-color: #fff;
+/* Info Boxes */
+.info-box {
   border-radius: 8px;
-  padding: 20px;
+  padding: 16px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  margin-bottom: 16px;
 }
 
-.overview-item h3 {
-  font-size: 18px;
+.info-box.large {
+  flex: 1;
+}
+
+.info-box.small {
+  flex: 1;
+  background-color: #ff5722;
+  color: white;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+/* Improved Box Style */
+.info-box h3, .info-box h4 {
   margin: 0;
+  font-size: 18px;
 }
 
-.overview-item p {
+.info-box p {
   font-size: 24px;
   font-weight: bold;
   color: #2c3e50;
-  margin: 0;
-  padding: 10px;
-  background-color: #ecf0f1;
-  border-radius: 8px;
-  min-width: 120px;
-  text-align: center;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 /* Responsive Design for smaller screens */
 @media (max-width: 768px) {
-  .overview-item {
+  .info-box {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .overview-item p {
+  .info-box p {
     margin-top: 10px;
   }
 }

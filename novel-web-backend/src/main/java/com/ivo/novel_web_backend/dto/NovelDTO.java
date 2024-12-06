@@ -39,7 +39,7 @@ public class NovelDTO {
     private List<Genre> genres;
 
     private int chapterNumber;
-    private Status status;
+    private String status;
     private LocalDate publishedDate;
     private String cover;
 

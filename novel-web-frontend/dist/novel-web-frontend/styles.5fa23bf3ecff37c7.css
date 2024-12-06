@@ -1,0 +1,1 @@
+@charset "UTF-8";@tailwind base;@tailwind components;@tailwind utilities;.toggle-button{position:fixed;top:20px;right:20px;padding:10px 20px;font-size:16px;cursor:pointer;border:none;border-radius:5px;background-color:#f8d243;color:#fff}body{background-color:#fff;color:#000;transition:background-color .3s ease,color .3s ease}body.dark-mode{background-color:#121212;color:#fff}

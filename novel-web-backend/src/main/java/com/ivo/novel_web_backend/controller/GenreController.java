@@ -20,6 +20,8 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/genres")
+@CrossOrigin(origins = {"http://localhost:4200", "http://tuanthanh.site"})
+
 public class GenreController {
     private static final Logger log = LoggerFactory.getLogger(GenreController.class);
     public static final String ADMIN = "ADMIN";

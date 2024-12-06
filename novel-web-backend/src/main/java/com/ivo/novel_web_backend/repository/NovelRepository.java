@@ -16,7 +16,10 @@ public interface NovelRepository extends JpaRepository<Novel, Long> {
     void deleteByPublicId(UUID publicId);
     Novel findByPublicId(UUID publicId);
     List<Novel> findTop12ByOrderByPublishedDateDesc();
-
+    List<Novel> findAllByOrderByViewsDesc();
+    List<Novel> findTop12ByOrderByRatingDesc();
+    List<Novel> findTop12ByOrderByViewsDesc();
+    List<Novel> findTop12ByOrderByChapterNumberDesc();
     @EntityGraph(attributePaths = {"genres"})
     List<Novel> findAll();
 

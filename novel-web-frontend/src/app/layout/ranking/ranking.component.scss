@@ -1,0 +1,111 @@
+:root {
+  --rank-title-color:#ffffff;
+  --button-bar-background-color:#f9f9f9;
+  --button-bar-item-color:#333;
+  --button-item-active-background-color:#f0f0ff;
+}
+
+body.dark-mode {
+  --rank-title-color: #000000;
+  --button-bar-background-color: #100808;
+  --button-bar-item-color: #a8a8a8;
+  --button-item-active-background-color: #13131a;
+}
+
+
+body {
+  display: flex;
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  align-items: center;    /* Căn giữa theo chiều dọc */
+  min-height: 100vh;      /* Chiều cao toàn màn hình */
+  margin: 0;              /* Xóa khoảng cách mặc định */
+  background-color: #f8f9fa; /* Màu nền */
+}
+
+/* Bao bọc toàn bộ nội dung */
+.content-wrapper {
+  display: flex;
+  flex-direction: column; /* Căn chỉnh theo chiều dọc */
+  align-items: center;    /* Căn giữa nội dung theo chiều ngang */
+  gap: 20px;              /* Khoảng cách giữa các phần tử */
+  width: 100%;
+}
+
+/* Rank Title */
+.rank-title {
+  width: 60%; /* Chiều rộng tối đa */
+  max-width: 800px;
+  text-align: center; /* Căn giữa nội dung */
+  border-radius: 8px;
+  background-color: var(--rank-title-color);
+  padding: 20px;
+}
+
+.bar {
+  display: flex;
+  justify-content: space-between; /* Căn đều 2 phần tử trong bar */
+  align-items: center; /* Căn giữa nội dung theo chiều dọc */
+  font-size: 20px;
+}
+
+.rank-title1 {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.view-more {
+  color: #7d36ec;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+/* Button Bar */
+.button-bar {
+  display: flex;
+  justify-content: center; /* Căn giữa toàn bộ các nút */
+  gap: 10px;              /* Khoảng cách giữa các nút */
+  width: 60%;             /* Chiều rộng tối đa */
+  max-width: 800px;
+  background-color: var(--button-bar-background-color);
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Các nút */
+.button-item {
+  flex: 1; /* Chia đều không gian giữa các nút */
+  max-width: 150px;
+  min-width: 120px;
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--button-bar-item-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-item:hover {
+  background-color: #6e00bb;
+}
+
+.button-item.active {
+  border-color: #6c5ce7;
+  background-color:var(--button-item-active-background-color) ;
+  color: #6c5ce7;
+}
+
+/* App NovelGrid */
+app-novelgrid {
+  margin-top: 40px;
+  width: 1000%; /* Chiều rộng tối đa */
+  text-align: center;
+}

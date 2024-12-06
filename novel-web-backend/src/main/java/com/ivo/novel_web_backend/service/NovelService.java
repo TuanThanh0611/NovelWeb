@@ -39,6 +39,9 @@ public class NovelService {
     GenreMapper genreMapper;
     @Autowired
     GenreService genreService;
+    @Autowired
+    ChapterService chapterService;
+    private final Random random = new Random();
     private static final String UPLOAD_DIR = "/path/to/upload/directory";
 
     public NovelService(NovelRepository novelRepository, GenreRepository genreRepository, NovelMapper novelMapper, GenreMapper genreMapper, GenreService genreService) {
@@ -68,11 +71,12 @@ public class NovelService {
             genres.add(genreT);
         }
         novelEntity.setGenres(genres);
-
-        novelEntity.setRating((double) 0);
+        novelEntity.setViews(random.nextInt(7000 - 100 + 1) + 100);
+        novelEntity.setRating(Math.round((4.2 + (4.9 - 4.2) * random.nextDouble()) * 10) / 10.0);
         novelEntity.setPublishedDate(LocalDate.now());
         novelEntity.setRanking(9999);
         novelEntity.setChapterNumber(0);
+        novelEntity.setStatus("Đang tiến hành");
         novelRepository.save(novelEntity);
         NovelDTO novelDTO = novelMapper.NovelToNovelDTO(novelEntity);
         if(novelDTO.getGenres()==null){
@@ -105,6 +109,33 @@ public class NovelService {
         return novelMapper.NovelListToNovelDTOList(novelRepository.findAll());
 
     }
+    @Transactional
+    public List<NovelDTO> getAllNovelsOrderedByRating() {
+        if(novelRepository.findTop12ByOrderByRatingDesc().get(0).getId()==null){
+            throw new AppException(ErrorCode.CATCH_ERROR);
+        }
+        return novelMapper.NovelListToNovelDTOList(novelRepository.findTop12ByOrderByRatingDesc());
+
+    }
+
+    @Transactional
+    public List<NovelDTO> get12NovelsOrderedByViews() {
+        if(novelRepository.findTop12ByOrderByViewsDesc().get(0).getId()==null){
+            throw new AppException(ErrorCode.CATCH_ERROR);
+        }
+        return novelMapper.NovelListToNovelDTOList(novelRepository.findTop12ByOrderByViewsDesc());
+
+    }
+
+    @Transactional
+    public List<NovelDTO> get12NovelsOrderedByChapterNumber() {
+        if(novelRepository.findTop12ByOrderByChapterNumberDesc().get(0).getId()==null){
+            throw new AppException(ErrorCode.CATCH_ERROR);
+        }
+        return novelMapper.NovelListToNovelDTOList(novelRepository.findTop12ByOrderByChapterNumberDesc());
+
+    }
+
     @Transactional
     public UUID deleteNovel(UUID publicId) {
         Novel novel = novelRepository.findByPublicId(publicId);
@@ -140,7 +171,7 @@ public class NovelService {
         novel.setViews(2430);
         novel.setChapterNumber(223);
         novel.setPublishedDate(LocalDate.now().minusYears(1)); // Sample Published Date
-        novel.setStatus(Status.ONGOING);
+        novel.setStatus("ONGOING");
         novel.setCover("http://localhost:8080/images/cổ-chân-nhân.jpg");
 
         // Sample Genres (Now using Genre entity)

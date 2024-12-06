@@ -2,17 +2,18 @@ package com.ivo.novel_web_backend.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,7 +25,8 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @Slf4j
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "http://tuanthanh.site"})
+
 
 
 public class FileUploadController {
@@ -35,7 +37,7 @@ public class FileUploadController {
 
         try {
             // Đường dẫn đến thư mục 'images'
-            Path resourceFolder = Paths.get("src/main/resources/images");
+            Path resourceFolder = Paths.get("novel-web-backend/src/main/resources/static/images");
 
             // Tạo thư mục nếu chưa tồn tại
             if (!Files.exists(resourceFolder)) {
@@ -64,5 +66,13 @@ public class FileUploadController {
             log.error("Error while uploading file: {}", e.getMessage(), e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+    @GetMapping("/images/{filename}")
+    public ResponseEntity<Resource> serveFile(@PathVariable String filename) throws MalformedURLException {
+        Path filePath = Paths.get("novel-web-backend/src/main/resources/static/images").resolve(filename);
+        Resource resource = new UrlResource(filePath.toUri());
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(resource);
     }
     }

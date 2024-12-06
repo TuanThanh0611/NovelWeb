@@ -6,9 +6,11 @@ import {CreateQueryResult, injectQuery} from '@tanstack/angular-query-experiment
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
-import {firstValueFrom, Observable} from 'rxjs';
+import {firstValueFrom, map, Observable, of} from 'rxjs';
 import {JwtService} from './jwt.service';
 import {NavbarComponent} from '../../layout/navbar/navbar.component';
+import {catchError} from 'rxjs/operators';
+import {environment} from '../../../environtments/environtment';
 const BASE_URL = "http://localhost:8080";
 @Injectable({
   providedIn: 'root'
@@ -18,25 +20,12 @@ export class AuthService {
   notConnected = 'NOT_CONNECTED';
   connectedUserQuery: CreateQueryResult<ConnectedUser> | undefined;
 
-
   constructor(
-    private fb: FormBuilder,
-    private http:HttpClient,
+    private http: HttpClient,
     private router: Router,
-    private jwtService:JwtService,
-
-    @Inject(PLATFORM_ID) private platformId: Object
+    private jwtService: JwtService
   ) {
-    const introspectRequest = {
-      token: `${this.jwtService.getToken()}`  // Sử dụng backticks để thực hiện interpolation
-    };
-    this.jwtService.introspect(introspectRequest).subscribe(isValid => {
-      if (isValid) {
-        console.log('Token hợp lệ');
-      } else {
-        this.connectedUserQuery=undefined;
-      }
-    });
+    this.initAuthentication();
   }
   hasAnyRoles(user: ConnectedUser, roles: Array<string> | string): boolean {
     if (!Array.isArray(roles)) {
@@ -44,71 +33,64 @@ export class AuthService {
     }
     return user.roles ? user.roles.some((role) => roles.includes(role)) : false;
   }
-  register(registerRequest: any): Observable<any> {
-    return this.http.post(`${BASE_URL}/api/auth/regis`, registerRequest);
-  }
-
-  login(loginRequest: any): Observable<any> {
-    return this.http.post(`${BASE_URL}/api/auth/login`, loginRequest)
-  }
-  logout():void{
-    this.jwtService.deleteToken();
-    this.connectedUserQuery=undefined;
-    console.error('Logout Success');
-    alert("Logout Success");
-
-  }
-  checkAuth(): boolean {
-    const token = this.jwtService.getToken();
-    let isAuthenticated = false;
-
-    this.jwtService.introspect({ token }).subscribe(
-      (response) => {
-        isAuthenticated = response?.result?.valid ?? false;
-      },
-      (error) => {
-        console.error('Lỗi introspect:', error);
-        isAuthenticated = false;
-      }
-    );
-
-    return isAuthenticated;
-
-}
-  checkLogin(): Promise<boolean> {
-    return new Promise((resolve) => {
-      const token = this.jwtService.getToken();
-
-      // Gọi introspect API để xác thực token
-      this.jwtService.introspect({ token }).subscribe(
-        (response) => {
-          resolve(response?.result?.valid ?? false); // Trả về true hoặc false dựa trên kết quả
-        },
-        (error) => {
-          console.error('Lỗi introspect:', error);
-          resolve(false); // Trả về false nếu có lỗi
-        }
-      );
-    });
-  }
-  toQueryResult():CreateQueryResult<ConnectedUser>{
-    return injectQuery(()=>({
-      queryKey:['connected-user'],
-      queryFn:()=>firstValueFrom(this.getAuthenticatedUser()),
+  toQueryResult(): CreateQueryResult<ConnectedUser> {
+    return injectQuery(() => ({
+      queryKey: ['connected-user'],
+      queryFn: () => firstValueFrom(this.getAuthenticatedUser()),
     }));
   }
+
+  // Đăng ký người dùng mới
+  register(registerRequest: any): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/api/auth/regis`, registerRequest);  // Sử dụng apiUrl từ environment
+  }
+
+  // Đăng nhập
+  login(loginRequest: any): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/api/auth/login`, loginRequest);  // Sử dụng apiUrl từ environment
+  }
+
+  // Đăng xuất
+  logout(): void {
+    this.jwtService.deleteToken();
+    this.connectedUserQuery = undefined;
+    console.error('Logout Success');
+    alert("Logout Success");
+    this.router.navigate(['/login']);  // Có thể điều hướng về trang đăng nhập
+  }
+
+  // Kiểm tra tính hợp lệ của token
+  checkAuth(): Observable<boolean> {
+    const token = this.jwtService.getToken();
+    return this.jwtService.introspect({ token }).pipe(
+      map((response) => response?.result?.valid ?? false),
+      catchError((error) => {
+        console.error('Lỗi introspect:', error);
+        return of(false);  // Trả về false nếu có lỗi
+      })
+    );
+  }
+
+  // Kiểm tra trạng thái đăng nhập
+  checkLogin(): Observable<boolean> {
+    return this.checkAuth();
+  }
+
+  // Lấy thông tin người dùng đã xác thực
   getAuthenticatedUser(): Observable<ConnectedUser> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.jwtService.getToken()}`
     });
-    return this.http.get<ConnectedUser>(`${BASE_URL}/api/auth/get-authenticated-user`, { headers });
+    return this.http.get<ConnectedUser>(`${environment.apiUrl}/api/auth/get-authenticated-user`, { headers });  // Sử dụng apiUrl từ environment
   }
+
+  // Khởi tạo xác thực và kiểm tra trạng thái đăng nhập
   async initAuthentication(): Promise<void> {
-    const isAuthenticated = await this.checkAuth();
+    const isAuthenticated = await this.checkLogin().toPromise();
     if (isAuthenticated) {
-      console.log('connected');
+      console.log('Connected');
     } else {
-      console.log('not connected');
+      console.log('Not connected');
     }
   }
 }

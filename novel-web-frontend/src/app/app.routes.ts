@@ -22,6 +22,8 @@ import {ChapterDetailComponent} from './noveldisplay/chapter-detail/chapter-deta
 import {ChapterListComponent} from './noveldisplay/chapter-list/chapter-list.component';
 import {SearchComponent} from './layout/navbar/search/search.component';
 import {ProfileComponent} from './profile/profile.component';
+import {RankingComponent} from './layout/ranking/ranking.component';
+import {ChatComponent} from './chat/chat.component';
 
 
 export const routes: Routes = [
@@ -60,6 +62,14 @@ export const routes: Routes = [
   {
     path: 'regiswithemail',
     component: RegisterwithemailComponent
+  },
+  {
+    path: 'chat',
+    component:ChatComponent
+  },
+  {
+    path: 'ranking',
+    component: RankingComponent
   },
   {
     path: 'novelpage/:publicId/add-chapter',

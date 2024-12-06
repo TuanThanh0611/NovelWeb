@@ -1,56 +1,56 @@
-.event-banner {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 15px 30px;
-  border-radius: 12px; /* Bo góc mềm mại hơn */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Đổ bóng mềm mại */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 20%; /* Tăng chiều rộng tối đa */
-  height: 80px; /* Giảm chiều cao để banner gọn gàng hơn */
-  position: fixed;
-  top: 50px;
-  right: 20px;
-  z-index: 1000;
-  font-family: 'Helvetica Neue', Arial, sans-serif; /* Sử dụng font mượt mà hơn */
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-}
-
-.event-banner-content {
-  display: flex;
-  align-items: center;
-}
-
-.event-banner-icon {
-  font-size: 30px;
-  margin-right: 15px; /* Tăng khoảng cách giữa icon và text */
-}
-
-.event-banner-text {
-  font-size: 16px;
-  flex-grow: 1;
-  margin-right: 25px;
-  font-weight: 500; /* Làm chữ đậm nhẹ để nổi bật hơn */
-  text-align: left;
-}
-
-.event-banner-close {
-  background: none;
-  border: none;
-  font-size: 22px;
-  color: #721c24;
-  cursor: pointer;
-  transition: color 0.3s ease, transform 0.3s ease;
-  border-radius: 50%;
-  padding: 5px 10px;
-}
-
-.event-banner-close:hover {
-  color: #dc3545;
-  transform: rotate(90deg); /* Hiệu ứng xoay khi hover */
-}
-
-.event-banner-close:focus {
-  outline: none;
-}
+//.event-banner {
+//  background-color: #f8d7da;
+//  color: #721c24;
+//  padding: 15px 30px;
+//  border-radius: 12px; /* Bo góc mềm mại hơn */
+//  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Đổ bóng mềm mại */
+//  display: flex;
+//  align-items: center;
+//  justify-content: space-between;
+//  max-width: 20%; /* Tăng chiều rộng tối đa */
+//  height: 80px; /* Giảm chiều cao để banner gọn gàng hơn */
+//  position: fixed;
+//  top: 50px;
+//  right: 20px;
+//  z-index: 1000;
+//  font-family: 'Helvetica Neue', Arial, sans-serif; /* Sử dụng font mượt mà hơn */
+//  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+//}
+//
+//.event-banner-content {
+//  display: flex;
+//  align-items: center;
+//}
+//
+//.event-banner-icon {
+//  font-size: 30px;
+//  margin-right: 15px; /* Tăng khoảng cách giữa icon và text */
+//}
+//
+//.event-banner-text {
+//  font-size: 16px;
+//  flex-grow: 1;
+//  margin-right: 25px;
+//  font-weight: 500; /* Làm chữ đậm nhẹ để nổi bật hơn */
+//  text-align: left;
+//}
+//
+//.event-banner-close {
+//  background: none;
+//  border: none;
+//  font-size: 22px;
+//  color: #721c24;
+//  cursor: pointer;
+//  transition: color 0.3s ease, transform 0.3s ease;
+//  border-radius: 50%;
+//  padding: 5px 10px;
+//}
+//
+//.event-banner-close:hover {
+//  color: #dc3545;
+//  transform: rotate(90deg); /* Hiệu ứng xoay khi hover */
+//}
+//
+//.event-banner-close:focus {
+//  outline: none;
+//}

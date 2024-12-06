@@ -12,17 +12,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("http://localhost:4200")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("*")
+        registry.addMapping("/images/**")  // Chỉ cần dùng cho hình ảnh
+                .allowedOrigins("http://tuanthanh.site", "http://localhost:4200", "http://tuanthanh.site:4200")
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedHeaders("Content-Type", "Authorization")
                 .allowCredentials(true);
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        log.info("Configuring ResourceHandler for images...");
         registry.addResourceHandler("/images/**")
-                .addResourceLocations("file:src/main/resources/images/");
+                .addResourceLocations("classpath:/static/images/");
+
     }
 }

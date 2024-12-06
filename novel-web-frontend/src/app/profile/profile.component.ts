@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
+import {BaseUser, ConnectedUser} from '../shared/model/user.model';
+import {Chapter} from '../shared/model/chapter.model';
+import {AuthService} from '../auth/service/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,21 +14,30 @@ import {CommonModule} from '@angular/common';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
-export class ProfileComponent {
-  user={
-    id: '12345',
-    username: 'john_doe',
-    email: 'john.doe@example.com',
-    imageUrl: 'https://randomuser.me/api/portraits/men/75.jpg',
-    createdDate: new Date().toISOString(),
-    roles: ['ADMIN', 'USER']
-  };
+export class ProfileComponent implements OnInit{
+  user!:ConnectedUser;
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
+this.loadUser();
 
-
+  }
+  loadUser(): void {
+    this.authService.getAuthenticatedUser().subscribe({
+      next: (data: ConnectedUser | null) => {
+        if (data) {
+          this.user = data;
+        } else {
+          console.error('No data received');
+          // Xử lý khi không có dữ liệu (có thể hiển thị thông báo lỗi cho người dùng)
+        }
+      },
+      error: (err) => {
+        console.error('Error loading novel details:', err);
+        // Xử lý khi có lỗi trong quá trình gọi API
+      }
+    });
   }
   onAvatarChange(event: Event): void {
     const input = event.target as HTMLInputElement;

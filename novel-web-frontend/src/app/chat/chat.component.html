@@ -1,0 +1,11 @@
+<div class="chat-box">
+  <div class="messages">
+    <div *ngFor="let message of messages" class="message">
+      <strong>{{ message.sender }}:</strong> {{ message.content }}
+    </div>
+  </div>
+  <div class="input-box">
+    <input [(ngModel)]="messageContent" placeholder="Nhập tin nhắn..." />
+    <button (click)="sendMessage()">Gửi</button>
+  </div>
+</div>

@@ -47,10 +47,8 @@ export class NavbarComponent implements OnInit {
     this.isOptionMenuOpen=!this.isOptionMenuOpen;
   }
   isAdmin(): boolean {
-    // return this.userInfo.role === 'admin';
-    return true;
+    return this.userInfo?.roles?.includes('ADMIN') ?? false;
   }
-
 
 
 

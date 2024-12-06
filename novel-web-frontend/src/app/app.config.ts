@@ -19,6 +19,7 @@ import {
   QueryClient,
 } from '@tanstack/angular-query-experimental';
 import { SsrStorageService } from './auth/ssr-storage.service';
+import {environment} from '../environtments/environtment';
 // import { provideNgxStripe } from 'ngx-stripe';
 
 export const appConfig: ApplicationConfig = {
@@ -35,7 +36,7 @@ export const appConfig: ApplicationConfig = {
         silentRenew: true,
         useRefreshToken: true,
         logLevel: LogLevel.Warn,
-        secureRoutes: ['http://localhost:8080'],
+        secureRoutes: [environment.apiUrl],
         customParamsAuthRequest: {
         },
       },

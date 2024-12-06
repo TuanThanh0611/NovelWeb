@@ -6,6 +6,7 @@ import { firstValueFrom, Observable, of } from 'rxjs';
 import {ConnectedUser, ShowUser} from '../../shared/model/user.model';
 import {CreateQueryResult, injectQuery} from "@tanstack/angular-query-experimental";
 import {isPlatformBrowser} from "@angular/common";
+import {environment} from '../../../environtments/environtment';
 const BASE_URL = "http://localhost:8080";
 @Injectable({
   providedIn: 'root',
@@ -16,20 +17,26 @@ export class JwtService {
   notConnected = 'NOT_CONNECTED';
   connectedUserQuery: CreateQueryResult<ConnectedUser> | undefined;
 
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
-  constructor(private fb: FormBuilder, private router: Router,private http:HttpClient,
- @Inject(PLATFORM_ID) private platformId: Object) {
-  }
-
+  // Lưu token vào localStorage
   saveToken(token: string): void {
     if (isPlatformBrowser(this.platformId))
       localStorage.setItem(this.tokenKey, token);
     alert(token);
   }
-  deleteToken():void{
+
+  // Xóa token khỏi localStorage
+  deleteToken(): void {
     localStorage.removeItem(this.tokenKey);
   }
 
+  // Lấy token từ localStorage
   getToken(): string | null {
     if (isPlatformBrowser(this.platformId))
       return localStorage.getItem(this.tokenKey);
@@ -37,15 +44,17 @@ export class JwtService {
       return null;
   }
 
+  // Kiểm tra tính hợp lệ của token
   introspect(introspectRequest: any): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${introspectRequest.token}` // Thêm Bearer Token vào header
     });
 
-    return this.http.post(`${BASE_URL}/api/auth/token`, introspectRequest, { headers });
+    // Sử dụng apiUrl từ environment
+    return this.http.post(`${environment.apiUrl}/api/auth/token`, introspectRequest, { headers });
   }
 
-
+  // Kiểm tra tính hợp lệ của token (dựa trên payload)
   public isTokenValid(token: string): boolean {
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
@@ -56,5 +65,4 @@ export class JwtService {
       return false;
     }
   }
-
 }

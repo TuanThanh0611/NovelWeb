@@ -5,6 +5,8 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {catchError} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../environtments/environtment';
+
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -14,99 +16,20 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./admin-dashboard.component.scss']
 })
 export class AdminDashboardComponent implements OnInit {
-  selectedAction: string | null = null; // "createGenre" hoặc "createNovel"
-  selectedSection: string | null = null; // "genres" hoặc "novels"
-  currentAction: string | null = null; // "createGenre", "createNovel", etc.
-  currentSection: string | null = null;
-  private router=inject(Router);
-  todayViews: number = 100;  // Giả sử 100 lượt xem hôm nay
-  weekViews: number = 500;   // Giả sử 500 lượt xem trong tuần này
-  totalViews: number = 1500; // Giả sử 1500 lượt xem tổng cộng
-  totalUsers: number = 120;  // Giả sử 120 người dùng
+  private router = inject(Router);
+  todayViews: number = 100;
+  weekViews: number = 500;
+  totalViews: number = 1500;
+  totalUsers: number = 120;
   totalAuthors: number = 30;
-  totalVisits:number=1000;
+  totalVisits: number = 1000;
   createForm!: FormGroup;
   loading: boolean = false;
-  private apiUrl = 'http://localhost:8080/api/genres';
+  private apiUrl = environment.apiUrl + '/genres';  // Sử dụng apiUrl từ environment
 
-  // Fake data for demonstration
-  genreList = [
-    { id: 1, name: 'Fantasy' },
-    { id: 2, name: 'Romance' },
-    { id: 3, name: 'Adventure' },
-  ];
-  navigate(action: string) {
-    // Reset both action and section
-    this.currentAction = null;
-    this.currentSection = null;
-
-    // Assign the appropriate values based on the action
-    switch (action) {
-      case 'createGenre':
-        this.currentAction = 'createGenre';
-        this.currentSection = 'genres'; // Also show genre list
-        break;
-      case 'viewGenres':
-        this.currentSection = 'genres';
-        break;
-      case 'createNovel':
-        this.currentAction = 'createNovel';
-        break;
-      case 'viewNovels':
-        this.currentSection = 'novels';
-        break;
-      case 'viewUsers':
-        this.currentSection = 'users';
-        break;
-      default:
-        break;
-    }
-  }
-
-  novelList = [
-    { id: 1, title: 'The Great Novel', author: 'John Doe',genre:'meomeo',views:'1000' },
-    { id: 2, title: 'Adventure Time', author: 'Jane Smith' ,genre:'meomeo',views:'1000'},
-  ];
-  constructor(
-    private fb: FormBuilder,
-    private http: HttpClient
-  ) {}
-
-  genreName = '';
-  novelTitle = '';
-
-  createGenre() {
-    this.selectedAction = 'createGenre';
-    this.selectedSection = null;
-  }
-
-  createNovel() {
-    this.selectedAction = 'createNovel';
-    this.selectedSection = null;
-  }
-
-  viewGenres() {
-    this.selectedAction = null;
-    this.selectedSection = 'genres';
-  }
-
-  viewNovels() {
-    this.selectedAction = null;
-    this.selectedSection = 'novels';
-  }
-
-  submitGenre() {
-    alert(`Genre "${this.genreName}" created!`);
-    this.genreName = '';
-  }
-
-  submitNovel() {
-    alert(`Novel "${this.novelTitle}" created!`);
-    this.novelTitle = '';
-  }
+  constructor(private fb: FormBuilder, private http: HttpClient) {}
 
   ngOnInit(): void {
-    // Khởi tạo FormGroup với một FormControl cho 'name'
     this.createForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]]
     });
@@ -115,19 +38,88 @@ export class AdminDashboardComponent implements OnInit {
   get name() {
     return this.createForm.get('name');
   }
-  backtohome() {
-    this.router.navigate(['/']);
+
+  reloadData(): void {
+    this.updateRanking();
+    this.update12latest();
+    this.updateChapterNumber();
   }
 
-  viewUsers() {
-
+  updateRanking(): void {
+    const token = localStorage.getItem('authToken');
+    this.http.post(`${environment.apiUrl}/usual-update/update-ranking`, {}, {
+      headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+      observe: 'response'
+    }).pipe(
+      catchError(error => {
+        console.error('Error updating ranking:', error);
+        this.loading = false;
+        return of(null);
+      })
+    ).subscribe(() => {
+      try {
+        alert('Ranking updated successfully.');
+        this.router.navigate(['/admin-dashboard']);
+      } catch (error) {
+        console.error('Failed to parse JSON:', error);
+        this.loading = false;
+      }
+      this.loading = false;
+    });
   }
-  create() {
+
+  updateChapterNumber(): void {
+    const token = localStorage.getItem('authToken');
+    this.http.post(`${environment.apiUrl}/usual-update/update-chapternumber`, {}, {
+      headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+      observe: 'response'
+    }).pipe(
+      catchError(error => {
+        console.error('Error updating chapter number:', error);
+        this.loading = false;
+        return of(null);
+      })
+    ).subscribe((response: any) => {
+      try {
+        const responseData = JSON.parse(response.body);
+        alert('Chapter number updated successfully.');
+        this.router.navigate(['/admin-dashboard']);
+      } catch (error) {
+        console.error('Failed to parse JSON:', error);
+        this.loading = false;
+      }
+      this.loading = false;
+    });
+  }
+
+  update12latest(): void {
+    const token = localStorage.getItem('authToken');
+    this.http.post(`${environment.apiUrl}/api/novel/update-latest`, {}, {
+      headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+      observe: 'response'
+    }).pipe(
+      catchError(error => {
+        console.error('Error updating latest novels:', error);
+        this.loading = false;
+        return of(null);
+      })
+    ).subscribe((response: any) => {
+      try {
+        const responseData = JSON.parse(response.body);
+        this.router.navigate(['/admin-dashboard']);
+      } catch (error) {
+        console.error('Failed to parse JSON:', error);
+        this.loading = false;
+      }
+      this.loading = false;
+    });
+  }
+
+  create(): void {
     if (this.createForm.valid) {
       this.loading = true;
       const request = { name: this.createForm.value.name };
 
-      // Gửi yêu cầu POST đến API
       this.http.post(`${this.apiUrl}`, request).pipe(
         catchError(error => {
           console.error('Error creating genre:', error);

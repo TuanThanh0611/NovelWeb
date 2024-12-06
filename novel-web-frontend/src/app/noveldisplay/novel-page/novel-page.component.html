@@ -8,6 +8,7 @@
       <p><strong>Rating:</strong> <span class="rating">{{ novel.rating }} ⭐</span></p>
       <p><strong>Chapters:</strong> {{ novel.chapterNumber }}</p>
       <p><strong>Views:</strong> {{ novel.views }}</p>
+      <p><strong>Status:  </strong> <span class="status-highlight">{{ novel.status }}</span></p>
       <div class="novel-tags">
         <span class="tag" *ngFor="let tag of novel.genres">{{ tag.name }}</span>
       </div>
@@ -21,14 +22,14 @@
   <!-- Section for Novel Chapters and User Reviews -->
   <div class="novel-details">
     <button (click)="chapterlist()" class="novel-chapters">
-      <h3>Novel Chapters</h3>
-      <p>{{ latestChapter }} <span class="update-time">({{ chapterUpdatedTime }})</span></p>
+      <h3>Chương</h3>
+      <p>{{ novel.chapterNumber }} <span class="update-time">({{ chapterUpdatedTime }})</span></p>
     </button>
 
     <div class="user-reviews">
       <h3>User Reviews</h3>
       <p>Reviews from {{ reviewsCount }} readers</p>
-      <p>Average score: {{ averageScore }} ⭐</p>
+      <p>Average score: {{ novel.rating }} ⭐</p>
     </div>
   </div>
 

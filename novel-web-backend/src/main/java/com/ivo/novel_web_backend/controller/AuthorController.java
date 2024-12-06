@@ -29,7 +29,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@CrossOrigin(origins = "http://localhost:4200")
+
+@CrossOrigin(origins = {"http://localhost:4200", "http://tuanthanh.site"})
+
 @RestController
 @RequestMapping("/api/author")
 @FieldDefaults(level = AccessLevel.PRIVATE)

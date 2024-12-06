@@ -33,6 +33,7 @@ public class SercurityConfig {
             "/api/author/getalls",
             "/test/firstname",
             "/api/novel/get-12latest",
+            "/api/novel/get-12toprating",
             "/users",
             "/api/auth/login",
             "/api/auth/token",
@@ -57,6 +58,7 @@ public class SercurityConfig {
                                 .requestMatchers(HttpMethod.DELETE, "/api/author").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/author/create-novel").authenticated()
                                 .requestMatchers(HttpMethod.POST, "/api/auth/update").authenticated()
+                                .requestMatchers("/chat/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/auth/updatepassword").authenticated()
                                 .anyRequest().authenticated()
                 )

@@ -22,7 +22,7 @@ import java.text.ParseException;
 
 @RestController()
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "http://tuanthanh.site"})
 public class AuthController {
     @Autowired
     AuthService authService;

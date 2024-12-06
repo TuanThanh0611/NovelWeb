@@ -19,7 +19,8 @@ import java.util.Set;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+
+
 @RequestMapping("/api/novel")
 public class NovelController {
    @Autowired
@@ -45,8 +46,23 @@ public class NovelController {
     catch (Exception e){
         return ResponseEntity.ok("Error while updating latest novel");}
     }
+
     @GetMapping("/get-12latest")
     public ResponseEntity<List<LatestNovel>> get12Latest() {
         return ResponseEntity.ok(lastestNovelService.getAllLatestNovels());
+    }
+    @GetMapping("/get-12toprating")
+    public ResponseEntity<List<NovelDTO>> get12toprating() {
+        return ResponseEntity.ok(novelService.getAllNovelsOrderedByRating());
+    }
+
+    @GetMapping("/get-12topviews")
+    public ResponseEntity<List<NovelDTO>> get12topviews() {
+        return ResponseEntity.ok(novelService.get12NovelsOrderedByViews());
+    }
+
+    @GetMapping("/get-12topchapternumber")
+    public ResponseEntity<List<NovelDTO>> get12topchapternumber() {
+        return ResponseEntity.ok(novelService.get12NovelsOrderedByChapterNumber());
     }
 }

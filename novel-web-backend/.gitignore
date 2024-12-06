@@ -31,3 +31,23 @@ build/
 
 ### VS Code ###
 .vscode/
+.angular/cache/
+# Ignore node_modules folder
+node_modules/
+
+# Ignore build folders
+/build/
+
+# Ignore Angular cache files
+/.angular/
+
+# Ignore all *.pack files (large files)
+*.pack
+
+# Ignore specific cache files and other large files
+novel-web-frontend/.angular/cache/
+novel-web-backend/src/main/resources/images/*
+novel-web-backend/src/main/resources/static/images/*
+novel-web-frontend/node_modules
+# .gitignore
+novel-web-frontend/.angular/

@@ -24,7 +24,7 @@ export class NovelPageComponent implements OnInit {
   latestChapter: string='1000 ';
   chapterUpdatedTime:string='Nov 27';
   reviewsCount: string='66';
-  averageScore: string='4.9';
+
 
 
   constructor(private route: ActivatedRoute,private novelService: NovelService,private router: Router,    ) {}

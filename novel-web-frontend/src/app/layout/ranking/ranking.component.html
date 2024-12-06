@@ -1,0 +1,19 @@
+<div class="content-wrapper">
+  <div class="rank-title">
+    <div class="bar">
+      <span>
+        <div class="rank-title1">Xếp hạng</div>
+      </span>
+    </div>
+  </div>
+
+  <div class="button-bar">
+    <button class="button-item" [ngClass]="{ active: selectedMode === 'rank' }" (click)="setMode('rank')">Rank<br><span>Xếp hạng tổng thể</span></button>
+    <button class="button-item" [ngClass]="{ active: selectedMode === 'rating' }" (click)="setMode('rating')">Rating<br><span>Người đọc đánh giá</span></button>
+    <button class="button-item" [ngClass]="{ active: selectedMode === 'reads' }" (click)="setMode('reads')">Reads<br><span>Lượt xem</span></button>
+    <button class="button-item" [ngClass]="{ active: selectedMode === 'chapter-number' }" (click)="setMode('chapter-number')">Chapter<br><span>Số chương</span></button>
+    <button class="button-item" [ngClass]="{ active: selectedMode === 'comments' }" (click)="setMode('comments')">Comments<br><span>Số bình luận</span></button>
+  </div>
+
+  <app-novelgrid [novels]="novels"></app-novelgrid>
+</div>

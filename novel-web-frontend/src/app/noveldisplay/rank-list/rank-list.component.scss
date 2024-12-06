@@ -1,144 +1,39 @@
-:root {
-  --background-color: #ffffff;
-  --section-title-color: #6c63ff;
-  --ranking-border-color: #ddd;
-  --ranking-padding: 20px;
-  --ranking-radius: 10px;
-  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Wrapper chính */
-.ranking-wrapper {
+.button-bar {
   display: flex;
-  justify-content: center; /* Canh giữa nội dung */
-  padding: 20px;
-  background-color: var(--background-color);
-}
-
-/* Container chính */
-.ranking-container {
-  width: 66.67%; /* Giới hạn chiều rộng 2/3 màn hình */
-  border: 1px solid var(--ranking-border-color); /* Khung viền */
-  border-radius: var(--ranking-radius); /* Bo góc nhẹ */
-  background-color: var(--background-color);
-  padding: var(--ranking-padding); /* Thêm khoảng cách bên trong */
-  box-shadow: var(--box-shadow); /* Hiệu ứng đổ bóng */
-}
-
-/* Sử dụng Grid để chia thành 3 cột */
-.ranking-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr; /* Chia 3 cột đều */
-  gap: 20px; /* Khoảng cách giữa các cột */
-}
-
-.ranking-section {
-  margin-bottom: 20px;
-}
-
-.section-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: var(--section-title-color);
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-.ranking-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* Khoảng cách giữa các mục */
-}
-
-.novel-link {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  transition: background-color 0.3s ease;
-}
-
-.novel-link:hover {
+  justify-content: space-between; /* Đảm bảo khoảng cách giữa các nút */
   background-color: #f9f9f9;
-}
-
-/* Đáp ứng màn hình nhỏ */
-@media (max-width: 768px) {
-  .ranking-container {
-    width: 90%; /* Thu nhỏ container ở màn hình nhỏ */
-  }
-
-  .ranking-grid {
-    grid-template-columns: 1fr; /* Chỉ có 1 cột khi màn hình nhỏ */
-  }
-}
-/* Giữ lại kiểu mặc định cho novel card trong phần còn lại */
-.novel-card {
-  flex-direction: column;
-  border: 1px solid ;
-  border-color: var(--border-colorst);
-  border-radius: 8px;
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  overflow: hidden;
-  width: 150px;
-  text-align: center;
-  background-color: var(--novel-card-background-color);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-
-.novel-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Cập nhật chỉ trong phần ranking */
-.ranking-card {
-  display: flex;
-  flex-direction: row; /* Chuyển thành layout ngang */
-  width: 100%;
-  max-width: 400px; /* Giới hạn chiều rộng */
-  margin-bottom: 20px; /* Khoảng cách giữa các card */
-}
-
-.ranking-card .novel-image {
-  width: 120px; /* Đặt chiều rộng cố định cho ảnh */
-  height: 120px; /* Chiều cao cố định cho ảnh */
-  object-fit: cover;
-  margin-right: 15px; /* Khoảng cách giữa ảnh và thông tin */
-}
-
-.ranking-card .novel-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   padding: 10px;
-  flex-grow: 1;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  gap: 10px; /* Khoảng cách giữa các nút */
 }
 
-.ranking-card .novel-title {
-  font-size: 1rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.button-item {
+  flex: 1; /* Chia đều không gian giữa các nút */
+  max-width: 150px; /* Đặt chiều rộng tối đa nếu cần */
+  min-width: 120px; /* Đặt chiều rộng tối thiểu nếu cần */
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  display: flex; /* Đảm bảo căn giữa nội dung */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.ranking-card .novel-rank {
-  font-size: 0.8rem;
-  color: #888;
+.button-item:hover {
+  background-color: #e6e6e6;
 }
 
-.ranking-card .novel-chapters {
-  font-size: 1rem;
-  font-weight: bold;
-  margin: 5px 0;
-}
-
-.ranking-card .novel-rating {
-  font-size: 0.9rem;
-  margin: 5px 0;
-  font-weight: normal;
+.button-item.active {
+  border-color: #6c5ce7;
+  background-color: #f0f0ff;
+  color: #6c5ce7;
 }

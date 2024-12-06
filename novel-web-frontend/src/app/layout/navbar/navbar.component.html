@@ -13,8 +13,8 @@
 
         <button routerLink="/search"><i class="fas fa-search"></i> Search</button>
         <button><i class="fas fa-th-large"></i> Browse</button>
-        <button><i class="fas fa-gem"></i> Ranking</button>
-        <button><i class="fas fa-book-open"></i> Updates</button>
+        <button routerLink="/ranking"><i class="fas fa-gem"></i> Ranking</button>
+        <button routerLink="/chat"><i class="fas fa-book-open"></i> Thảo luận</button>
         <button><i class="fas fa-filter"></i> Filter</button>
         <button (click)="toggleMode()" class="theme-toggle-btn">
 
@@ -79,7 +79,7 @@
         </li>
         <li>
           <a routerLink="admin/orders/list"
-             ><i class="fas fa-book-open"></i> Updates</a>
+             ><i class="fas fa-book-open"></i> Thảo luận</a>
         </li>
         <li>
           <a routerLink="admin/orders/list"

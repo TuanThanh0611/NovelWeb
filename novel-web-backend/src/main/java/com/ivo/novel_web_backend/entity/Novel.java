@@ -50,7 +50,7 @@ public class Novel {
     @Column(name = "published_date")
     private LocalDate publishedDate;
     @Column(name="status")
-    private Status status;
+    private String status;
     @Column(name="cover")
     private String cover;
 
