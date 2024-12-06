@@ -9,18 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @CrossOrigin(origins = {"http://localhost:4200", "http://tuanthanh.site"})
-
 @Controller
 public class ChatController {
 
-    @Autowired
-    private ChatMessageRepository chatMessageRepository;
-
     @MessageMapping("/sendMessage")
     @SendTo("/topic/messages")
-    public ChatMessage sendMessage(ChatMessage message) {
-        message.setTimestamp(System.currentTimeMillis()); // Gắn timestamp
-        chatMessageRepository.save(message); // Lưu vào database
-        return message;
+    public String processMessage(String message) {
+        return message; // Có thể xử lý thêm trước khi gửi
     }
 }

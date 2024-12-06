@@ -10,7 +10,7 @@
           <li>Edit Profile</li>
         </ul>
       </li>
-      <li class="sidebar-item">Log Out</li>
+      <li (click)="logout()" class="sidebar-item">Log Out</li>
     </ul>
   </div>
   <div class="profile-content">
@@ -69,7 +69,7 @@
 
 
         <div class="form-actions">
-          <button routerLink="/"type="button" class="btn-secondary">Back To Home</button>
+          <button routerLink="/" type="button" class="btn-secondary">Back To Home</button>
           <button type="submit" class="btn-primary">Save Changes</button>
         </div>
       </form>

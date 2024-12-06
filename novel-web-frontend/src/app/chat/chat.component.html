@@ -1,11 +1,32 @@
-<div class="chat-box">
-  <div class="messages">
-    <div *ngFor="let message of messages" class="message">
-      <strong>{{ message.sender }}:</strong> {{ message.content }}
-    </div>
+<div class="chat-container">
+  <div class="chat-header">
+    <h3>Khu thảo luận</h3>
   </div>
-  <div class="input-box">
-    <input [(ngModel)]="messageContent" placeholder="Nhập tin nhắn..." />
-    <button (click)="sendMessage()">Gửi</button>
+
+  <div class="chat-box">
+    <div class="messages" #messagesContainer (scroll)="onScroll()">
+      <div
+        *ngFor="let message of messages"
+        class="message-group"
+        [ngClass]="{ 'sent': message.sender === userInfo?.username, 'received': message.sender !== userInfo?.username, 'admin': message.sender === 'ADMIN' }"
+      >
+        <div class="message-info">
+          <span class="sender-name">{{ message.sender }}</span>
+          <span class="message-time">{{ message.timestamp |date: 'dd/MM/yyyy HH:mm'}}</span> <!-- Thời gian gửi -->
+        </div>
+        <div class="message-bubble">
+          {{ message.content }}
+        </div>
+      </div>
+    </div>
+
+    <div class="input-box">
+      <input
+        [(ngModel)]="messageContent"
+        placeholder="Nhập tin nhắn..."
+        (keydown.enter)="sendMessage()"
+      />
+      <button (click)="sendMessage()">Gửi</button>
+    </div>
   </div>
 </div>

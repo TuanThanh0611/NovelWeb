@@ -1,75 +1,142 @@
-.chat-box {
+/* Toàn bộ container */
+.chat-container {
   width: 100%;
-  max-width: 600px;
+  max-width: 450px;
+  height: 600px;
   margin: 20px auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  background-color: #f9f9f9;
   display: flex;
   flex-direction: column;
-  height: 500px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  font-family: 'Roboto', sans-serif;
+}
+.message-time {
+  font-size: 12px;
+  color: #bbb;
+  margin-left: 8px;
+}
+/* Header */
+.chat-header {
+  padding: 10px;
+  background-color: #5032c7;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Khu vực tin nhắn */
+.chat-box {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background-color: #f4f7f9;
+}
+
+/* Tin nhắn */
 .messages {
   flex: 1;
   overflow-y: auto;
-  padding: 10px;
-  background-color: #fff;
-  border-radius: 8px 8px 0 0;
-  box-sizing: border-box;
-  margin-bottom: 10px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.message {
-  margin: 8px 0;
+/* Nhóm tin nhắn */
+.message-group {
+  display: flex;
+  flex-direction: column;
+  max-width: 75%;
+  align-items: flex-start;
+}
+
+/* Tin nhắn gửi đi */
+.message-group.sent {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+/* Thông tin người gửi */
+.message-info {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+/* Bong bóng tin nhắn */
+.message-bubble {
+  padding: 10px 15px;
+  border-radius: 20px;
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.4;
+  word-wrap: break-word;
+  position: relative;
+  background-color: #e1ffc7; /* Màu nền tin nhắn nhận được */
   color: #333;
 }
 
-.message strong {
-  color: #007bff; /* Màu sắc cho tên người gửi */
+/* Bong bóng tin nhắn gửi đi */
+.message-group.sent .message-bubble {
+  background-color: #381b80; /* Màu nền tin nhắn gửi đi */
+  color: white;
 }
 
+/* Khu vực nhập tin nhắn */
 .input-box {
   display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  background-color: #fff;
-  border-radius: 0 0 8px 8px;
-  box-sizing: border-box;
+  align-items: center;
+  padding: 15px;
+  background-color: white;
+  border-top: 1px solid #ddd;
 }
 
+/* Input */
 .input-box input {
-  width: 80%;
-  padding: 10px;
+  flex: 1;
+  padding: 12px 15px;
   font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
   outline: none;
   transition: border-color 0.3s;
 }
 
 .input-box input:focus {
-  border-color: #007bff; /* Màu khi input được focus */
+  border-color: #4b1b8d;
+  box-shadow: 0 0 5px rgba(115, 0, 255, 0.5);
 }
 
+/* Nút gửi */
 .input-box button {
-  width: 15%;
-  padding: 10px;
+  margin-left: 10px;
+  padding: 12px 20px;
   font-size: 14px;
-  color: #fff;
-  background-color: #007bff;
+  font-weight: bold;
+  background-color: #4e18d7;
+  color: white;
   border: none;
-  border-radius: 20px;
+  border-radius: 25px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .input-box button:hover {
-  background-color: #0056b3;
+  background-color: #531bc4;
+  transform: scale(1.05);
+}
+.message-group.admin .message-bubble {
+  background-color: #ffd700; /* Vàng để làm nổi bật */
+  color: #333;
+  font-weight: bold;
+  border: 1px solid #ffcc00;
 }
 
-.input-box button:focus {
-  outline: none;
+.message-group.admin .sender-name {
+  color: #d48806; /* Màu chữ cho tên Admin */
+  font-style: italic;
 }

@@ -1,13 +1,15 @@
 import {inject, Injectable} from '@angular/core';
 import { Client, IFrame, IMessage, IStompSocket } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import {HttpClient, HttpHeaders} from '@angular/common/http'; // Import đúng cách
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {environment} from '../../environtments/environtment'; // Import đúng cách
 
 @Injectable({
   providedIn: 'root',
 })
 export class WebSocketService {
   private client: Client;
+  private baseUrl = environment.apiUrl;
   private http=inject(HttpClient);
 
   constructor() {
@@ -18,7 +20,7 @@ export class WebSocketService {
   private configureClient(): void {
     // Ép kiểu SockJS trả về IStompSocket
     this.client.webSocketFactory = (): IStompSocket =>
-      new SockJS('/chat') as unknown as IStompSocket;
+      new SockJS(`${this.baseUrl}/chat`) as unknown as IStompSocket;
 
     this.client.onConnect = (frame: IFrame) => {
       console.log('Connected to WebSocket:', frame);

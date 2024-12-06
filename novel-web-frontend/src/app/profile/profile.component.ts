@@ -1,15 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {BaseUser, ConnectedUser} from '../shared/model/user.model';
 import {Chapter} from '../shared/model/chapter.model';
 import {AuthService} from '../auth/service/auth.service';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   imports: [
-    FormsModule,CommonModule,
+    FormsModule, CommonModule, RouterLink,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
@@ -49,6 +50,9 @@ this.loadUser();
       };
       reader.readAsDataURL(input.files[0]); // Đọc file ảnh được tải lên
     }
+  }
+  logout(): void {
+    this.authService.logout();
   }
 
   onSubmit(): void {
