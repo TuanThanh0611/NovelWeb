@@ -1,82 +1,39 @@
-import {inject, Injectable} from '@angular/core';
-import { Client, IFrame, IMessage, IStompSocket } from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {environment} from '../../environtments/environtment'; // Import đúng cách
+import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class WebSocketService {
-  private client: Client;
-  private baseUrl = environment.apiUrl;
-  private http=inject(HttpClient);
+  private socket: WebSocket | undefined;
 
-  constructor() {
-    this.client = new Client();
-    this.configureClient();
-  }
+  constructor() { }
 
-  private configureClient(): void {
-    // Ép kiểu SockJS trả về IStompSocket
-    this.client.webSocketFactory = (): IStompSocket =>
-      new SockJS(`${this.baseUrl}/chat`) as unknown as IStompSocket;
+  connect(onMessage: (message: any) => void) {
+    this.socket = new WebSocket('ws://localhost:8080/chat');
 
-    this.client.onConnect = (frame: IFrame) => {
-      console.log('Connected to WebSocket:', frame);
+    this.socket.onopen = () => {
+      console.log('Connected to WebSocket server');
     };
 
-    this.client.onDisconnect = () => {
-      console.log('Disconnected from WebSocket');
+    this.socket.onmessage = (event) => {
+      const message = JSON.parse(event.data); // Parse dữ liệu JSON
+      onMessage(message); // Gọi callback để xử lý tin nhắn
     };
 
-    this.client.onStompError = (error: IFrame) => {
-      console.error('WebSocket STOMP error:', error.headers['message']);
-    };
-
-    this.client.onWebSocketError = (event: Event) => {
-      console.error('WebSocket error:', event);
+    this.socket.onclose = () => {
+      console.log('Disconnected from WebSocket server');
     };
   }
 
-  connect(onMessage: (message: any) => void): void {
-    this.client.onConnect = () => {
-      console.log('WebSocket connection established');
-      this.client.subscribe('/topic/messages', (message: IMessage) => {
-        try {
-          onMessage(JSON.parse(message.body));
-        } catch (error) {
-          console.error('Error parsing message body:', error);
-        }
-      });
-    };
-
-    this.client.activate();
-  }
-
-  sendMessage(message: any): void {
-    if (this.client.active) {
-      this.client.publish({
-        destination: '/app/sendMessage',
-        body: JSON.stringify(message),
-      });
-    } else {
-      console.warn('Cannot send message: WebSocket is not active');
+  sendMessage(message: any) {
+    if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+      this.socket.send(JSON.stringify(message)); // Gửi tin nhắn dưới dạng JSON
     }
   }
-  getMessages() {
-    const token = localStorage.getItem('authToken');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    return this.http.get<any[]>('http://localhost:8080/api/messages', { headers });
-  }
-
-  disconnect(): void {
-    if (this.client.active) {
-      this.client.deactivate();
-      console.log('WebSocket connection deactivated');
-    } else {
-      console.warn('WebSocket is already inactive');
+  close() {
+    if (this.socket) {
+      this.socket.close();
     }
   }
 }

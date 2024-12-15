@@ -56,7 +56,6 @@ export class AuthService {
     this.connectedUserQuery = undefined;
     console.error('Logout Success');
     alert("Logout Success");
-    this.router.navigate(['/login']);  // Có thể điều hướng về trang đăng nhập
   }
 
   // Kiểm tra tính hợp lệ của token
