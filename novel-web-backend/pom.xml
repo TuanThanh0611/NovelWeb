@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.Ivo</groupId>
-	<artifactId>Novel-App</artifactId>
+	<artifactId>novel-web-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Novel-App</name>
+	<name>novel-web-backend</name>
 	<description>Novel....</description>
 	<url/>
 	<licenses>
@@ -47,6 +47,18 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+			<version>3.2.3</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka-clients</artifactId>
+			<version>3.9.0</version> <!-- Chọn phiên bản Kafka phù hợp -->
 		</dependency>
 
 		<dependency>

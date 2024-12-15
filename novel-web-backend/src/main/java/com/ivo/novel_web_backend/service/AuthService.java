@@ -45,6 +45,8 @@ public class AuthService {
     @Autowired
     JwtUtils jwtUtils;
     @Autowired
+    NotificationService notificationService;
+    @Autowired
     UserSynchronizer userSynchronizer;
 
     @Transactional
@@ -62,7 +64,7 @@ public class AuthService {
         user.setRoles(roles);
         user.setUsername("user#"+ UUID.randomUUID().toString());
         user.setCreatedDate(Instant.now());
-
+        notificationService.sendWelcomeEmail(user.getEmail(), user.getUsername());
         return mapper.toUserResponse(userRepository.save(user));
     }
 
